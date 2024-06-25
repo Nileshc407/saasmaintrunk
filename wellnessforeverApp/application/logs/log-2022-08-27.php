@@ -1,0 +1,14 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2022-08-27 08:07:35 --> Severity: Error --> Maximum execution time of 120 seconds exceeded C:\xampp\htdocs\saasmaintrunk\wellnessforeverApp\system\libraries\Session\drivers\Session_files_driver.php 212
+ERROR - 2022-08-27 08:07:35 --> Severity: Warning --> Unknown: Cannot call session save handler in a recursive manner Unknown 0
+ERROR - 2022-08-27 08:07:35 --> Severity: Warning --> Unknown: Failed to write session data using user defined save handler. (session.save_path: C:\xampp\htdocs\saasmaintrunk\wellnessforeverApp\application\ci_sessions) Unknown 0
+ERROR - 2022-08-27 08:09:38 --> Severity: Error --> Maximum execution time of 120 seconds exceeded C:\xampp\htdocs\saasmaintrunk\wellnessforeverApp\system\libraries\Session\drivers\Session_files_driver.php 212
+ERROR - 2022-08-27 08:09:38 --> Severity: Warning --> Unknown: Cannot call session save handler in a recursive manner Unknown 0
+ERROR - 2022-08-27 08:09:38 --> Severity: Warning --> Unknown: Failed to write session data using user defined save handler. (session.save_path: C:\xampp\htdocs\saasmaintrunk\wellnessforeverApp\application\ci_sessions) Unknown 0
+ERROR - 2022-08-27 08:39:46 --> Severity: error --> Exception: SMTP Error: The following recipients failed: nileshc@miraclecartes.com: 5.7.606 Access denied, banned sending IP [27.57.240.15]. To request removal from this list please visit https://sender.office.com/ and follow the directions. For more information please go to  http://go.microsoft.com/fwlink/?LinkID=526655 AS(1430) [MAXIND01FT027.eop-IND01.prod.protection.outlook.com]
+ C:\xampp\htdocs\saasmaintrunk\wellnessforeverApp\application\third_party\vendor\phpmailer\phpmailer\src\PHPMailer.php 2059
+ERROR - 2022-08-27 08:44:24 --> Severity: error --> Exception: SMTP Error: The following recipients failed: nileshc@miraclecartes.com: 5.7.606 Access denied, banned sending IP [27.57.240.15]. To request removal from this list please visit https://sender.office.com/ and follow the directions. For more information please go to  http://go.microsoft.com/fwlink/?LinkID=526655 AS(1430) [MAXIND01FT013.eop-IND01.prod.protection.outlook.com]
+ C:\xampp\htdocs\saasmaintrunk\wellnessforeverApp\application\third_party\vendor\phpmailer\phpmailer\src\PHPMailer.php 2059
+ERROR - 2022-08-27 08:50:51 --> Severity: error --> Exception: SMTP Error: The following recipients failed: nileshc@miraclecartes.com: 5.7.606 Access denied, banned sending IP [27.57.240.15]. To request removal from this list please visit https://sender.office.com/ and follow the directions. For more information please go to  http://go.microsoft.com/fwlink/?LinkID=526655 AS(1430) [MAXIND01FT025.eop-IND01.prod.protection.outlook.com]
+ C:\xampp\htdocs\saasmaintrunk\wellnessforeverApp\application\third_party\vendor\phpmailer\phpmailer\src\PHPMailer.php 2059

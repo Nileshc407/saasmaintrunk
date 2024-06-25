@@ -1,0 +1,888 @@
+@font-face {
+    font-family: 'gothamblack';
+    src: url('../fonts/gotham-black-webfont.woff2') format('woff2'),
+         url('../fonts/gotham-black-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gothambold';
+    src: url('../fonts/gothambold-webfont.woff2') format('woff2'),
+         url('../fonts/gothambold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gothambold_italic';
+    src: url('../fonts/gothambolditalic-webfont.woff2') format('woff2'),
+         url('../fonts/gothambolditalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gothambook';
+    src: url('../fonts/gothambook-webfont.woff2') format('woff2'),
+         url('../fonts/gothambook-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'gothamlight';
+    src: url('../fonts/gothamlight-webfont.woff2') format('woff2'),
+         url('../fonts/gothamlight-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gothammedium';
+    src: url('../fonts/gothammedium-webfont.woff2') format('woff2'),
+         url('../fonts/gothammedium-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'gothamthin';
+    src: url('../fonts/gotham-thin-webfont.woff2') format('woff2'),
+         url('../fonts/gotham-thin-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gothamthinitalic';
+    src: url('../fonts/gotham-thinitalic-webfont.woff2') format('woff2'),
+         url('../fonts/gotham-thinitalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'gothamultraitalic';
+    src: url('../fonts/gotham-ultraitalic-webfont.woff2') format('woff2'),
+         url('../fonts/gotham-ultraitalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gothamxlight';
+    src: url('../fonts/gotham-xlight-webfont.woff2') format('woff2'),
+         url('../fonts/gotham-xlight-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+html, body {
+    font-family: 'gothambook';
+    font-size: 14px;
+	  color: #333333;
+    line-height:22px;
+    font-weight: 400;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: none;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    background: #fff;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'gothammedium';
+    font-weight: normal;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+}
+
+a {
+    display: inline-block;
+    border: none;
+    text-decoration: none !important;
+    font-weight: 400;
+    outline: none;
+    color: #919191;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+
+a:focus {
+    text-decoration: none !important;
+    outline: none;
+}
+
+a:hover, a:active {
+    color: #DB1E34;
+    text-decoration: none;
+}
+
+figure {
+    margin: 0
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto
+}
+
+i {
+    font-style: normal
+}
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cf:after, .cf:before {
+    content: '';
+    display: block
+}
+
+.cf:after {
+    clear: both
+}
+
+.padTop{padding-top: 118px;}
+.padTop1{padding-top: 88px;}
+.padBottom{padding-bottom: 100px;}
+
+
+.redBtn {
+  position: relative;
+  font-family: 'gothambold';
+  font-weight: normal;
+  color: #fff;
+  font-size: 16px;
+  padding: 0 40px;
+  border-radius: 0px;
+  border: none;
+  cursor: pointer;
+  height: 50px;
+  background-color:#d0112b;
+  background-image: url("../img/btn_pat.png"); 
+  background-position: 3px 0; 
+  background-repeat:repeat-y;
+  line-height: 48px;
+}
+
+.greenBtn {
+  position: relative;
+  font-family: 'gothambold';
+  font-weight: normal;
+  color: #fff;
+  font-size: 16px;
+  padding: 0 40px;
+  border-radius: 0px;
+  border: none;
+  cursor: pointer;
+  height: 50px;
+  background-color:#00B373;
+  background-image: url("../img/btn_pat.png"); 
+  background-position: 3px 0; 
+  background-repeat:repeat-y;
+  line-height: 48px;
+}
+
+.whiteBtn {
+    position: relative;
+    font-family: 'gothambold';
+    font-weight: normal;
+    color: #d0112b;
+    font-size: 16px;
+    padding: 0 40px;
+    border-radius: 0px;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    background-color:#fff;
+    background-image: url("../img/btn_pat.png"); 
+    background-position: 3px 53px; 
+    background-repeat:repeat-y;
+    line-height: 48px;
+    text-transform: uppercase;
+  }
+
+.redBtn:hover{
+  color: #fff;
+}
+
+
+.lineBtn {
+  color: #DB1E34;
+  border: 1px solid #DB1E34;
+  background: #fff;
+}
+
+.cardMain{
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);
+    padding: 10px;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.scrollbarMain{scrollbar-width: thin;scrollbar-color: #ba9a3a #ddd;}
+.scrollbarMain::-webkit-scrollbar {width: 10px;}
+.scrollbarMain::-webkit-scrollbar-track {background: #ddd;;}
+.scrollbarMain::-webkit-scrollbar-thumb {background-color: #ba9a3a;border-radius: 20px;border: 2px solid #ddd;;}
+
+.orangeTxt{color: #FFAA2D !important;}
+.greenTxt{color: #2CDA86 !important;}
+.purpalTxt{color:#CD04F2 !important;}
+.greyTxt{color:#999999 !important;}
+.redTxt{color:#DB1E34 !important;}
+
+.bgGreen{background-color: #00B373 !important;}
+.bgRed{background-color: #DB1E34 !important;}
+
+.flex-grow-1 {-ms-flex-positive: 1 !important;flex-grow: 1 !important;}
+
+.form-control {
+    padding:10px;
+    font-size: 14px;
+    line-height:22px;
+    color: #495057;
+    background-color: #fff;
+    border:none;
+    border-radius:10px;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);
+    resize: none;
+}
+
+
+/* The container */
+.radioBtnMain {
+    display: inline-block;
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .radioBtnMain input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* Create a custom radio button */
+  .radioBtnMain .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 1px solid #E4E4E4;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .radioBtnMain:hover input ~ .radioBtnMain .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .radioBtnMain input:checked ~ .radioBtnMain .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .radioBtnMain .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .radioBtnMain input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .radioBtnMain .checkmark:after {
+      top: 4px;
+      left: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #DB1E34;
+  }
+
+  .intl-tel-input {display: table-cell;}
+  .intl-tel-input .selected-flag {z-index: 4;}
+  .intl-tel-input .country-list {z-index: 5;}
+  .input-group .intl-tel-input .form-control {border-top-left-radius: 4px;border-top-right-radius: 0;border-bottom-left-radius: 4px;border-bottom-right-radius: 0;}
+  .iti--allow-dropdown{width: 100%;}
+
+
+  .checkbox {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #E4E4E4;
+    border-radius: 20px;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkbox:hover input ~ .checkmark {
+    background-color: #fff;
+    border: 1px solid #E4E4E4;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkbox input:checked ~ .checkmark {
+    background-color: #DB1E34;
+    border: 1px solid #DB1E34;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .checkbox input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .checkbox .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width:0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .modalHldr{position: relative;border: none;border-radius: 20px;width: 96%;margin: 0 auto;}
+  .modalHldr h2{font-size: 20px;text-align: center;}
+
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin: 0;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #DB1E34;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #DB1E34;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+
+
+/* ---- SIDEBAR Start --- */
+#sidebar {width: 270px;position: fixed;top: 0;left: -270px;height: 100vh;z-index: 9999;background: #fff;color: #333;transition: all 0.3s;overflow-y: scroll;}
+#sidebar.active {left: 0;}
+#dismiss {width: 20px;height: 20px;line-height: 20px;text-align: center;position: absolute;top: 15px;right: 15px;cursor: pointer;-webkit-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;}
+#dismiss:before, #dismiss:after {position: absolute;left: 9px;content: ' ';height: 20px;width: 2px;background-color: #fff;}
+#dismiss:before {transform: rotate(45deg);}
+#dismiss:after {transform: rotate(-45deg);}
+
+.overlay {position: fixed;width: 100vw;height: 100vh;background: rgba(0, 0, 0, 0.7);z-index: 998;display: none;top: 0;left: 0;right: 0;bottom: 0;}
+#sidebar .sidebar-header {padding: 40px 20px 40px 20px;background: url("../img/white-border.png") bottom repeat-x #DB1E34;}
+#sidebar .sidebar-header h3{color: #fff;font-size: 24px;}
+#sidebar .sidebar-header .userImg {padding-right: 15px;}
+#sidebar .sidebar-header .userImg img{width: 44px;height: 44px;border-radius: 50px;}
+#sidebar ul.components {padding:0px;}
+#sidebar ul li a {font-family: 'gothammedium';padding: 15px;font-size: 16px;display: block;color: #333;border-bottom: 1px solid #e5e5e5;display: flex;-webkit-box-align: center !important;-ms-flex-align: center !important;align-items: center !important;}
+#sidebar ul li a i{padding-right: 10px;}
+
+/* ---- SIDEBAR End --- */
+
+/* Header Start */
+header{position: fixed;margin: 0;padding: 0 0 1px 0;background: #F8F8F8;height: 88px;border-bottom: 1px solid #dddddd;width: 100%;z-index: 99;}
+header button{border: none;background: none;cursor: pointer;line-height: 30px;margin: 0;padding: 0;}
+header h1{font-size: 18px;color: #DB1E34;}
+header .hedMain{height: 43px;}
+header .hedMain .brandlogo img{height: 30px;}
+header .leftRight{width: 30px;height: 30px;list-style: 30px;}
+/* Header End */
+
+
+/* Home Page Start */
+
+.userNamePoint{position: relative;}
+.userNamePoint h1{font-size: 22px;}
+.userNamePoint .pointMain{position: relative;color: #DB1E34;font-size: 14px;font-family: 'gothammedium';}
+.userNamePoint .pointMain img{width: 21px;height: 21px;margin-right: 2px;top: -2px;position: relative;}
+.userSubTxt{position: relative;font-size: 16px;color: #DB1E34;}
+
+.homeSlider{position: relative;margin: 0;padding: 30px 0px;}
+.homeSlider .slick-dotted.slick-slider{margin-bottom:0px;}
+.homeSlider .item{margin:0px 10px;}
+.homeSlider .item img{border-radius: 8px;cursor: pointer;}
+.homeSlider .slick-dots{bottom: 8px;}
+.homeSlider .slick-dots li{margin:0px;}
+.homeSlider .slick-dots li button::before{font-size: 30px;}
+.homeSlider .slick-dots li.slick-active button::before{color: #DB1E34;}
+
+.homeTxt{position: relative;}
+.homeTxt p{text-align: justify;}
+.selectBrandBtn{margin-top: 26px;}
+.selectBrandBtn .redBtn::after {border-bottom-style: solid;border-bottom-width: 2px;border-right-style: solid;border-right-width: 2px;content: "";display: inline-block;height: 12px;right: 14px;position: absolute;top: 18px;width: 12px;-moz-transform: rotate(315deg);-ms-transform: rotate(315deg);-webkit-transform: rotate(315deg);transform: rotate(315deg);}
+
+/* Home Page End */
+
+/* Select Your Brand Paage Start */
+
+.selectBrandWrapper{position: relative;}
+.selectBrandWrapper ul.brandHldr{position: relative;margin: 0;padding: 0;}
+.selectBrandWrapper ul.brandHldr li{margin: 0 0 26px 0;padding: 0;display: flex;width: 100%;}
+.selectBrandWrapper ul.brandHldr li .brandLogo{position: relative;width:60px;height: 60px;margin-right:5px;align-items: center !important;display: flex;}
+.selectBrandWrapper ul.brandHldr li .titleTxtMain{position: relative;width: 100%;}
+.selectBrandWrapper ul.brandHldr li .titleTxtMain h2{font-size: 18px;font-family: 'gothambold';color: #000;font-weight: normal;padding-bottom: 5px;}
+.selectBrandWrapper ul.brandHldr li .titleTxtMain .brandTxt{font-size: 12px;color:#7E7E7E;height:20px;overflow: hidden;text-overflow: ellipsis;width: 100%;-webkit-line-clamp:1;display: -webkit-box;-webkit-box-orient: vertical;}
+.selectBrandWrapper ul.brandHldr li .rightIcon{position: relative;width: 30px;height: 30px;align-items: center !important;display: flex;}
+
+/* Select Your Brand Paage End */
+
+/* Brand Home Page Start */
+.brandHomeWrapper{position: relative;}
+.brandHomeSliderHldr {position: relative;margin:0px -15px;padding:0px;}
+.brandHomeSliderHldr::before{content: "";position: absolute;bottom: 0;left: 0;right: 0;background: url("../img/white-gredint.png") bottom repeat-x;height: 100%;z-index: 10;}
+.brandHomeSliderHldr .slick-slide img{width: 100%;}
+.brandHomeWrapper ul.brandMenuHldr{position: absolute;margin:0 auto;padding: 0;top: 70%;left: 0;right: 0;width: 92%;z-index: 20;padding-bottom: 100px;}
+.brandHomeWrapper ul.brandMenuHldr li{margin: 0 0 26px 0;padding: 0;display: flex;width: 100%;}
+.brandHomeWrapper ul.brandMenuHldr li:last-child{margin: 0;}
+.brandHomeWrapper ul.brandMenuHldr li .icon{position: relative;width:50px;height: 50px;align-items: center !important;display: flex;justify-content: center !important;margin-right:15px;}
+.brandHomeWrapper ul.brandMenuHldr li .titleTxtMain{position: relative;width: 100%;}
+.brandHomeWrapper ul.brandMenuHldr li .titleTxtMain h2{font-size: 18px;font-family: 'gothambold';color: #000;font-weight: normal;padding-bottom: 5px;}
+.brandHomeWrapper ul.brandMenuHldr li .titleTxtMain .brandTxt{font-size: 12px;color:#7E7E7E;height:20px;overflow: hidden;text-overflow: ellipsis;width: 100%;-webkit-line-clamp:1;display: -webkit-box;-webkit-box-orient: vertical;}
+.brandHomeWrapper ul.brandMenuHldr li .rightIcon{position: relative;width: 30px;height: 30px;align-items: center !important;display: flex;}
+/* Brand Home Page End */
+
+/* about us Start */
+.aboutWrapper{position: relative;}
+.aboutWrapper p{text-align: justify;}
+/* about us End */
+
+
+/* special Offer Start */
+.specialOfferWrapper{position: relative;}
+.specialOfferWrapper ul.offerHldr{position: relative;margin:0 auto;padding: 0;}
+.specialOfferWrapper ul.offerHldr li{margin: 0 0 26px 0;padding: 0;display: flex;width: 100%;}
+.specialOfferWrapper ul.offerHldr li:last-child{margin: 0;}
+.specialOfferWrapper ul.offerHldr li img{border-radius: 8px;}
+/* special Offer End */
+
+
+/* location Start */
+.locationWrapper{position: relative;}
+.locationWrapper .map{height: 88vh;}
+.locationWrapper .map iframe{width: 100%;height: 100%;}
+.locationWrapper .locationHldr{position: absolute;bottom: 0;left: 0;right: 0;background: #fff;border-radius: 15px 15px 0px 0px;height: 250px;padding: 15px;}
+.locationWrapper .locationHldr ul.addressHldr{position: relative;margin:0 auto;padding: 0;}
+.locationWrapper .locationHldr ul.addressHldr li{margin: 0 0 10px 0;padding: 0 0 10px 0;display: flex;width: 100%;border-bottom: 1px solid #ebeff2;}
+.locationWrapper .locationHldr ul.addressHldr li .addImg {position: relative;width: 100px;height: auto;margin-right: 10px;align-items: center !important;display: flex;}
+.locationWrapper .locationHldr ul.addressHldr li .addImg img{border-radius: 8px;}
+.locationWrapper .locationHldr ul.addressHldr li .addressMain {position: relative;width: 100%;}
+.locationWrapper .locationHldr ul.addressHldr li .addressMain p{margin-bottom:0px;}
+
+.locationWrapper .locationSearch{position: fixed;left: 0;right: 0;margin: 10px auto 0 auto;padding: 0;width: 90%;background: #fff;z-index: 9999;border-radius: 8px;border: 1px solid #ebeff2;}
+.locationWrapper .locationSearch input{width: 100%;padding: 12px 12px 12px 46px;border: none;background: url("../img/search-icon.svg") 9px 9px no-repeat;}
+
+
+/* location End */
+
+/* Contact us Start */
+.contactWrapper{position: relative;padding-bottom: 30px;}
+.contactWrapper:last-child{padding-bottom:0px;}
+.contactImg{position: relative;margin: 0 0 15px 0;padding: 0;}
+.contactImg::before{content:" ";position: absolute;bottom: 0;left: 0;right: 0;background: url("../img/white-gredint.png") bottom repeat-x;height: 100%;z-index: 10;}
+.contactWrapper .icon{width: 40px;height: 40px;margin: 0 auto 10px;padding: 0 0 0px 0;display: block;}
+.contactWrapper .titleTxt{font-size: 14px;margin-bottom: 0px;}
+.contactWrapper h2{font-size: 20px;text-align: center;font-family: 'gothambold';margin-bottom: 15px;}
+.contactWrapper ul.socialIcon{position: relative;margin:0 auto;padding: 0;}
+.contactWrapper ul.socialIcon li{margin:0 10px;padding:0;display: inline-block;width:auto;}
+/* Contact us End */
+
+
+/* profile Home Start */
+.proHomeWrapper{position: relative;}
+.proHomeWrapper .CurrPoints{position: relative;display: flex;margin: 0 0 30px 0;padding: 15px 20px;background: #DB1E34;border-radius: 25px;-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);color:#fff;}
+.proHomeWrapper .CurrPoints .pointIcon{width: 93px;height: 93px;margin-right: 15px;}
+.proHomeWrapper .CurrPoints .pointTxt{position: relative;padding: 0;margin: 0;}
+.proHomeWrapper .CurrPoints .pointTxt h2{font-size: 40px;font-family: 'gothambold';color: #fff;font-weight: normal;padding-bottom: 5px;}
+.proHomeWrapper .CurrPoints .pointTxt .txt{font-size: 20px;}
+
+.proHomeWrapper ul.profileMenu{position: relative;margin: 0;padding: 0;}
+.proHomeWrapper ul.profileMenu li{margin: 0 0 26px 0;padding: 0;display: flex;width: 100%;}
+.proHomeWrapper ul.profileMenu li .icon{position: relative;width:40px;height: 40px;margin-right:10px;align-items: center !important;display: flex;}
+.proHomeWrapper ul.profileMenu li .titleTxtMain{position: relative;width: 100%;}
+.proHomeWrapper ul.profileMenu li .titleTxtMain h2{font-size: 18px;font-family: 'gothambold';color: #000;font-weight: normal;padding-bottom: 3px;}
+.proHomeWrapper ul.profileMenu li .titleTxtMain .brandTxt{font-size: 12px;color:#7E7E7E;height:20px;overflow: hidden;text-overflow: ellipsis;width: 100%;-webkit-line-clamp:1;display: -webkit-box;-webkit-box-orient: vertical;}
+.proHomeWrapper ul.profileMenu li .rightIcon{position: relative;width: 30px;height: 30px;align-items: center !important;display: flex;}
+
+/* profile Home End */
+
+
+/* Transactions Start */
+.transactionsWrapper{position: relative;}
+.transactionsWrapper ul.transactionsHldr {position: relative;margin: 0 0 30px 0;padding: 0;}
+.transactionsWrapper ul.transactionsHldr li{margin: 0 0 26px 0;padding: 0;display: flex;width: 100%;}
+.transactionsWrapper ul.transactionsHldr li:last-child{margin: 0;}
+.transactionsWrapper ul.transactionsHldr li .brandLogo {position: relative;width: 60px;height: 60px;margin-right: 10px;align-items: center !important;display: flex;}
+.transactionsWrapper ul.transactionsHldr li .titleTxtMain {position: relative;width: 100%;font-size: 13px;}
+.transactionsWrapper ul.transactionsHldr li .titleTxtMain h2{font-size: 13px;font-family: 'gothambold';font-weight: normal;}
+/* Transactions End */
+
+
+/* Personal Details Start */
+.perDetailsWrapper{position: relative;}
+.perDetailsWrapper .photoEdit{position: relative;margin: 0;padding: 0;}
+.perDetailsWrapper .photoEdit .userImg {position: relative;margin: 0 15px 0 0;padding: 0;width: 70px;height: 70px;}
+.perDetailsWrapper .photoEdit .userImg img{width: 70px;height: 70px;border-radius: 100px;}
+.perDetailsWrapper .editTxt{font-size: 16px;color: #DB1E34;}
+.perDetailsWrapper .editTxt a {font-size: 16px;color: #DB1E34;}
+.perDetailForm{position: relative;}
+.perDetailForm .form-group{margin-bottom: 20px;}
+
+/* Personal Details End */
+
+
+/* point main Start */
+.pointMainWrapper{position: relative;}
+.pointMainWrapper .CurrPoints{position: relative;margin: 0 0 30px 0;padding: 30px 20px;background: #DB1E34;border-radius: 25px;-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);color:#fff;}
+.pointMainWrapper .CurrPoints .pointIcon{width: 93px;height: 93px;margin-right: 15px;}
+.pointMainWrapper .CurrPoints .pointTxt{position: relative;padding: 0;margin: 0;}
+.pointMainWrapper .CurrPoints .pointTxt h2{font-size: 32px;font-family: 'gothambold';color: #FFCB27;font-weight: normal;padding-bottom: 5px;}
+.pointMainWrapper .CurrPoints .pointTxt h2 .txt{font-size: 32px;font-family: 'gothambook';color: #fff;}
+
+.pointMainWrapper ul.pointMenu{position: relative;margin: 0;padding: 0;}
+.pointMainWrapper ul.pointMenu li{margin: 0 0 26px 0;padding: 0;display: flex;width: 100%;}
+.pointMainWrapper ul.pointMenu li .icon{position: relative;width:40px;height: 40px;margin-right:10px;align-items: center !important;display: flex;}
+.pointMainWrapper ul.pointMenu li .titleTxtMain{position: relative;width: 100%;}
+.pointMainWrapper ul.pointMenu li .titleTxtMain h2{font-size: 18px;font-family: 'gothambold';color: #000;font-weight: normal;padding-bottom: 3px;}
+.pointMainWrapper ul.pointMenu li .titleTxtMain .brandTxt{font-size: 12px;color:#7E7E7E;height:20px;overflow: hidden;text-overflow: ellipsis;width: 100%;-webkit-line-clamp:1;display: -webkit-box;-webkit-box-orient: vertical;}
+.pointMainWrapper ul.pointMenu li .rightIcon{position: relative;width: 30px;height: 30px;align-items: center !important;display: flex;}
+
+/* point main End */
+
+
+/* Points History Start */
+.pointHistoryWrapper{position: relative;}
+.pointHistoryWrapper ul.poinHistHldr {position: relative;margin: 0 0 30px 0;padding: 0;}
+.pointHistoryWrapper ul.poinHistHldr li{margin: 0 0 26px 0;padding: 0;display: flex;width: 100%;}
+.pointHistoryWrapper ul.poinHistHldr li:last-child{margin: 0;}
+.pointHistoryWrapper ul.poinHistHldr li .brandLogo {position: relative;width: 60px;height: 60px;margin-right: 10px;align-items: center !important;display: flex;}
+.pointHistoryWrapper ul.poinHistHldr li .titleTxtMain {position: relative;width: 100%;font-size: 13px;}
+.pointHistoryWrapper ul.poinHistHldr li .titleTxtMain h2{font-size: 13px;font-family: 'gothambold';font-weight: normal;}
+/* Points History End */
+
+
+/* Your Stamp Collections Start */
+.stampVoucherWrapper{position: relative;}
+.stampVoucherWrapper h1 {font-size: 20px;text-align: center;padding-bottom: 20px;}
+.stampHldr{position: relative;background: #DB1E34;border-radius: 6px;width: 100%;min-height: 100px;padding: 8px;margin-bottom: 15px;}
+.stampHldr.disable{opacity: 0.5;cursor: no-drop;}
+.stampHldr .proHldr{position: relative;height: 48px;}
+.stampHldr .proName{font-size: 12px;color: #fff;height: 46px;overflow: hidden;text-overflow: ellipsis;width: 100%;-webkit-line-clamp: 2;display: -webkit-box;-webkit-box-orient: vertical;}
+.stampHldr .proImg{width:42px;height: auto;margin: 0;padding: 0;}
+.stampHldr .proImg img{width: 42px;height: auto;}
+.stampHldr .dateMain{position: relative;margin:8px 0 0 0;padding: 8px 0 0 0;border-top: 2px dotted rgba(255, 255, 255, 0.5);}
+.stampHldr .dateMain .dateIcon{position: relative;line-height: normal;margin-right:5px;}
+.stampHldr .dateMain .date{font-size: 11px;color: #fff;line-height: normal;}
+.stampHldr::before {content:""; position: absolute;left: -10px;bottom: 26px; width: 20px;height: 20px;background: #fff;margin: 0;border-radius: 20px;}
+.stampHldr::after {content:""; position: absolute;right: -10px;bottom: 26px; width: 20px;height: 20px;background: #fff;margin: 0;border-radius: 20px;}
+
+/* Your Stamp Collections End */
+
+
+/* Vouchers Start */
+.vouchersWrapper{position: relative;}
+.vouchersHldr{position: relative;background: #fff;border-radius: 6px;width: 100%;min-height: 220px;padding: 8px;margin-bottom: 15px;-webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.10);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.10);box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.10);}
+.vouchersHldr .logoMain{position: relative;text-align: center;margin: 0;padding: 0 0 5px 0;width: 100%;height: 64px;display: flex;-webkit-box-align: center !important;-ms-flex-align: center !important;align-items: center !important;-ms-flex-pack: center !important;justify-content: center !important;}
+.vouchersHldr .logoMain img{width: auto;height: auto;}
+.vouchersHldr h2{font-size: 16px;text-align: center;padding-bottom:5px;}
+.vouchersHldr .dateMain{font-size: 10px;padding-bottom:5px;}
+.vouchersHldr .usedTxt{font-size: 16px;text-align: center;font-family: 'gothambold';text-transform: uppercase;padding-bottom:10px;}
+.vouchersHldr .discountHldr{position: relative;margin: 0 -8px;padding:17px 8px 8px 8px;background:url("../img/white-border1.png") top repeat-x;height: 58px;color: #fff;bottom: -8px;border-radius: 0px 0px 6px 6px;text-align: center;
+  display: flex;-ms-flex-pack: center !important;justify-content: center !important;-webkit-box-align: center !important;
+  -ms-flex-align: center !important;align-items: center !important;font-size: 14px;}
+.vouchersHldr .discountHldr span{font-size: 20px;font-family: 'gothambold';padding-right: 5px;}
+
+.vouchersHldr::before {content:""; position: absolute;left: -10px;bottom: 48px; width: 20px;height: 20px;background: #fff;margin: 0;border-radius: 20px;z-index: 10;
+  -webkit-box-shadow: inset -5px 0px 5px 0px rgba(0,0,0,0.1);
+-moz-box-shadow: inset -5px 0px 5px 0px rgba(0,0,0,0.1);
+box-shadow: inset -5px 0px 5px 0px rgba(0,0,0,0.1);}
+.vouchersHldr::after {content:""; position: absolute;right: -10px;bottom: 48px; width: 20px;height: 20px;background: #fff;margin: 0;border-radius: 20px;z-index: 10;
+  -webkit-box-shadow: inset 5px 0px 5px 0px rgba(0,0,0,0.1);
+-moz-box-shadow: inset 5px 0px 5px 0px rgba(0,0,0,0.1);
+box-shadow: inset 5px 0px 5px 0px rgba(0,0,0,0.1);}
+/* Vouchers End */
+
+
+/* Transfer Points Start */
+.transferPointWrapper{position: relative;}
+.transferPointForm{position: relative;}
+.transferPointForm .form-group{margin-bottom: 20px;}
+.formSubtxt{font-size: 12px;padding:8px 0px;}
+/* Transfer Points End */
+
+
+/* Gift Cards Start */
+.giftCardWrapper{position: relative;}
+.giftCardHldr{position: relative;margin: 0 0 30px 0;padding: 0;-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);border-radius: 8px;background: #fff;}
+.giftCardHldr.disable {opacity: 0.5;cursor: no-drop;}
+.giftCardHldr .imgMain{position: relative;margin: 0;padding: 0;height: auto;border-radius: 8px 8px 0 0;width: 100%;}
+.giftCardHldr .imgMain img {border-radius: 8px 8px 0 0;}
+.giftCardHldr .textMain{position: relative;margin: 0;padding: 10px;}
+.giftCardHldr .textMain .logoMain{position: relative;width: 84px;height: 84px;margin-right: 10px;}
+.giftCardHldr .textHldr{position: relative;}
+.giftCardHldr .textHldr h2{font-size: 14px;margin-bottom:5px;height: 20px;line-height: 20px; overflow: hidden;text-overflow: ellipsis;width: 100%;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;}
+.giftCardHldr .textHldr .price{font-size: 14px;font-family: 'gothambold';margin-bottom:8px;}
+.giftCardHldr .textHldr .buyBtn {
+  position: relative;
+  font-family: 'gothambold';
+  font-weight: normal;
+  color: #fff;
+  font-size: 12px;
+  padding: 0 10px;
+  border-radius: 0px;
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  background-color: #d0112b;
+  background-image: url("../img/btn_pat.png");
+  background-position: 3px 0;
+  background-repeat: repeat-y;
+  line-height: 30px;
+  text-align: center;
+  background-size: 10px;
+  text-transform: uppercase;
+}
+
+/* Gift Cards End */
+
+
+/* Notification Start */
+.notificationWrapper{position: relative;}
+.notificationWrapper ul.notifiHldr {position: relative;margin: 0 0 30px 0;padding: 0;}
+.notificationWrapper ul.notifiHldr li {margin: 0 0 20px 0;padding: 0;display: flex;width: 100%;}
+.notificationWrapper ul.notifiHldr li .redDot{width: 8px;height: 8px;background-color: #d0112b;border-radius: 8px;display: inline-block;position: relative;top: 4px;}
+.notificationWrapper ul.notifiHldr li .checkmarkTop{top: -3px;}
+.notificationWrapper ul.notifiHldr li h2{font-size: 13px;color: #333333;}
+.notificationWrapper ul.notifiHldr li .dateTime{font-size: 10px;color: #999999;}
+.notificationWrapper .cardBoxMain{position: relative; -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.10);padding:10px 0px;border-radius: 8px;background: #fff;}
+.notificationWrapper .cardBoxMain .logoMain{position: relative;text-align: center;margin: 0;padding:15px 0px 5px;}
+.notificationWrapper .cardBoxMain .contentHldr{position: relative;margin: 0;padding:0 10px;}
+.notificationWrapper .cardBoxMain .contentHldr h2{font-size: 20px;padding-bottom: 15px;}
+.notificationWrapper .cardBoxMain .contentHldr .thanksMain{font-size: 14px;padding-bottom: 15px;color: #999999;}
+.notificationWrapper .cardBoxMain .contentHldr ul.textMain{position: relative;margin: 0;padding: 0;color: #333333;}
+.notificationWrapper .cardBoxMain .contentHldr ul.textMain li{margin:0 0 10px 0;padding: 0;display: flex;width: 100%;}
+.notificationWrapper .cardBoxMain .contentHldr ul.textMain li span{font-family: 'gothambold';margin-right:8px;}
+.notificationWrapper .cardBoxMain .contentHldr .totalMain{font-size: 20px;padding:10px 0;}
+.notificationWrapper .cardBoxMain .contentHldr .pointsMain{font-size: 20px;padding:10px 0;}
+/* Notification End */
+
+
+/* setting Start */
+.settingWrapper{position: relative;}
+.settingWrapper ul.settingMenu {position: relative;margin: 0 0 60px 0;padding: 0;}
+.settingWrapper ul.settingMenu:last-child{margin: 0;}
+.settingWrapper ul.settingMenu li {margin: 0 0 15px 0;padding: 0 15px 8px 15px;display: flex;width: 100%;font-size:17px;border-bottom: 1px solid #E4E4E4;color: #333;}
+.settingWrapper ul.settingMenu li:first-child{border-bottom:none;}
+.settingWrapper ul.settingMenu li .titleTxtMain {position: relative;width: 100%;color: #333;}
+.settingWrapper ul.settingMenu li .rightIcon {position: relative;width: 30px;height: 30px;align-items: center !important;display: flex;}
+/* setting End */
+
+/* about us Start */
+.termsPrivacyWrapper{position: relative;}
+.termsPrivacyWrapper h3{font-size: 16px;padding-bottom: 10px;padding-top: 10px;}
+.termsPrivacyWrapper p{margin-bottom: 15px;}
+.termsPrivacyWrapper ul.termsMain{position: relative;margin: 0;padding: 0;}
+.termsPrivacyWrapper ul.termsMain li{list-style:decimal;padding-left: 5px;margin-left: 22px;padding-bottom: 10px;}
+.termsPrivacyWrapper ul.termsMain li ul.trems{position: relative;margin: 0;padding:15px 0 0 0;}
+.termsPrivacyWrapper ul.termsMain li ul.trems li{list-style:lower-alpha;padding-left: 5px;margin-left: 15px;padding-bottom: 10px;}
+/* about us End */
+
+/* Member Benefits Start */
+.BenefitsWrapper{position: relative;}
+.BenefitsWrapper ul.benefitsHldr {position: relative;margin: 0 0 0 0;padding: 0;}
+.BenefitsWrapper ul.benefitsHldr li {margin: 0 0 15px 0;padding: 0;width: 100%;text-align: center;}
+.BenefitsWrapper ul.benefitsHldr li h2{font-size: 18px;}
+/* Member Benefits End */
+
+
+/* How it Work Start */
+.howWorkWrapper{position: relative;}
+.howWorkSliderHldr {position: relative;margin:0px -15px;padding:0px;}
+.howWorkSliderHldr::before{content: "";position: absolute;bottom: 0;left: 0;right: 0;background: url("../img/white-gredint.png") bottom repeat-x;height: 100%;z-index: 10;}
+.howWorkSliderHldr .slick-slide img{width: 100%;}
+.howWorkWrapper ul.WorkMenuHldr{position: absolute;margin:0 auto;padding: 0;top: 70%;left: 0;right: 0;width: 92%;z-index: 20;padding-bottom: 100px;}
+.howWorkWrapper ul.WorkMenuHldr li{margin: 0 0 26px 0;padding: 0;display: flex;width: 100%;}
+.howWorkWrapper ul.WorkMenuHldr li:last-child{margin: 0;}
+.howWorkWrapper ul.WorkMenuHldr li .icon{position: relative;width:50px;height: 50px;align-items: center !important;display: flex;justify-content: center !important;margin-right:15px;}
+.howWorkWrapper ul.WorkMenuHldr li .titleTxtMain{position: relative;width: 100%;}
+.howWorkWrapper ul.WorkMenuHldr li .titleTxtMain h2{font-size: 18px;font-family: 'gothambold';color: #000;font-weight: normal;padding-bottom: 5px;}
+.howWorkWrapper ul.WorkMenuHldr li .titleTxtMain .brandTxt{font-size: 12px;color:#7E7E7E;height:20px;overflow: hidden;text-overflow: ellipsis;width: 100%;-webkit-line-clamp:1;display: -webkit-box;-webkit-box-orient: vertical;}
+.howWorkWrapper ul.WorkMenuHldr li .rightIcon{position: relative;width: 30px;height: 30px;align-items: center !important;display: flex;}
+
+.workPointWrapper{position: relative;margin-top: 15px;}
+/* How it Work End */
+
+/* QR Code Start */
+.qrCodeWrapper{position: relative;background-color: #DB1E34;height: 100vh;}
+.qrCodeWrapper .closeBtn{margin-top: 15px;}
+.qrCodeHldr {position: relative;background: #fff;border-radius: 15px;width: 290px;min-height: 472px;padding: 10px;margin:50px auto 0 auto;-webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.10);-moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.10);box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.10);text-align: center;}
+.qrCodeHldr .logoMain {position: relative;text-align: center;margin:15px 0;padding: 0;width: 100%;height: 64px;display: flex;-webkit-box-align: center !important;-ms-flex-align: center !important;align-items: center !important;-ms-flex-pack: center !important;justify-content: center !important;}
+.qrCodeHldr .logoMain img{height: 64px;width: 64px;}
+.qrCodeHldr h2{font-size: 24px; padding-bottom: 20px;}
+.qrCodeHldr .pointMain{padding-bottom: 20px;font-size: 20px;color: #DB1E34;}
+.qrCodeHldr .qrCodeMain{position: relative;height: 270px; margin: 0;padding: 0;border-top: 1px dotted #D3D3D3;display: flex;-webkit-box-align: center !important;-ms-flex-align: center !important;align-items: center !important;-ms-flex-pack: center !important;justify-content: center !important;}
+
+.qrCodeHldr::before {content:""; position: absolute;left: -10px;top: 181px; width: 22px;height: 22px;background: #DB1E34;margin: 0;border-radius: 20px;z-index: 10;
+  -webkit-box-shadow: inset -5px 0px 5px 0px rgba(0,0,0,0.1);
+-moz-box-shadow: inset -5px 0px 5px 0px rgba(0,0,0,0.1);
+box-shadow: inset -5px 0px 5px 0px rgba(0,0,0,0.1);}
+.qrCodeHldr::after {content:""; position: absolute;right: -10px;top: 181px; width: 22px;height: 22px;background: #DB1E34;margin: 0;border-radius: 20px;z-index: 10;
+  -webkit-box-shadow: inset 5px 0px 5px 0px rgba(0,0,0,0.1);
+-moz-box-shadow: inset 5px 0px 5px 0px rgba(0,0,0,0.1);
+box-shadow: inset 5px 0px 5px 0px rgba(0,0,0,0.1);}
+
+.qrCodeHldr .qrCodeMain .sucessfully{font-size: 18px;padding-bottom: 30px;}
+.qrCodeHldr .qrCodeMain .codeMain{font-size:50px;padding-bottom: 15px;font-family: 'gothambold';line-height: 50px;color: #DB1E34;}
+.qrCodeHldr .qrCodeMain .expiresMain{font-size: 18px;color: #999999;}
+
+/* QR Code End */
+
+
+
+/* Footer Start */
+footer{position: fixed;margin: 0;padding:0px 0 0 0;height:70px; background: #fff;border-radius: 26px 26px 0 0;-webkit-box-shadow: 1px -10px 32px 0px rgba(0,0,0,0.12);-moz-box-shadow: 1px -10px 32px 0px rgba(0,0,0,0.12);box-shadow: 1px -10px 32px 0px rgba(0,0,0,0.12);bottom: 0;width: 100%;left:0;right: 0;z-index: 900;}
+footer ul.iconMenu{position: relative;margin: 0;padding: 0;}
+footer ul.iconMenu li{position: relative;height: 70px; -ms-flex: 1 1 auto !important; flex: 1 1 auto !important;-webkit-box-align: center !important;-ms-flex-align: center !important;align-items: center !important;text-align: center;}
+footer ul.iconMenu li a{display: block;text-align: center;line-height: 70px;width: 100%;border: none;background: none;cursor: pointer;}
+footer ul.iconMenu li .round{position: absolute;top: 0px;left: 0;right:0;width: 44px;height: 22px;border-bottom-left-radius: 44px;border-bottom-right-radius: 44px;background: #d0112b;margin: 0 auto;}
+footer ul.iconMenu li a.home{background: url("../img/footer-home-icon.svg") center no-repeat;}
+footer ul.iconMenu li a.home.active{background: url("../img/footer-home-icon-hover.svg") center no-repeat;}
+footer ul.iconMenu li a.user{background: url("../img/footer-user-icon.svg") center no-repeat;}
+footer ul.iconMenu li a.user.active{background: url("../img/footer-user-icon-hover.svg") center no-repeat;}
+footer ul.iconMenu li a.points{background: url("../img/footer-star-icon.svg") center no-repeat;}
+footer ul.iconMenu li a.points.active{background: url("../img/footer-star-icon-hover.svg") center no-repeat;}
+footer ul.iconMenu li a.noti{background: url("../img/footer-noti-icon.svg") center no-repeat;}
+footer ul.iconMenu li a.noti.active{background: url("../img/footer-noti-icon-hover.svg") center no-repeat;}
+/* Footer End */
+
+
+
+

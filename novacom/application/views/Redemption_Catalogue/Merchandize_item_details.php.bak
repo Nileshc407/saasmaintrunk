@@ -1,0 +1,342 @@
+<?php $this->load->view('header/header');
+$ci_object = &get_instance();
+$ci_object->load->model('Redemption_Model');
+$ci_object->load->model('Igain_model');
+?>
+	<!--
+	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="<?php echo base_url()?>assets/shopping2/css/animate.css" rel="stylesheet">
+    <link href="<?php echo base_url()?>assets/shopping2/css/style.default.css" rel="stylesheet" id="theme-stylesheet">
+    <link href="<?php echo base_url()?>assets/shopping2/css/custom.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+	-->		
+<link href="<?php echo $this->config->item('base_url2')?>assets/shopping2/css/animate.css" rel="stylesheet">
+<link href="<?php echo $this->config->item('base_url2')?>assets/shopping2/css/style.default.css" rel="stylesheet" id="theme-stylesheet">
+<link href="<?php echo $this->config->item('base_url2')?>assets/shopping2/css/custom.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+<section class="content-header">
+	<h1 class="text-center"></h1>
+	<div class="row">	
+		<div class="col-md-6 col-md-offset-3" id="popup" style="display:none;">
+			<div class="alert alert-success text-center" role="alert" id="popup_info"></div>
+		</div>
+	</div>
+</section>		
+		<?php foreach($Item_details as $Item_details){
+			$Branches = $Redemption_Items_branches[$Item_details->Company_merchandize_item_code];
+			//print_r($Branches);
+			} ?>
+<!-- Main content -->
+<section class="content">
+	<div id="content">
+		<div class="row">		
+			<div class="col-md-12">			
+				<div class="row" id="productMain">
+					<div class="col-sm-6">
+						<div id="mainImage">
+							<img src="<?php echo $Item_details->Thumbnail_image1; ?>" alt="" class="img-responsive" style="margin: 0px auto;">
+						</div>						
+						<br>
+						<div class="row" id="thumbs">
+							<div class="col-xs-4">
+								<a href="<?php echo $Item_details->Thumbnail_image2; ?>" class="thumb">
+									<img src="<?php echo $Item_details->Thumbnail_image2; ?>" alt="" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-xs-4">
+								<a href="<?php echo $Item_details->Thumbnail_image3; ?>" class="thumb">
+									<img src="<?php echo $Item_details->Thumbnail_image3; ?>" alt="" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-xs-4">
+								<a href="<?php echo $Item_details->Thumbnail_image4; ?>" class="thumb">
+									<img src="<?php echo $Item_details->Thumbnail_image4; ?>" alt="" class="img-responsive">
+								</a>
+							</div>
+						</div>
+						<br>
+					
+						<!--------------------Product Details----------------->
+						<?php if($Item_details->Brand_flag ==1 || $Item_details->Colour_flag ==1 || $Item_details->Weight_flag ==1 || $Item_details->Dimension_flag ==1 || $Item_details->Manufacturer_flag ==1) { ?>
+						<div class="box" id="Specifications">
+						<label for="exampleInputEmail1"><h4> <b> <?php echo $this->lang->line('Product Specifications'); ?> </b></h4></label>
+						<?php if($Item_details->Brand_flag ==1) { ?>
+						<br>
+							<label for="exampleInputEmail1"><h5> <b>  <?php echo $this->lang->line('Brand'); ?> : </b></h5></label> <?php echo $Item_details->Item_Brand; ?> 	
+						
+						<?php } ?>
+						<br>
+						<?php if($Item_details->Colour_flag ==1) { ?>						
+								<label for="exampleInputEmail1"><h5> <b><?php echo $this->lang->line('Colour'); ?>  : </b></h5></label> 
+								<div class="square">
+									<img/>
+								</div>													
+						<?php } ?>
+						<?php if($Item_details->Weight_flag ==1) { ?>
+							
+									<label for="exampleInputEmail1"><h5> <b><?php echo $this->lang->line('Weight'); ?> :</b> </h5></label> <?php echo $Item_details->Item_Weight; ?> 
+								<br>
+							<?php } ?>
+							
+							<?php if($Item_details->Dimension_flag ==1) { ?>							
+									<label for="exampleInputEmail1"><h5><b><?php echo $this->lang->line('Dimension'); ?> :</b></h5></label><?php echo $Item_details->Item_Dimension."<p style='margin: -12px 0px 0px 80px; color:red; font-size:10px;'>(Lenght X Width X Height)</p>"; ?>		
+								<br>
+							<?php } ?>
+							
+								<?php if($Item_details->Manufacturer_flag ==1) { ?>							
+									<label for="exampleInputEmail1"><h5 ><b> <?php echo $this->lang->line('Manufacturer By'); ?> : </b></h5> </label> <?php echo $Item_details->Item_Manufacturer; ?> 	
+							<?php } 
+							?>
+							</div> <?php
+							} ?>
+						
+					<!--------------------Product Details----------------->	
+					</div>
+					<div class="col-sm-6">
+					<div class="form-group">
+							<label for="exampleInputEmail1"><h5><b><?php echo $this->lang->line('Partner Location'); ?> : </b></h5></label>							
+							<select class="form-control" name="location_<?php echo $Item_details->Company_merchandise_item_id; ?>" id="location_<?php echo $Item_details->Company_merchandise_item_id; ?>" required>
+								<option value=""><?php echo $this->lang->line('Select'); ?></option>
+								<?php foreach ($Branches as $Branches){?>
+								<option value="<?php echo $Branches['Branch_code']; ?>"><?php echo $Branches['Branch_name']; ?></option>
+								<?php } ?>
+							</select>								
+					</div>
+						<?php
+						$Small=0;
+						$Medium=0;
+						$Large=0;
+					?>
+					<?php if($Item_details->Size_flag == 1) 
+						{ ?>
+						<br>
+					<label for="exampleInputEmail1"><h5 style="margin:-20px 0 0 0px;"><b> <?php echo $this->lang->line('Select Size'); ?> : </b></h5></label> <br>
+					<?php						 
+							$Get_item_price1 = $ci_object->Redemption_Model->Get_item_details1($Company_id,$Item_details->Company_merchandize_item_code);
+							
+							foreach($Get_item_price1 as $Item_pricesz)
+							{
+								//echo $Item_pricesz->Billing_price_in_points;	
+								if($Item_pricesz->Item_size == 1)
+								{
+									$Size = "S";
+									$Small=1;
+								}
+								elseif($Item_pricesz->Item_size == 2)
+								{
+									$Size = "M";
+									$Medium=2;
+								}
+								elseif($Item_pricesz->Item_size == 3)
+								{
+									$Size="L";
+									$Large=3;
+								}
+								?>
+								<a href="javascript:Change_points_by_size('<?php echo $Item_pricesz->Billing_price_in_points;?>','<?php echo $Item_pricesz->Item_size; ?>');"><div id="<?php echo $Item_pricesz->Item_size; ?>" class="circle"> <h5 id="SizeText" style="text-align:center; margin:inherit; margin-top:7px; color:white;"> <?php echo $Size; ?> </h5></div></a>
+						<?php	}	
+						} 
+						if($Item_details->Size_flag == 1) 
+						{ ?>
+						<br> <br>
+						<?php } ?>
+						<?php if($Item_details->Merchant_flag ==1) 
+						{
+							$get_enrollment = $ci_object->Igain_model->get_enrollment_details($Item_details->Seller_id);	
+							$Merchent_name = $get_enrollment->First_name.' '.$get_enrollment->Last_name;	
+							// echo $get_enrollment->First_name.' '.$get_enrollment->Last_name;?>					
+						<h5><b> <?php echo $this->lang->line('Merchant Name'); ?> : </b> <?php
+							echo $Merchent_name;
+						} ?></h5>
+						
+						<div class="box" id="b1">
+							<form>
+								<div class="sizes">
+
+									<h3><?php echo $Item_details->Merchandize_item_name; ?></h3>
+
+								</div>
+								<?php
+								if($Item_details->Size_flag == 1) 
+								{ 
+									$Get_item_price = $ci_object->Redemption_Model->Get_item_details($Company_id,$Item_details->Company_merchandize_item_code);	
+									$Billing_price_in_points = $Get_item_price->Billing_price_in_points;
+								} 
+								else 
+								{ 
+									$Billing_price_in_points = $Item_details->Billing_price_in_points;	
+								}
+								?>
+								<p class="price" id="size_points" style="color:#c00704;"><?php echo $Billing_price_in_points; ?></p>
+								
+								<p class="price"> <!--class="text-left"-->
+									<button type="button" class="btn btn-template-main" onclick="add_to_cart('<?php echo $Item_details->Company_merchandize_item_code; ?>','<?php echo $Item_details->Delivery_method; ?>',location_<?php echo $Item_details->Company_merchandise_item_id; ?>.value,'<?php echo $Item_details->Merchandize_item_name; ?>');get_item_list();">
+											<i class="fa fa-shopping-cart"></i> <?php echo $this->lang->line('Add to cart'); ?>
+									</button>
+								<br>	
+								</p>
+								
+							</form>						
+						</div>						
+						<div class="box" id="details">
+							<p>
+								<h4><b><?php echo $this->lang->line('Description'); ?></b></h4>
+								<p><?php echo $Item_details->Merchandise_item_description; ?></p>
+						</div>
+					</div>
+				</div>			
+			</div>			
+		</div>
+	</div>	
+</section>
+<?php if($Item_details->Size_flag == 1) { ?>
+<!--<input type="hidden" id="Itemsize" value="1">-->
+<input type="hidden" id="Itemsize" value="<?php echo $Get_item_price->Item_size; ?>">
+<?php } else { ?>
+<input type="hidden" id="Itemsize" value="0">
+<?php } ?>
+<?php $this->load->view('header/loader');?>
+<?php $this->load->view('header/footer');?>
+<style>
+#popup 
+{
+	display:none;
+}
+div.square 
+{
+  border: solid 15px <?php echo $Item_details->Item_Colour; ?>;
+  width: 0.5px;
+  height: 0.5px;
+  margin-left: 55px;
+  margin-top: -30px;
+  outline-color:gray;
+	outline-style:solid;
+  
+}
+.circle 
+{
+	color:white;
+	height: 30px;
+	margin: 9px;
+	width: 30px;
+     -webkit-border-radius: 25px;
+     -moz-border-radius: 25px;
+     border-radius: 25px;
+     background: #45aed6;
+	 float: left;
+}
+#b1
+{
+	margin-top:10px;
+}
+</style>
+<script type="text/javascript" charset="utf-8">
+function add_to_cart(Company_merchandize_item_code,Delivery_method,location,Merchandize_item_name)
+{
+	var Points=document.getElementById("size_points").innerHTML;
+	var Size = $("#Itemsize").val();	
+	if(location!="")
+	{		
+		var Total_balance = <?php echo $Enroll_details->Total_balance;?>;
+		
+		var Current_redeem_points=document.getElementById("Total_Redeem_points").innerHTML;
+		 Current_redeem_points=(parseInt(Current_redeem_points)+parseInt(Points));
+		if(Current_redeem_points > Total_balance)
+		{
+			ShowPopup('<?php echo $this->lang->line('Insufficient Current Balalnce !!'); ?>');
+			return false;
+		}
+		else
+		{				
+			$.ajax({
+			type: "POST",
+			data: { Company_merchandize_item_code:Company_merchandize_item_code, Delivery_method:Delivery_method, location:location, Points:Points,Current_redeem_points:Current_redeem_points,Total_balance:Total_balance,Size:Size},
+			url: "<?php echo base_url()?>index.php/Redemption_Catalogue/add_to_cart",
+			success: function(data)
+			{				
+				if(data.cart_success_flag == 1)
+				{								
+					//$('.shoppingCart_total').html('$'+data.cart_total);
+					if(parseInt(data.cart_total)>Total_balance)
+					{					
+						ShowPopup('<?php echo $this->lang->line('Insufficient Current Balalnce !!'); ?>');
+						return false;
+					}
+					else
+					{					
+						ShowPopup('<?php echo $this->lang->line('Item added to Cart Successfuly !!!'); ?>');	
+						document.getElementById("Total_Redeem_points").innerHTML=data.cart_total;
+						document.getElementById("Total_Redeem_points2").innerHTML=data.cart_total;
+					}										
+				}
+				else
+				{
+					ShowPopup('Error adding Item '+Merchandize_item_name+' to Cart. Please try again..!!');
+					$('.shoppingCart_total').html('$'+data.cart_total);
+				}
+			}
+		});
+		}
+	}
+	else
+	{
+		ShowPopup('<?php echo $this->lang->line('Please Select Partner Location'); ?>');	
+		return false;
+	}
+	
+}
+function Change_points_by_size(Points,Size)
+{
+	var small_item=<?php echo $Small;?>;
+	var medium_item=<?php echo $Medium;?>;
+	var large_item=<?php echo $Large;?>;
+	
+		if(Size!=small_item && small_item!=0)
+		{		
+			document.getElementById(small_item).style.backgroundColor = "#45aed6";
+		}
+	
+		if(Size!=medium_item && medium_item!=0)
+		{		
+		document.getElementById(medium_item).style.backgroundColor = "#45aed6";
+		}
+		
+		if(Size!=large_item && large_item!=0)
+		{		
+			document.getElementById(large_item).style.backgroundColor = "#45aed6";
+		}
+	
+	document.getElementById(Size).style.backgroundColor = "#A9A9A9";
+	
+	document.getElementById("size_points").innerHTML=Points;
+	document.getElementById("Itemsize").value=Size;
+	
+}
+function get_item_list()
+	{
+		var Company_id = '<?php echo $Company_id; ?>';
+		
+		$.ajax({
+			type: "POST",
+			data: {Company_id:Company_id},
+			url: "<?php echo base_url()?>index.php/Redemption_Catalogue/view_cart",
+			success: function(data)
+			{	
+				$('#item_list').html(data);
+			}
+		}); 
+		
+	}
+function ShowPopup(x)
+{
+	$('#popup_info').html(x);
+	$('#popup').show();
+	setTimeout('HidePopup()', 9000);
+}
+
+function HidePopup()
+{
+	$('#popup').hide();
+}
+</script>

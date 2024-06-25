@@ -1,0 +1,142 @@
+<?php /* ?>
+			<!--<div class="col-lg-5 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">-->
+			
+				<div class="col-md-6 bhoechie-tab-content active" style="overflow-y: scroll; height: 480px;">
+					<div class="list-group">
+					<div class="table-responsive">
+						
+							<table id="myTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<td colspan="2">
+											 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search" title="Type in a name">
+										</td> 
+									</tr>
+									<tr>
+										<th scope="col"  colspan="2"  style="text-align:center"> From Publisher</th>
+									</tr>
+								</thead>
+								<tbody>
+									
+									<?php 
+									if($Get_Beneficiary_members) {                                       
+									
+										foreach($Get_Beneficiary_members as $Rec2) { 
+										//echo"---Igain_company_id---". $Rec2->Igain_company_id."--<br>";
+										$Company_details= $this->Igain_model->get_company_details($Rec2->Igain_company_id);
+									?>
+											 
+									<tr>
+										<td>
+											<a href="<?php echo base_url(); ?>index.php/Transfer_publisher/To_publisher?From_publisher=<?php echo $Rec2->Beneficiary_company_id; ?>&From_beneficiary_id=<?php echo $Rec2->Beneficiary_membership_id; ?>">  
+												<img src="<?php echo $this->config->item('base_url2');?><?php echo $Rec2->Company_logo; ?>" alt="" class="img-rounded img-responsive" width="80">
+											</a>
+										</td>   
+										<td>
+											<a href="<?php echo base_url(); ?>index.php/Transfer_publisher/To_publisher?From_publisher=<?php echo $Rec2->Beneficiary_company_id; ?>&From_beneficiary_id=<?php echo $Rec2->Beneficiary_membership_id; ?>">
+											  <span ><?php echo $Rec2->Beneficiary_company_name ?></span><br>
+											  <span >Name &nbsp;&nbsp;&nbsp;&nbsp;:</span> <span><?php echo $Rec2->Beneficiary_name; ?></span><br>
+											  <span>Identifier&nbsp;:</span>  <span><?php echo $Rec2->Beneficiary_membership_id; ?></span><br> 
+											</a>
+										</td>
+										
+									</tr>
+									
+										<?php
+											   
+											}
+										}			
+										?>  
+								</tbody>
+							</table>					
+						</div>
+						
+					</div>
+				</div>
+				
+				
+				
+				
+			
+			<div class="col-lg-6  bhoechie-tab-menu" style="overflow-y: scroll; height: 480px;">
+				<div class="list-group">
+						<a href="javascript:void(0);" onclick="get_category_publisher('<?php echo $CategoryID; ?>');" class="list-group-item text-center" >
+							<img src="<?php echo base_url(); ?>images/<?php echo $icon_name;?>" > <br> <span id="Medium_font"><?php echo $Category->Code_decode; ?></span>
+						</a>					
+					</div>		
+			</div>
+			<?php */ ?>
+			
+			
+			
+			<section class="content">
+	
+        <div class="row">
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-4 bhoechie-tab-menu">
+				<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search" title="Type in a name">
+				<div class="list-group" >
+					<?php 
+						if($Get_Beneficiary_members!=NULL)	
+						{
+							foreach($Get_Beneficiary_members as $Rec2)
+							{								 
+								  $Company_details= $this->Igain_model->get_company_details($Rec2->Igain_company_id);
+								
+								
+								?>								
+								
+									<a href="javascript:void(0);" class="list-group-item text-center" >
+										<div class="row">	
+											<div class="col-md-6">
+												<img src="<?php echo $this->config->item('base_url2');?><?php echo $Rec2->Company_logo; ?>" alt="" class="img-rounded img-responsive" width="80">
+												
+											
+											</div>
+											
+											<div class="col-md-6">
+												<span><?php echo $Rec2->Beneficiary_company_name ?></span><br>
+												<span>Name &nbsp;&nbsp;&nbsp;&nbsp;:</span> <span><?php echo $Rec2->Beneficiary_name; ?></span><br>
+												<span >Identifier&nbsp;:</span>  <span><?php echo $Rec2->Beneficiary_membership_id; ?></span><br>
+											</div>
+										</div>
+									</a>							
+								<?php 								
+							}
+						} 
+					?>						
+				</div>
+			</div>
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-4 bhoechie-tab-menu">
+				<div class="list-group">
+					<?php 
+						if($Get_Beneficiary_members!=NULL)	
+						{
+							foreach($Get_Beneficiary_members as $Rec2)
+							{								 
+								  $Company_details= $this->Igain_model->get_company_details($Rec2->Igain_company_id);
+								
+								
+								?>	<a href="javascript:void(0);" class="list-group-item text-center" >
+										<div class="row">	
+											<div class="col-md-6">
+												<img src="<?php echo $this->config->item('base_url2');?><?php echo $Rec2->Company_logo; ?>" alt="" class="img-rounded img-responsive" width="80">	
+											</div>											
+											<div class="col-md-6">
+												<span><?php echo $Rec2->Beneficiary_company_name ?></span><br>
+												<span>Name &nbsp;&nbsp;&nbsp;&nbsp;:</span> <span><?php echo $Rec2->Beneficiary_name; ?></span><br>
+												<span >Identifier&nbsp;:</span>  <span><?php echo $Rec2->Beneficiary_membership_id; ?></span><br>
+											</div>
+										</div>
+									</a>							
+								<?php  								
+							}
+						} 
+					?>						
+				</div>
+			</div>		
+		</div><!-- /.row -->		
+	</section><!-- /.content -->

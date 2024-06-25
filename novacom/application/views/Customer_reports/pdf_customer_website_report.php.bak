@@ -1,0 +1,171 @@
+<?php 
+$ci_object = &get_instance();
+$ci_object->load->model('Igain_model'); 
+if($Transaction_Reports != NULL) { 
+// error_reporting(0);
+if($Report_type=='1'){
+	$report_type_name="Summary";
+}
+else
+{
+	$report_type_name="Details";
+}
+
+// echo"Report_type------".$Report_type."<br>";
+
+?>
+<div class="panel panel-info" style="border-color: #bce8f1;">
+	<div>
+		<h1 style="text-align:center"><?php echo $Company_name;?></h1>
+		<h2 style="text-align:center">Member Report: <?php echo $report_type_name;?></h2>
+		<h4 style="text-align:center"><?php echo "From Date: ".date("Y-m-d",strtotime($From_date))." To Date: ".date("Y-m-d",strtotime($end_date)); ?></h4>
+		
+	</div>
+	<div>
+		<h5 style="text-align:right">Date : <?php echo $Report_date; ?></h5>
+		</div>
+	
+	<div>
+		<table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse;">
+		
+			<thead>
+			<tr style="background-color: #D9EDF7;">
+			<?php 
+					if($Redeemption_report==1)  
+					{ 						
+						if($Report_type==0) 
+						{
+						?>
+							<th>Transaction Date</th>
+							<th>Transaction Type</th>					  
+							<th>Item Name</th>					  
+							<th>Quantity</th>					  
+							<th>Redeemed Points</th>	
+							<th>Voucher No</th>	
+							<th>Voucher Status</th>	
+						<?php
+						}
+						else
+						{
+						?>
+							<th>Transaction Type</th>
+							<th>Redeemed Points</th>
+							<th>Quantity</th>														
+						<?php
+						}
+					} 
+					else 
+					{ 
+						if($Report_type==0) 
+						{ 
+						?>
+							<th>Transaction Date</th>
+							<th>Bill No</th>
+							<th>Transaction Type</th>
+							<th>Purchase Amount</th>
+							<th>Bonus Points</th>						  
+							<th>Redeemed Points</th>						  
+							<th>Gain Points</th>
+							<th>Done By</th>
+							<th>Transfer Points</th>
+							<th>Transfer To</th>
+							<th>Remarks</th>
+						<?php
+						}
+						else
+						{ 
+						?>					 
+							<th>Transaction Type</th>
+							<th>Purchase Amount</th>
+							<th>Bonus Points</th>						  
+							<th>Redeem Points</th>						  
+							<th>Gain Points</th>
+							<th>Transfer Points</th>
+						<?php
+						}
+					}
+					?>
+			  </tr>
+			</thead>			
+			<tbody>
+			<?php
+				$todays = date("Y-m-d");
+				if($Transaction_Reports != NULL)
+				{
+					foreach($Transaction_Reports as $Trans_RPT)
+					{
+						if($Redeemption_report==0)
+						{
+							
+							if($Report_type=='1')
+							{
+								echo "<tr>";							
+								echo "<td>".$Trans_RPT->TransactionType."</td>";
+								echo "<td>".$Trans_RPT->TotalPurchaseAmount."</td>";
+								echo "<td>".$Trans_RPT->TotalBonusPoints."</td>";
+								echo "<td>".$Trans_RPT->TotalRedeemPoints."</td>";
+								echo "<td>".$Trans_RPT->TotalGainPoints."</td>";
+								echo "<td>".$Trans_RPT->TotalTransPoints."</td>";
+								echo "</tr>";
+						
+							}
+							else
+							{								
+									
+								?>
+								<tr>						
+									<td><?php echo date('d-M-y', strtotime($Trans_RPT->TransactionDate));?></td>
+									<td><?php echo $Trans_RPT->BillNo;?></td>
+									<td><?php echo $Trans_RPT->TransactionType; ?> </td>
+									<td><?php echo $Trans_RPT->PurchaseAmount; ?> </td>
+									<td><?php echo $Trans_RPT->BounsPoints;?></td>
+									<td><?php echo $Trans_RPT->RedeemPoints;?></td>
+									<td><?php echo $Trans_RPT->GainPoints;?></td>
+									<td><?php echo $Trans_RPT->DoneBy;?></td>
+									<td><?php echo $Trans_RPT->TransferPoints;?></td>
+									<td><?php echo $Trans_RPT->TransferTo;//$full_name;?></td>
+									<td><?php echo $Trans_RPT->Remarks; ?></td>
+								</tr>
+						<?php   
+						}
+					}
+					else
+					{
+						if($Report_type==0)
+						{
+						?>
+						<tr>							 
+							<td><?php echo date('d-M-y', strtotime($Trans_RPT->TransactionDate)); ?></td>
+							<td><?php echo $Trans_RPT->TransactionType; ?></td>
+							<td><?php  echo $Trans_RPT->ItemName; ?></td>
+							<td><?php  echo $Trans_RPT->TotalQuantity; ?></td>
+							<td><?php  echo $Trans_RPT->TotalItemRedeemPoints; ?></td>									
+							<td><?php  echo $Trans_RPT->VoucherNo; ?></td>
+							<td><?php  echo $Trans_RPT->VoucherStatus; ?></td>
+						</tr>						
+						<?php
+						}
+						else
+						{
+						?>
+						<tr>
+							<td><?php echo $Trans_RPT->TransactionType; ?></td>
+							<td><?php echo $Trans_RPT->TotalItemRedeemPoints; ?></td>
+							<td><?php echo $Trans_RPT->TotalQuantity; ?></td>
+						</tr>
+						<?php
+						}		
+					
+					}
+					
+				}
+			}
+			?>			
+			</tbody> 
+		</table>
+		</table>
+	</div>
+</div>
+<?php }
+// die;
+ ?>

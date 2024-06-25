@@ -1,0 +1,626 @@
+<?php $this->load->helper('form'); 
+foreach($Company_details as $Company)
+{
+	$Company_name = $Company['Company_name'];
+	$Company_id = $Company['Company_id'];
+	$Company_address = $Company['Company_address'];
+	$Company_primary_email_id = $Company['Company_primary_email_id'];
+	$Website = $Company['Website'];
+	$Company_primary_phone_no = $Company['Company_primary_phone_no'];
+	$Company_logo = $Company['Company_logo'];
+	$Cust_apk_link = $Company['Cust_apk_link'];
+	$Cust_ios_link = $Company['Cust_ios_link'];	
+	$Facebook_link = $Company['Facebook_link'];
+	$Twitter_link = $Company['Twitter_link'];
+	$Linkedin_link = $Company['Linkedin_link'];
+	$Googlplus_link = $Company['Googlplus_link'];
+	$Country = $Company['Country'];
+	$Company_contactus_email_id = $Company['Company_contactus_email_id'];
+}
+foreach($Company_partner_cmp as $partnerCMP)
+{
+	$partner_cmp_name=$partnerCMP['Company_name'];
+	$partner_cmp_website=$partnerCMP['Website'];
+}
+?>
+ <?php
+if(@$this->session->flashdata('error_code')) {
+?>
+<script>
+	var Title = "Application Information";
+	var msg = '<?php echo $this->session->flashdata('error_code'); ?>';
+	alert(msg);
+	// runjs(Title,msg);
+	return false;
+</script>
+<?php } ?>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="icon" href="<?php echo base_url()?>images/favicon.ico">
+	<title>FANZONE</title>
+</head>
+<body>
+	<!-------------header----------->
+	<div class="top"> 
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-md-6"> 
+					<a href="<?php echo base_url(); ?>" style="background:none;">
+						<img src="<?php echo base_url();?>images/logo.png"/ style="width: 22%;">
+					</a>
+				</div>
+				<div class="col-xs-12 col-md-3" style="margin-bottom: 14px;">
+					<div style="text-align:right !important;">
+						<button class="btn top-btn-login" data-toggle="modal" data-target="#Cust_login_Modal" style="background-color:#FFE67C; color:#fff; padding:7px 20px; border:2px solid #FFE67C; font-size :14px;"><strong><span class="btn-label btn-label-left"><i class="fa fa-lock"></i></span> &nbsp; Member Login &nbsp; <span class="btn-label btn-label-right"><i class="fa fa-angle-right"></i></span></strong></button>
+					</div> 
+				</div>
+				<div class="col-xs-12 col-md-3">
+					<div style="text-align:right !important;"> 
+						
+						<button class="btn top-btn-login" data-toggle="modal" data-target="#Merchant_login_Modal" style="background-color:#FFE67C; color:#fff; padding: 7px 20px; border:2px solid #FFE67C; font-size :14px;"><strong><span class="btn-label btn-label-left"><i class="fa fa-lock"></i></span> &nbsp; Business Login &nbsp; <span class="btn-label btn-label-right"><i class="fa fa-angle-right"></i></span></strong></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="wrapper">
+		<header style="margin-top: -30px;">
+			<div class="row submenu-row">
+				<div class="col-lg-2 col-md-2 col-sm-2">
+					<a href="#featured" class="active1" style="font-size:15px;">Home</a>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2">
+				 <a href="#gemzone" style="font-size:15px;">What is FanZone</a>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2">
+				  <a href="#earn" style="font-size:15px;">How to Earn</a>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2">
+				  <a href="#content" style="font-size:15px;">How to Redeem</a>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2">
+				  <a href="#fanzonesection" style="font-size:15px;">FanZone Section</a>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2">
+				  <a href="#footer" style="font-size:15px;">Contact Us</a>
+				</div>
+			</div>
+		</header>
+		<!-------------header-------------->
+		<!------------body---------->
+		<section id="featured" class="bg" style="margin-top: -30px;">
+				<div class="row">
+					<div class="col-lg-12">
+					   <div id="wowslider-container1">
+							<div class="ws_images">
+								<ul>
+									<li>
+										<img src="<?php echo base_url();?>images/slider1.png" alt="Fanzone" title="Fanzone" id="wows1_0"/>
+									</li>
+									<li>
+										<img src="<?php echo base_url();?>images/slider2.png" alt="Fanzone" title="Fanzone" id="wows1_1"/>
+									</li>
+									<li>
+										<img src="<?php echo base_url();?>images/slider3.png" alt="Fanzone" title="Fanzone" id="wows1_2"/>
+									</li>
+								</ul>
+							</div>
+							<div class="ws_bullets">
+								<div>
+									<a href="#" title="Fanzone"><span>1</span></a>
+									<a href="#" title="Fanzone"><span>2</span></a>
+									<a href="#" title="Fanzone"><span>3</span></a>
+								</div>
+							</div>
+							<div class="ws_script" style="position:absolute;left:-99%"><a href="#"></a></div>
+							<div class="ws_shadow"></div>
+						</div>	
+					</div>
+				</div> 
+		</section>
+		<section class="padding" id="gemzone" style="background-color: #efcd3f;"> <!--blue-bg-->
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 paddingud50">
+						<h2 class="index-whiteonblue linespacing">
+							<br>
+							What is FanZone?
+							<br>
+						</h2>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<img src="<?php echo base_url();?>images/laptopimage.png" class="laptop-on-blue">
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="paddingud50 white-bg">
+			<div class="container">
+				<div class="row">
+					<p class="letterspacing05 marginleft15" style="font-size: 15px;">
+						FanZone is Aussie Sports Club’s Commmunity Loyalty program.<br><br>
+						Our way of saying thank you for playing and following the sports. We reward <br>
+						you with fanpoints whenever you watch, play, purchase any merchandizing at <br> our  sports outlet Or just follow our sports! <br><br>
+						We want  our Fans the best of the Experiences for  being part of our  community. <br>
+						Whether it is a Cup of Coffee with your favourite Sporting Legend Or your Vantage seat at the Sports  arena to watch your favourite Team.... and much More!	<br><br>
+						Enjoy your  sporting journey with us!
+						
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="green-bg hide-overflow" id="earn" style="height:387px;"><!--green-bg style="background-color: #f57d1b;"-->
+			<div class="row">
+				<div class="col-lg-12 col-md-12 earn-div">
+					<div class="col-lg-6 col-md-6">
+						<img src="<?php echo base_url();?>images/Picture1.jpg" class="earn-img" style="width: 100%; height: 149%;">
+					</div>
+					<div class="col-lg-6 col-md-6 earn-text-div">
+						<h3 class="index-whiteongreen">How to earn Fanpoints?</h3>
+						<p class="letterspacing05 earn-font" style="font-size: 16px;">
+							Earn fanpoints whenever you watch , play  , follow our sports</p>
+						<ul>
+							<li>Buy a ticket for a sporting  event.</li>
+							<li>Purchase Sports Magazines , Sports Items at our  merchandizing stores</li>
+							<li>Buy Health Drinks at our health stores</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<section id="content" id="HowtoRedeem">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12" style="margin-top:-85px;">
+						<h2 class="section-title text-center index-whiteonblue black-text" align="center" >How to Redeem Fanpoints?</h2><br/>
+						<p class="section-lead letterspacing05 black-text" style="font-size: 16px;">To get started, </p>
+						<ul class="black-text">
+						  <li>Log into your FanZone account (via the website or mobile app).</li>
+						  <li>Load your cart with items of your choice</li>
+						  <li>Enter your preferred collection method (pick-up or delivery)</li>
+						  <li>Proceed to check out</li>
+						  <li>Receive the confirmation email</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+		<section id="fanzonesection">
+			<div class="container">
+				<h2 class="section-title text-center index-whiteonblue black-text" align="center" >FanZone Section</h2><br/>
+				<div class="row">
+					<div class="col-lg-4 col-sm-12 col-md-6">
+						<img src="<?php echo base_url();?>images/FanzoneShop.png" class="short-link-img"/>
+						<p style="font-size: 14px;"><b>FanZone Shop </b></p>
+					</div>	
+					<div class="col-lg-4 col-sm-12 col-md-6">
+						<img src="<?php echo base_url();?>images/FanzoneVouchers.png" class="short-link-img"/>
+						<p style="font-size: 14px;"><b>FanZone Vouchers</b></p>
+					</div>	
+					<div class="col-lg-4 col-sm-12 col-md-6">
+						<img src="<?php echo base_url();?>images/FanzoneLounges.png" class="short-link-img"/>
+						<p style="font-size: 14px;"><b>FanZone Lounges</b></p>
+					</div>
+					<div class="col-lg-4 col-sm-12 col-md-6">
+						<img src="<?php echo base_url();?>images/FanzoneVantagepoint.png" class="short-link-img"/>
+						<p style="font-size: 14px;"><b>FanZone Vantagepoint</b></p>
+					</div>
+					<div class="col-lg-4 col-sm-12 col-md-6">
+						<img src="<?php echo base_url();?>images/FanzoneMeetup.png" class="short-link-img"/>
+						<p style="font-size: 14px;"><b>FanZone Meetup</b></p>
+					</div>
+					<div class="col-lg-4 col-sm-12 col-md-6">
+						<img src="<?php echo base_url();?>images/Fanzoneworks.png" class="short-link-img"/>
+						<p style="font-size: 14px;"><b>FanZone Works</b></p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<!------------body------------->
+	<!-------------footer------------>
+    <footer id="footer" style="padding: 1px !important; background-color:#b5d334; color:#FFFFFF;">
+        <div class="container">
+            <div class="row" >
+                <div class="col-sm-6" style="font-size: 14px;">
+                   &copy; Copyright 2012-2020 <a target="_blank" href="http://miraclecartes.com/" title="Miracle Smart Card Pvt. Ltd" style="color:white;">Miracle Smart Card Pvt. Ltd.</a> All rights reserved
+                </div>
+				
+                <div class="col-sm-6">
+                    <ul class="social-icons">
+                        <li style="display:inline;"><a href="skype:rakesh_jadhav?chat"><i class="fa fa-skype"></i></a></li>&nbsp;
+                        <li style="display:inline;"><a href="http://www.linkedin.com/company/2237238" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+						<li style="display:inline;">&nbsp;
+							Powered By <a target="_blank" href="<?php echo $partner_cmp_website; ?>" title="<?php echo $partner_cmp_name; ?>" style="color:white;"><?php echo $partner_cmp_name; ?></a> 
+						</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+	<!-------------footer------------->
+	<!-- Modal1 -->
+	<div class="modal fade" id="Cust_login_Modal" role="dialog">
+		<div class="modal-dialog"> 
+			<div class="modal-content">
+				<div class="login-box" >					
+					<div class="login-box-body">
+						<p class="login-box-msg" style="font-size: 20px;"><strong>Member Sign In</strong></p>
+							<div class="form-group has-feedback">
+								<input type="email" name="email" id="cust_email" class="form-control" placeholder="Email" required>
+								<span><?php echo form_error('email'); ?></span>
+								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+							</div>							
+							<div class="form-group has-feedback">
+								<input type="password" name="password" id="Cust_password"  class="form-control" placeholder="Password" required>
+								<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+								<span><?php echo form_error('password'); ?></span>
+								<input type="hidden" class="form-control" id="callcenterticket"  name="callcenterticket"  value="0">
+							</div>							
+							<div class="row">
+								<div class="col-xs-6">
+									<button type="submit" class="btn btn-warning btn-block btn-flat"  onclick="javascript:Member_login(Cust_password.value,cust_email.value,callcenterticket.value);" style="background-color:#FFE67C; !important; border: 2px solid #FFE67C; !important; color:#fff; font-size :13px;" >Sign In</button>								
+									<input type="hidden" name="flag" value="2" >
+								</div>								
+								<div class="col-xs-6">
+									<button type="button" class="btn btn-warning btn-block btn-flat" data-dismiss="modal" style="background-color:#FFE67C; !important; border: 2px solid #FFE67C; !important; color:#fff; font-size :13px;">Cancel</button>
+								</div>
+								<div class="col-xs-6">								
+									<a href="#" data-toggle="modal" data-target="#Cust_forgot_Modal" id="ForgotPassword">I forgot my password</a>
+								</div>
+							</div>							
+							<br>
+							<hr class="style-eight">
+							<div class="row">
+								<div class="col-xs-12">								
+									Are you a Member? &nbsp;<a href="#" data-toggle="modal" data-target="#New_Membership_Registration" id="NewRegistration"> Sign Up Here </a>
+								</div>
+							</div>
+					</div><br>
+				</div>
+			</div>				
+		</div>  
+	</div>
+	
+	<div class="modal fade" id="Merchant_login_Modal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="login-box">					
+					<div class="login-box-body">
+						<p class="login-box-msg" style="font-size: 20px;"><strong>Merchant Login</strong></p>
+							<div class="form-group has-feedback">
+								<input type="email" name="username" id="Merchant_email" class="form-control" placeholder="User Email ID" required>
+								<span><?php echo form_error('email'); ?></span>
+								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+								<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+								<span><?php echo form_error('password'); ?></span>
+							</div>	
+							
+							<div class="row">
+								<div class="col-xs-6">
+									<button type="submit"  class="btn btn-warning btn-block btn-flat" onclick="javascript:Merchant_login(password.value,Merchant_email.value);" style="background-color:#FFE67C; !important; border: 2px solid #FFE67C; !important; color:#fff; font-size :13px;">Sign In</button>		
+								</div>								
+								<div class="col-xs-6">
+									<button type="button" class="btn btn-warning btn-block btn-flat" data-dismiss="modal" style="background-color:#FFE67C; !important; border: 2px solid #FFE67C; !important; color:#fff; font-size :13px;">Cancel</button>
+								</div>
+								<div class="col-xs-6">								
+									<a href="#" data-toggle="modal" data-target="#Cust_forgot_Modal" id="ForgotPassword">I forgot my password</a>
+								</div>
+							</div>							
+							<br>
+							<hr class="style-eight">
+					</div><br>	
+				</div>
+			</div>				
+		</div>	  
+	</div>	
+	<div class="modal fade" id="New_Membership_Registration" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">	
+				<div class="login-box">	
+					<div class="login-box-body">
+						<p class="login-box-msg" style="font-size: 20px;"><strong>New Member Sign Up</strong></p>
+						<form action="<?php echo base_url()?>index.php/Cust_home/enroll_new_member_website" method="post" onsubmit="show_loder();">
+							<div class="form-group has-feedback">
+								<input type="text" name="first_name" class="form-control" placeholder="First name" required>
+							</div>
+							<div class="form-group has-feedback">
+								<input type="text" name="last_name" class="form-control" placeholder="Last name" required>
+							</div>
+							<div class="form-group has-feedbackP">								
+								<input type="text"  class="form-control" name="phno" id="phno" placeholder="Mobile" onkeyup="this.value=this.value.replace(/\D/g,'')" required>
+								<span style="font-size: 10px; font-style: italic; color: red;">(* Enter Phone No without Dial Code)</span>
+							</div>							
+							<div class="form-group has-feedbackE"> 
+								<input type="email" class="form-control" name="userEmailId"   id="userEmailId" placeholder="Email" required/>
+							</div>							
+							<div class="row">
+								<div class="col-xs-12">
+									<button type="submit" name="register" class="btn btn-warning btn-block btn-flat" style="background-color:#FFE67C; !important; border: 2px solid #FFE67C; !important; color:#fff; font-size :13px;">Register</button>
+									<input type="hidden" class="form-control"  name="Country" id="Country" value="<?php echo $Country; ?>" >
+									<input type="hidden" class="form-control"  name="Company_id" id="Company_id" value="<?php echo $Company_id; ?>" >
+								</div>
+							</div>
+							<br>
+						</form>
+					</div>
+				</div>			
+			</div>			
+		</div>
+	</div>
+	<div class="modal fade" id="Cust_forgot_Modal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="login-box">					
+					<div class="login-box-body">
+						<p class="login-box-msg" style="font-size: 20px;"><strong>Forgot Password</strong></p>
+						<form action="<?php echo base_url()?>index.php/Cust_home/forgot" method="post" onsubmit="show_loder();">
+							<div class="form-group has-feedback">
+								<input type="email" name="email" class="form-control" placeholder="Email" required>
+								<input type="hidden" class="form-control"  name="Company_id" id="Company_id" value="<?php echo $Company_id; ?>" >
+								<input type="hidden" class="form-control"  name="flag"  value="2" >
+								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<button type="submit" class="btn btn-warning btn-block btn-flat" style="background-color:#FFE67C; !important; border: 2px solid #FFE67C; !important; color:#fff; font-size :13px;">Submit</button>									
+								</div>
+							</div>
+							<br>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div id="loadingDiv" style="display:none;">
+		<div>
+			<h7>Please wait...</h7>
+		</div>
+	</div>
+</body>
+</html>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>data1/engine1/style.css" />
+<script type="text/javascript" src="<?php echo base_url();?>data1/engine1/jquery.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>data1/engine1/wowslider.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>data1/engine1/script.js"></script>
+
+<link href="<?php echo base_url();?>data1/css/cubeportfolio.min.css" rel="stylesheet" />
+<link href="<?php echo base_url();?>data1/css/style.css" rel="stylesheet" />
+<link href="<?php echo base_url();?>data1/css/stisla.css" rel="stylesheet" />
+
+<script src="<?php echo base_url();?>data1/js/jquery.min.js"></script>
+<script src="<?php echo base_url();?>data1/js/modernizr.custom.js"></script>
+<script src="<?php echo base_url();?>data1/js/jquery.easing.1.3.js"></script>
+<script src="<?php echo base_url();?>data1/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>data1/js/jquery.appear.js"></script>
+<script src="<?php echo base_url();?>data1/js/stellar.js"></script>
+<script src="<?php echo base_url();?>data1/js/classie.js"></script>
+<script src="<?php echo base_url();?>data1/js/jquery.cubeportfolio.min.js"></script>
+<script src="<?php echo base_url();?>data1/js/google-code-prettify/prettify.js"></script>
+<script src="<?php echo base_url();?>data1/js/animate.js"></script>
+<script src="<?php echo base_url();?>data1/js/custom.js"></script>
+
+<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+<!------------------old login------------------->
+<link href="<?php echo $this->config->item('base_url2')?>assets/portal_assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo $this->config->item('base_url2')?>assets/portal_assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="<?php echo $this->config->item('base_url2')?>assets/portal_assets/css/animate.min.css" rel="stylesheet">
+<link href="<?php echo $this->config->item('base_url2')?>assets/portal_assets/css/owl.carousel.css" rel="stylesheet">
+<link href="<?php echo $this->config->item('base_url2')?>assets/portal_assets/css/owl.transitions.css" rel="stylesheet">
+<link href="<?php echo $this->config->item('base_url2')?>assets/portal_assets/css/prettyPhoto.css" rel="stylesheet">
+<link href="<?php echo $this->config->item('base_url2')?>assets/portal_assets/css/responsive.css" rel="stylesheet">
+<link href="<?php echo $this->config->item('base_url2')?>assets/portal_assets/css/AdminLTE.min.css" rel="stylesheet">
+<link href="<?php echo $this->config->item('base_url2')?>assets/bootstrap-dialog/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
+<script src="<?php echo $this->config->item('base_url2')?>assets/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->config->item('base_url2')?>assets/bootstrap-dialog/js/alert_function.js"></script>
+<!------------------old login------------------->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+.navbar.navbar-default {
+    /* min-height: 100px; */
+    background-color: #FFA500 !important; ;
+    border: 2px solid #b5d334 !important; 
+    color: #fff !important; ;
+}
+#How_to_earn
+{
+	background-color: #b5d334 !important; ;
+}
+#WhatisGemZone
+{
+	background-color: #b5d334 !important; ;
+}
+.padding {
+    padding: 10px !important;
+}
+.blue-bg {
+    background: #009AB1 !important; ;
+    color: #fff !important; ;
+}
+.white-bg {
+    background: #fff !important; ;
+    color: #000 !important; ;
+}
+.paddingud50 {
+    padding: 50px 0px;
+}
+#loadingDiv
+{
+  position:fixed;
+  top:0px;
+  right:0px;
+  width:100%;
+  height:100%;
+  background-color:#666;
+  background-image:url('<?php echo $this->config->item('base_url2') ?>images/loading.gif');
+  background-repeat:no-repeat;
+  background-position:center;
+  z-index:10000000;
+  opacity: 0.4;
+  filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+.modal-content
+{
+	width:500px; !important;	
+}
+ul>li{
+	font-size: 16px;
+}	
+
+@media screen and (max-width: 576px)
+{
+	.laptop-on-blue {
+		max-width: 70% !important;
+	}
+}
+.paddingud50 {
+    padding: 50px 0px;
+}
+</style>
+<script> 
+$('#phno').change(function()
+{	
+	var Country = '<?php echo $Country; ?>';
+	var Company_id = '<?php echo $Company_id; ?>';
+	var phno = $('#phno').val();	
+	if( $("#phno").val() == "" )
+	{
+		var Title = "Application Information";
+		var msg = 'Please Enter Phone Number';
+		alert(msg);
+		// runjs(Title,msg);
+		return false;
+	}
+	else
+	{
+		$.ajax({
+			type: "POST",
+			data: { phno: phno,Company_id:Company_id, Country:Country},
+			url: "<?php echo base_url()?>index.php/Cust_home/check_phone_number",
+			success: function(data)
+			{
+				if(data == 1)
+				{
+					$("#phno").val("");
+					document.getElementById('phno').placeholder="Phone Number Already Exist!";
+					var Title = "Application Information";
+					var msg = 'Phone Number Already Exist';
+					alert(msg);
+					// runjs(Title,msg);
+					return false;					
+				}
+				else
+				{
+				}
+			}
+		});
+	}
+});
+ 
+$('#userEmailId').change(function()
+{	
+	var Company_id = '<?php echo $Company_id; ?>';
+	var userEmailId = $('#userEmailId').val();
+	
+	if( $("#userEmailId").val() == "" )
+	{
+		var Title = "Application Information";
+		var msg = 'Please Enter Email Id';
+		alert(msg);
+		// runjs(Title,msg);
+		return false;
+	}
+	else
+	{
+		$.ajax({
+			type: "POST",
+			data: { userEmailId: userEmailId, Company_id:Company_id},
+			url: "<?php echo base_url()?>index.php/Cust_home/check_email_id",
+			success: function(data)
+			{
+				if(data == 1)
+				{
+					$("#userEmailId").val("");
+					document.getElementById('userEmailId').placeholder="Email Id Already Exist!";
+					var Title = "Application Information";
+					var msg = 'Email Id Already Exist';
+					alert(msg);
+					// runjs(Title,msg);
+					return false;
+				
+				}
+				else
+				{
+					/* var Title = "Application Information";
+					var msg = 'Please Enter Email Id';
+					runjs(Title,msg);
+					return false; */
+				}
+			}
+		});
+	}
+});
+function Member_login(password,username,callcenterticket)
+{
+	if(username=="")
+	{
+		var Title = "Application Information";
+		var msg = "Please Enter User Email ID !!!";
+		alert(msg);
+		// runjs(Title,msg);
+		return false;
+	}
+	if(password=="")
+	{
+		var Title = "Application Information";
+		var msg = "Please Enter Password !!!";
+		alert(msg);
+		// runjs(Title,msg);
+		return false;
+	}
+	document.getElementById("loadingDiv").style.display="";
+	window.location='<?php echo base_url()?>index.php/login/?flag=2&email='+username+'&password='+password+'&callcenterticket='+callcenterticket;
+}
+function Merchant_login(password,username)
+{
+	if(username=="")
+	{
+		var Title = "Application Information";
+		var msg = "Please Enter User Email ID !!!";
+		alert(msg);
+		// runjs(Title,msg);
+		return false;
+	}
+	if(password=="")
+	{
+		var Title = "Application Information";
+		var msg = "Please Enter Password !!!";
+		alert(msg);
+		// runjs(Title,msg);
+		return false;
+	}
+	
+	
+	var Company_id=<?php echo $Company_id; ?>;
+	document.getElementById("loadingDiv").style.display="";
+	window.location='<?php echo $this->config->item('base_url2')?>index.php/Login/?username='+username+'&password='+password+'&Company_id='+Company_id;
+}
+function show_loder()
+{
+	document.getElementById("loadingDiv").style.display="";
+}
+ </script>

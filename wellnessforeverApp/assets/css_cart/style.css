@@ -1,0 +1,100 @@
+/* .b-cart {
+  width: 150px;
+  height: 37px;
+  background: #E74C3C;
+  color: #fff;
+  text-align: center;
+  font-family: "Helvetica Neue";
+  font-size: 21px;
+  padding-top: 13px;
+  border-bottom: 3px solid #d83d2d;
+  border-radius: 4px;
+  margin-left: 13px;
+} */
+
+.b-cart:hover {
+  opacity: 0.8;
+}
+.b-items {
+  margin: 100px 0 0 0;
+  padding: 0;
+}
+.b-items .b-items__item {
+  display: inline-block;
+  border: 1px solid #eee;
+  width: 200px;
+  position: relative;
+  border-radius: 4px;
+  margin: 0 12px 21px 12px;
+}
+.b-items .b-items__item .b-items__item__img {
+  border-radius: 4px 4px 0 0;
+}
+.b-items .b-items__item a {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+}
+.b-items .b-items__item a:hover {
+  opacity: 0.8;
+}
+.b-items .b-items__item__title {
+  display: block;
+  font-size: 18px;
+  margin-top: 9px;
+  font-family: "Helvetica Neue";
+  color: #95A5A6;
+}
+.b-items .b-items__item__add-to-cart {
+  font-family: "Helvetica Neue";
+  display: block;
+  background: #16A085;
+  color: #fff;
+  margin-top: 9px;
+  padding: 12px 0;
+  border-radius: 0 0 4px 4px;
+  border-bottom: 2px solid #0a9479;
+}
+.b-flying-img {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  animation: fly 0.8s 1;
+  -webkit-animation: fly 0.8s 1;
+  -webkit-backface-visibility: hidden;
+}
+@keyframes fly {
+  0% {
+    -moz-transform: rotate(0deg);
+    /* Для Firefox */
+    -ms-transform: rotate(0deg);
+    /* Для IE */
+    -o-transform: rotate(0deg);
+    /* Для Opera */
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    /* Для Firefox */
+    -ms-transform: rotate(360deg);
+    /* Для IE */
+    -o-transform: rotate(360deg);
+    /* Для Opera */
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes fly {
+  0% {
+    -webkit-transform: rotate(0deg);
+    /* Для Safari, Chrome, iOS */
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    /* Для Safari, Chrome, iOS */
+  }
+}

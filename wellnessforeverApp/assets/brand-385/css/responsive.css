@@ -1,0 +1,258 @@
+/* :::::::::::::::::::::::::::::::::::::::: */
+
+/* TABLE OF CONTENTS/* 
+::::::::::::::::::::::::::::::::::::::::::: */
+
+/* 01 - Large devices (desktops, 992px and up) */
+
+/* 02 - Medium devices (tablets, 768px and up) */
+
+/* 03 - Small devices (landscape phones, 576px and up) */
+
+/* 04 - Extra small devices (portrait phones, less than 576px)  */
+
+/*=================================================== 
+01 - Large devices (desktops, 992px and up) 
+=====================================================*/
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .filter-main-wrapper .filter-hldr{
+        padding: 12px;
+    }
+
+    .check-account-wrapper .cardBg {
+        background:#fff;
+    }
+
+    .check-account-wrapper .card:first-child .card-body{
+        width: 100%;
+    }
+
+}
+
+/*=================================================== 
+02 - Medium devices (tablets, 768px and up) 
+=====================================================*/
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .filter-main-wrapper .filter-hldr .filter-types {
+        width: 30.33%;
+        margin-right: 4%;
+        float: left;
+    }
+
+    .filter-main-wrapper .filter-hldr .filter-types:last-child{
+        margin-right:0;
+        margin-bottom: 30px;
+    }
+
+    .filter-main-wrapper .filter-hldr .filter-types ul.Rating{
+        padding: 6px 5px;
+    }
+
+}
+
+/*=================================================== 
+03 - Small devices (landscape phones, 576px and up) 
+=====================================================*/
+
+@media (min-width: 576px) and (max-width: 767.98px) {}
+
+/*-------------------------------------------------------*/
+
+/* Layout lesser than 768px */
+
+/*-------------------------------------------------------*/
+
+@media(min-width:768px) {
+
+}
+
+@media only screen and (max-width: 767px) {
+
+}
+
+@media (max-width: 768px) {
+    .mid-top-ptb{
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    .masthead-content {
+        max-width: 420px;
+        width: 100%;
+    }
+    .masthead-content .title {
+        font-size: 36px;
+        margin-bottom: 50px;
+    }
+    .search-Main .findMe{
+        display: none;
+    }
+
+    .loca-select-wrapper{
+        margin-bottom: 20px;
+    }
+    .loca-select-wrapper .title{
+        font-size: 42px;
+        margin-bottom: 42px;
+    }
+
+    .hotel-name-wrapper .hotel-name-hldr ul.hotelName{
+        column-count: 3;
+    }
+
+    .filter-main-wrapper,
+    .cart-main-wrapper{
+        -webkit-box-shadow: 0px 0px 11px 6px rgba(0,0,0,0.1);
+        -moz-box-shadow: 0px 0px 11px 6px rgba(0,0,0,0.1);
+        box-shadow: 0px 0px 11px 6px rgba(0,0,0,0.1);
+    }
+
+    .floatmob {
+        font-family: 'gothambold';
+        display: block !important;
+        width: auto;
+        left: 0rem;
+        right: 0rem;
+        bottom: 0rem;
+        padding:10px;
+        position: fixed;
+        z-index: 1030;
+        background-color: #D12030;
+        color: #fff;
+        border-radius: 0;
+        border: none;
+        text-align: center;
+        font-size: 18px;
+      }
+
+      .login-signup-content {
+        max-width: 420px;
+        width: 100%;
+        padding: 50px 0 90px;
+      }
+
+      .login-signup-content .title {
+        font-size: 36px;
+        margin-bottom: 50px;
+      }
+
+      .check-account-wrapper .card .card-header a.card-link .address{
+        top: 12px;
+        margin-right: 0;
+        padding-bottom: 10px;
+        text-align: center;
+        width: 100%
+      }
+
+
+}
+
+
+/*========================================================== 
+04 - Extra small devices (portrait phones, less than 576px) 
+==========================================================*/
+
+@media (max-width: 575.98px) {
+    .redBtn{
+        font-size: 16px;
+        padding: 0 38px;
+    }
+    .search-Main .d-flex{
+        display: block !important;
+    }
+
+    .search-Main .searchBtn{
+        margin-left: 0;
+        margin-top: 15px;
+    }
+
+    .hotel-name-wrapper .hotel-name-hldr ul.hotelName{
+        column-count: 2;
+    }
+
+    .middle-wrapper .search-Main .searchBtn{
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .middle-wrapper .search-Main .d-flex{
+        display: block !important;
+        text-align: center;
+    }
+
+    .menu-item-hldr .menu-item-box{
+        width: 100%;
+      }
+
+      .menu-item-hldr .menu-item-box:nth-child(2n+1) {
+        margin: 0 0 4% 0;
+      }
+
+      .addon-wraapper .modal-body .addon-hldr ul.toppings{
+        column-count: 1;
+      }
+
+      .check-account-wrapper .card:first-child .card-body{
+          width: 100%;
+      }
+
+      .check-account-wrapper .card{
+          padding: 30px 15px;
+      }
+
+      .check-account-wrapper .cardBg {
+        background:#fff;
+      }
+
+      .login-signup-Main ul.veriCode li input{
+        width: 44px;
+        height: 44px;
+      }
+
+      .login-signup-Main ul.veriCode li:last-child{
+          display: block;
+          margin-top: 15px;
+      }
+
+      .orders-tabs .nav-link{
+        padding: 8px 20px;
+        margin-right: 10px;
+        font-size: 16px;
+      }
+
+      .active-order-wrapper .priceMain{
+        text-align: left;
+        padding-top: 10px;
+      }
+
+      .active-order-wrapper .location, 
+      .active-order-wrapper .time{
+          font-size: 16px;
+      }
+
+      .active-order-wrapper .redBtn{
+        font-size: 16px;
+        padding: 0 16px;
+      }
+
+      .active-order-wrapper .orderDet-link{
+        display: block;
+        text-align: center;
+      }
+
+      .profile-wrapper .profile-box .pro-img{
+        float: none;
+        margin: 30px auto 0;
+      }
+
+      .terms-cond-hldr ul.right-nav{
+        padding-top: 0;
+        text-align: left;
+      }
+
+}
+
+@media (min-width: 485px) and (max-width: 575.98px) {
+    
+}

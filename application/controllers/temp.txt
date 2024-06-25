@@ -1,0 +1,60 @@
+<style>
+
+</style>
+	
+<br><br><br><b>Company Name --->TAMARIND EMPLOYEE MANAGEMENT LTD</b><br><br>Card_id :: 1100000001  Full_name :: Ravi Phad  Current_Balance :: 19000  Credit_balance :: 20000  MealTopUp :: 1000<br><br>post_Transdata:::Array
+(
+    [Trans_type] => 1
+    [Company_id] => 11
+    [Topup_amount] => 1000
+    [Trans_date] => 2021-03-18 17:30:51
+    [Remarks] => Auto Meal TopUp
+    [Card_id] => 1100000001
+    [Bill_no] => 1100000073
+    [Manual_billno] => 1100000073
+    [Seller] => 342
+    [Seller_name] => Tamarind Emp Group
+    [Enrollement_id] => 348
+)
+<br><br>Card_id :: 1100000002  Full_name :: Amit Kamble  Current_Balance :: 28500  Credit_balance :: 30000  MealTopUp :: 1500<br><br>post_Transdata:::Array
+(
+    [Trans_type] => 1
+    [Company_id] => 11
+    [Topup_amount] => 1500
+    [Trans_date] => 2021-03-18 17:30:51
+    [Remarks] => Auto Meal TopUp
+    [Card_id] => 1100000002
+    [Bill_no] => 1100000074
+    [Manual_billno] => 1100000074
+    [Seller] => 342
+    [Seller_name] => Tamarind Emp Group
+    [Enrollement_id] => 349
+)
+<br><br>Card_id :: 1100000003  Full_name :: Rakesh Jadhav  Current_Balance :: 28500  Credit_balance :: 30000  MealTopUp :: 1500<br><br>post_Transdata:::Array
+(
+    [Trans_type] => 1
+    [Company_id] => 11
+    [Topup_amount] => 1500
+    [Trans_date] => 2021-03-18 17:30:52
+    [Remarks] => Auto Meal TopUp
+    [Card_id] => 1100000003
+    [Bill_no] => 1100000075
+    [Manual_billno] => 1100000075
+    [Seller] => 342
+    [Seller_name] => Tamarind Emp Group
+    [Enrollement_id] => 350
+)
+<br><br>Card_id :: 1100000004  Full_name :: AMIT Jadhav  Current_Balance :: 28000  Credit_balance :: 30000  MealTopUp :: 2000<br><br>post_Transdata:::Array
+(
+    [Trans_type] => 1
+    [Company_id] => 11
+    [Topup_amount] => 2000
+    [Trans_date] => 2021-03-18 17:30:52
+    [Remarks] => Auto Meal TopUp
+    [Card_id] => 1100000004
+    [Bill_no] => 1100000076
+    [Manual_billno] => 1100000076
+    [Seller] => 342
+    [Seller_name] => Tamarind Emp Group
+    [Enrollement_id] => 351
+)

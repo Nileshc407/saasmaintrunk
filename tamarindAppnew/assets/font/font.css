@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'latolight';
+    src: url('lato-light.woff2') format('woff2'),
+        url('lato-light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'merriweatherbold';
+    src: url('merriweather-bold.woff2') format('woff2'),
+        url('merriweather-bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'merriweatherregular';
+    src: url('merriweather-bold.woff2') format('woff2'),
+        url('merriweather-bold.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'latobold';
+    src: url('lato-bold.woff2') format('woff2'),
+        url('lato-bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'latosemibold';
+    src: url('lato-semibold.woff2') format('woff2'),
+        url('lato-semibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'latoregular';
+    src: url('lato-regular.woff2') format('woff2'),
+        url('lato-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'latoblack';
+    src: url('lato-black.woff2') format('woff2'),
+        url('lato-black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+

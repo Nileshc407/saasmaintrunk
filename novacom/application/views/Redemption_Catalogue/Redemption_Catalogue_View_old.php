@@ -1,0 +1,952 @@
+<?php 
+$session_data = $this->session->userdata('cust_logged_in');
+$smartphone_flag = $session_data['smartphone_flag'];
+$this->load->view('header/header');
+$ci_object = &get_instance();
+$ci_object->load->model('Redemption_Model');
+/*echo "Sort_by-----------------".$Sort_by;
+echo "Category_filter-----------------".$Category_filter;
+echo "Merchant_filter-----------------".$Merchant_filter;
+echo "brand_filter-----------------".$brand_filter;*/
+?>
+
+        <!-- Content Header (Page header) -->
+		<?php //echo form_open_multipart('Cust_home/mystatement');	?>
+       
+	<!--
+	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="<?php echo base_url()?>assets/shopping2/css/animate.css" rel="stylesheet">
+    <link href="<?php echo base_url()?>assets/shopping2/css/style.default.css" rel="stylesheet" id="theme-stylesheet">
+    <link href="<?php echo base_url()?>assets/shopping2/css/custom.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+	-->
+	
+			<link href="<?php echo $this->config->item('base_url2')?>assets/shopping2/css/animate.css" rel="stylesheet">
+    <link href="<?php echo $this->config->item('base_url2')?>assets/shopping2/css/style.default.css" rel="stylesheet" id="theme-stylesheet">
+    <link href="<?php echo $this->config->item('base_url2')?>assets/shopping2/css/custom.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+	<!-------------------------------------Filter---------------------------->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="<?php echo $this->config->item('base_url2')?>assets/Customer_assets/plugins/ionslider/ion.rangeSlider.css">
+	<link rel="stylesheet" href="<?php echo $this->config->item('base_url2')?>assets/Customer_assets/plugins/ionslider/ion.rangeSlider.skinNice.css">
+	<link rel="stylesheet" href="<?php echo $this->config->item('base_url2')?>assets/Customer_assets/plugins/bootstrap-slider/slider.css">
+	<link rel="stylesheet" href="<?php echo $this->config->item('base_url2')?>assets/Customer_assets/plugins/iCheck/all.css">
+	<link rel="stylesheet" href="<?php echo $this->config->item('base_url2')?>assets/Customer_assets/plugins/select2/select2.min.css">	
+	<!--------------------------------------Filter------------------------------>	
+	
+<section class="content-header">
+	 <div class="row">	
+	<div class="col-md-6">
+		<h3>Redemption Catalogue</h3>
+	</div> 
+	<div class="col-md-6"> 
+		<button type="button" class="btn btn-info btn-lg" data-toggle="control-sidebar" data-placement="top" title="Filter" style="margin-top: 20px;background: #31859c none repeat scroll 0 0;border-color: #31859c; margin-left: 100px;">
+			<i class="fa fa-bars"></i>&nbsp;Filter
+		</button>
+	</div>
+  </div>
+</section>		
+		<div class="col-md-4">
+			<?php
+				if(@$this->session->flashdata('Redeem_flash'))
+				{
+				?>
+					<script>
+						var Title = "Application Information";
+						var msg = '<?php echo $this->session->flashdata('Redeem_flash'); ?>';
+						runjs(Title,msg);
+					</script>
+				<?php
+				}
+				
+			?>
+			
+			<?php if($Card_id == 0 || $Card_id== ""){ ?>
+			<script>
+					BootstrapDialog.show({
+					closable: false,
+					title: 'Application Information',
+					message: 'You have not been assigned Membership ID yet ...Please visit nearest outlet.',
+					buttons: [{
+						label: 'OK',
+						action: function(dialog) {
+							window.location='<?php echo base_url()?>index.php/Cust_home/home';
+						}
+					}]
+				});
+				runjs(Title,msg);
+			</script>
+		<?php } ?>
+		</div>
+		<div class="row">	
+		</div>
+<!-- Main content -->
+<section class="content">
+
+	<div class="row">	
+		<div class="col-md-6 col-md-offset-3" id="popup">
+			<div class="alert alert-success text-center" role="alert" id="popup_info"></div>
+		</div>
+	</div>
+
+	<div id="content">
+		
+			 <div class="row products cd-container" id="FilterResult">
+	
+			
+				<?php
+				//print_r($Redemption_Items_branches);echo "<br><br>";
+				
+				if($Redemption_Items != NULL)
+				{
+					foreach ($Redemption_Items as $product)
+					{
+						
+						$Branches = $Redemption_Items_branches[$product['Company_merchandize_item_code']];
+					//style="width:150px;height:170px;"
+					//class="price" style="color:#c00704;"
+					?>
+					
+						<div class="col-md-3 ">
+						<br>
+						
+							<div class="product" >
+								<div class="image">
+									<a href="<?php echo base_url()?>index.php/Redemption_Catalogue/Merchandize_Item_details/?Company_merchandise_item_id=<?php echo $product['Company_merchandise_item_id']; ?>">
+										<img src="<?php echo $product['Thumbnail_image1']; ?>" alt=""  style="height:200px;">
+									</a>
+								</div>
+								
+							<div class="text">
+									<h5 style="line-height: 1.5em; height: 3em;       
+										overflow: hidden;"><a href="<?php echo base_url()?>index.php/Redemption_Catalogue/Merchandize_Item_details/?Company_merchandise_item_id=<?php echo $product['Company_merchandise_item_id']; ?>"><?php echo $product['Merchandize_item_name']; ?></a></h5>
+									<p class="price"><?php //echo $product['Billing_price_in_points']; 
+									 
+										if($product['Size_flag'] == 1) 
+										{ 
+											$Get_item_price = $ci_object->Redemption_Model->Get_item_details($Company_id,$product['Company_merchandize_item_code']);	
+											$Billing_price_in_points = $Get_item_price->Billing_price_in_points;
+											echo $Get_item_price->Billing_price_in_points;
+											$Item_size=$Get_item_price->Item_size;
+										} 
+										else 
+										{
+											$Item_size="0";
+											$Billing_price_in_points = $product['Billing_price_in_points'];
+											echo $product['Billing_price_in_points'];
+										}
+										
+										?></p>
+									
+							<div class="form-group">
+								<label for="exampleInputEmail1"><h5>Partner Location : </h5></label>
+								
+								<select class="form-control" name="location_<?php echo $product['Company_merchandise_item_id']; ?>" id="location_<?php echo $product['Company_merchandise_item_id']; ?>" required>
+									<option value="">Select</option>
+									<?php foreach ($Branches as $Branches){?>
+									<option value="<?php echo $Branches['Branch_code']; ?>"><?php echo $Branches['Branch_name']; ?></option>
+									<?php } ?>
+								</select>							
+							</div>
+								<div class="text">
+										<button type="submit" class="btn btn-template-main" onclick="add_to_cart('<?php echo $product['Company_merchandize_item_code']; ?>','<?php echo $product['Delivery_method']; ?>',location_<?php echo $product['Company_merchandise_item_id']; ?>.value,'<?php echo $product['Merchandize_item_name']; ?>','<?php echo $Billing_price_in_points; ?>','<?php echo $Item_size; ?>');get_item_list();" style="margin-left: -6px;">
+											<i class="fa fa-shopping-cart"></i> Add to cart
+										</button>
+										
+							</div>	
+						</div>
+								
+							</div>
+						
+							
+						</div>
+						
+					<?php
+					}
+				}
+				?>
+					
+			</div>
+			
+			<div class="panel-footer"><?php echo $pagination; ?></div>
+		<!--<div class="row">	
+		<div class="col-md-6 col-md-offset-3" id="popup2">
+			<div class="alert alert-success text-center" role="alert" id="popup_info2"></div>
+		</div>
+	</div>-->
+			<div class="box-footer" align="right">
+			
+			<button type="submit" class="btn btn-default" name="submit"   id="submit2"  onclick="Proceed_catalogue()" style="margin-left: auto;margin-right: auto;">Proceed to Checkout<i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></button>
+			</div>
+			
+		
+</section>
+
+<?php $this->load->view('header/loader');?>
+<?php $this->load->view('header/footer');?>
+<div id="loadingDiv" style="display:none;">
+	<div>
+		<h7>Please wait...</h7>
+	</div>
+</div>
+<!-------------------------------Filter--------------------------------->
+<script src="<?php echo $this->config->item('base_url2')?>assets/Customer_assets/plugins/ionslider/ion.rangeSlider.min.js"></script>
+<script src="<?php echo $this->config->item('base_url2')?>assets/Customer_assets/plugins/bootstrap-slider/bootstrap-slider.js"></script>
+<!--<script src="<?php echo $this->config->item('base_url2')?>assets/Customer_assets/plugins/iCheck/icheck.min.js"></script>-->
+<!-------------------------------Filter--------------------------------->
+<style>
+#popup 
+{
+	display:none;
+}
+#popup2 
+{
+	display:none;
+}
+#loadingDiv{
+  position:fixed;
+  top:0px;
+  right:0px;
+  width:100%;
+  height:100%;
+  background-color:#666;
+  background-image:url('<?php echo $this->config->item('base_url2') ?>images/loading.gif');
+  background-repeat:no-repeat;
+  background-position:center;
+  z-index:10000000;
+  opacity: 0.4;
+  filter: alpha(opacity=40); /* For IE8 and earlier */ 
+}
+ul 
+{
+  list-style-type: none;
+}
+</style>
+<!------------------------------------New Filter---------------------------------------------->
+<aside class="control-sidebar control-sidebar-dark">
+    <div class="pad">
+        <div class="panel panel-default sidebar-menu" style="background: transparent none repeat scroll 0% 0%; border: medium none;">
+            <div class="panel-body">
+                <!--<ul class="nav nav-pills nav-stacked category-menu">-->
+                <ul class="sidebar-menu">
+                   <li>
+                        <a href="#" data-toggle="control-sidebar" class="text-right filter_header" style="color: #fff;"><i class="fa fa-remove"></i></a>
+                    </li>                  
+                    <li class="treeview" style="line-height:0px;">
+                        <a href="javascript:void(0);" class="filter_header" style="color: #b8c7ce; text-transform: capitalize;">Points</a>
+                        <ul>
+                            <li>
+                                <input id="range_1" type="text" name="range_1">
+                            </li>
+                            <li>&nbsp;</li>
+                        </ul>
+                    </li>
+                   <!-- <li><hr></li> --><!--id="sortby"-->
+                    <li class="treeview" onclick="hide_sort_by();" style="line-height:0px;" >
+                        <a href="javascript:void(0);" class="filter_header" style="color: #b8c7ce; text-transform: capitalize;"><span class="glyphicon glyphicon-usd"></span>Sort by Points</a>
+					<div id="sortby_point" style="display:none">
+                        <ul>
+                            <li>
+                                <div class="form-group">
+                                    <label style="text-transform: capitalize;">
+                                        <input type="radio" value="1" class="flat-red Sort_radio" id="Sort_radio_1" name="Sort_by" <?php if($Sort_by==1){echo "checked=checked";}?> onclick="Sort_by_points(this.value);">&nbsp;&nbsp;
+                                        Points:Low-High
+                                    </label>									
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label style="text-transform: capitalize;">
+                                        <input type="radio" value="2" class="flat-red Sort_radio" id="Sort_radio_2" name="Sort_by" <?php if($Sort_by==2){echo "checked=checked";}?> onclick="Sort_by_points(this.value);">&nbsp;&nbsp;
+                                        Points:High-Low
+                                    </label>
+                                </div>
+                            </li>                         
+                            <li>
+                                <div class="form-group">
+                                    <label style="text-transform: capitalize;">
+                                        <input type="radio" value="3" class="flat-red Sort_radio" id="Sort_radio_3" name="Sort_by" <?php if($Sort_by==3){echo "checked=checked";}?> onclick="Sort_by_points(this.value);">&nbsp;&nbsp;
+                                       Recently Added
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+					</div>
+                    </li>
+					<!--<li><hr></li>-->
+                    <li class="treeview" onclick="hide_merchant();" style="line-height:0px;">
+                        <a href="javascript:void(0);" class="filter_header" style="color: #b8c7ce; text-transform: capitalize;"><span class="glyphicon glyphicon-user"></span>Merchants</a>
+                    <div id="sortby_merchant" style="display:none">
+                        <?php if($Sellers != NULL) { ?>
+
+                        <ul <?php if( count($Sellers) > 4 ) { echo 'style="height: 180px; overflow: auto;"'; } ?> >
+                            
+                            <li>
+                                <div class="form-group">
+                                    <label style="text-transform: capitalize;">
+                                        <input type="radio" name="Sort_merchants" id="Sort_merchants" class="flat-red" value="0" <?php if($Merchant_filter == 0){echo "checked=checked";}?> onclick="Sort_by_merchants(this.value);">&nbsp;&nbsp;
+                                        All
+                                    </label>
+                                </div>
+                            </li>
+                           
+                            <?php foreach ($Sellers as $Sellers) { ?>							
+							<li>
+								<div class="form-group">
+									<label style="text-transform: capitalize;"> 
+										<input type="radio" name="Sort_merchants" id="Sort_merchants<?php echo $Sellers['Enrollement_id']; ?>" class="flat-red" value="<?php echo $Sellers['Enrollement_id']; ?>" <?php if($Merchant_filter == $Sellers['Enrollement_id']){echo "checked=checked";}?> onclick="Sort_by_merchants(this.value);">&nbsp;&nbsp;
+										<?php echo $Sellers['First_name'].' '.$Sellers['Last_name']; ?>
+									</label>
+								</div>
+							</li>
+                            <?php } ?>
+                        </ul>
+                        <?php } ?>
+					</div>
+                    </li> 
+                    <!--<li><hr></li>-->                   
+                    <li onclick="hide_catagory();" style="line-height:0px;">
+                        <a href="javascript:void(0);" class="filter_header" style="color: #b8c7ce; text-transform: capitalize;"> <span class="glyphicon glyphicon-th-list"></span>Categories</a>
+                      
+					  <div id="sortby_category" style="display:none">
+					  
+                        <?php if($Merchandize_category != NULL) { ?>
+
+                        <ul <?php if( count($Merchandize_category) > 4 ) { echo 'style="height: 180px; overflow: auto;"'; } ?> >
+                            
+                            <li>
+                                <div class="form-group">
+                                    <label style="text-transform: capitalize;">
+                                        <input type="radio" name="Sort_cat" id="Sort_cat" class="flat-red" value="0" <?php if($Category_filter == 0){echo "checked=checked";}?> onclick="Sort_by_category(this.value);">&nbsp;&nbsp;
+                                        All
+                                    </label>
+                                </div>
+                            </li>
+                            
+                            <?php foreach ($Merchandize_category as $MerchandizeCat1) { ?>
+							
+							<li>
+								<div class="form-group">
+									<label style="text-transform: capitalize;">
+										<input type="radio" name="Sort_cat" id="Sort_cat<?php echo $MerchandizeCat1->Merchandize_category_id; ?>" class="flat-red" value="<?php echo $MerchandizeCat1->Merchandize_category_id; ?>" <?php if($Category_filter == $MerchandizeCat1->Merchandize_category_id){echo "checked=checked";}?> onclick="Sort_by_category(this.value);">&nbsp;&nbsp;
+									<?php echo $MerchandizeCat1->Merchandize_category_name; 
+										?>
+									</label>
+								</div>
+							</li>
+                            <?php } ?>
+                        </ul>
+
+                        <?php } ?>
+					  </div>
+                    </li> 
+					<!--<li><hr></li>-->
+					<li class="treeview" onclick="hide_sort_brand();" style="line-height:0px;">
+					<a href="javascript:void(0);" class="filter_header" style="color: #b8c7ce; text-transform: capitalize;"><span class="glyphicon glyphicon-heart"></span>Brand</a>
+					<div id="sortby_brand" style="display:none">
+					<?php if($Item_brand != NULL) { ?>
+                        <ul <?php if( count($Item_brand) > 4 ) { echo 'style="height: 180px; overflow: auto;"'; } ?>>
+						 <li>
+                                <div class="form-group">
+                                    <label style="text-transform: capitalize;">
+                                        <input type="radio" name="Sort_brand" id="Sort_brand" class="flat-red" value="0" <?php if($brand_filter == 0){echo "checked=checked";}?> onclick="Sort_by_brand(this.value);">&nbsp;&nbsp;
+                                        All
+                                    </label>
+                                </div>
+                            </li>
+						<?php foreach($Item_brand as $brand) { ?>
+                            <li>
+                                <div class="form-group">
+									<label style="text-transform: capitalize;">
+										<input type="radio" name="Sort_brand" id="Sort_brand<?php echo $brand->Item_Brand; ?>" class="flat-red" value="<?php echo $brand->Item_Brand; ?>" <?php if($brand_filter == $brand->Item_Brand){echo "checked=checked";}?> onclick="Sort_by_brand(this.value);">&nbsp;&nbsp;
+										<?php echo $brand->Item_Brand; ?>
+									</label>
+                                </div>
+                            </li>
+							<?php } 
+								}?>
+                        </ul>
+					</div>
+                    </li>
+					<!--<li><hr></li>--> 
+					<!--------------------------Sort by Gender_flag----------------------------->
+					<li class="treeview" onclick="hide_sort_gender();" style="line-height:0px;">
+					<a href="javascript:void(0);" class="filter_header" style="color: #b8c7ce; text-transform: capitalize;"><span class="glyphicon glyphicon-user"></span>
+					Gender</a>
+					<div id="sortby_gender" style="display:none">
+					
+                        <ul <?php if( count($Gender_flag) > 4 ) { echo 'style="height: 180px; overflow: auto;"'; } ?>>
+						 
+						
+								<li>
+                                <div class="form-group">
+									<label style="text-transform: capitalize;">
+										<input type="radio" name="Sort_gender" id="Sort_gender<?php echo $Gender->Gender_flag; ?>" class="flat-red" value="0" <?php if($_REQUEST["Sort_by_gender_flag"]==0){echo "checked=checked";}?> onclick="Sort_by_gender(this.value);">&nbsp;&nbsp;Both	
+									</label>
+								</div>
+								</li>
+								<li>
+								<div class="form-group">
+									<label style="text-transform: capitalize;">
+										<input type="radio" name="Sort_gender" id="Sort_gender<?php echo $Gender->Gender_flag; ?>" class="flat-red" value="1" <?php if($_REQUEST["Sort_by_gender_flag"]==1){echo "checked=checked";}?> onclick="Sort_by_gender(this.value);">&nbsp;&nbsp;Men	
+									</label>
+								</div>
+								</li>
+								<li>
+								 <div class="form-group">
+									<label style="text-transform: capitalize;">
+										<input type="radio" name="Sort_gender" id="Sort_gender<?php echo $Gender->Gender_flag; ?>" class="flat-red" value="2" <?php if($_REQUEST["Sort_by_gender_flag"]==2){echo "checked=checked";}?> onclick="Sort_by_gender(this.value);">&nbsp;&nbsp;Women										
+									</label>
+									
+                                </div>
+								</li>
+                        </ul>
+					</div>
+                    </li>
+					<!--<li><hr></li>-->
+					<!--------------------------Sort by Gender----------------------------->
+                </ul>
+            </div>
+        </div>
+    </div>
+</aside>
+<div class="control-sidebar-bg"></div>
+<input type="hidden" id="SelectedCat" />
+<input type="hidden" id="SelectedSort" />
+<input type="hidden" id="TriggerItem" />
+<input type="hidden" id="track_page" value="1" />
+<input type="hidden" id="numitems" value="<?php //echo $nextpage; ?>" />
+<!--------------------------------------New Filter---------------------------------------------->
+
+
+<script type="text/javascript" charset="utf-8">
+<?php
+		//ShowPopup('Insufficient Current Balalnce !!');
+		if($Redemption_Items == NULL)
+		{ ?>
+				ShowPopup('Items Not Found !!!');
+<?php 	}
+		?>
+$('#submit2').click(function()
+{
+	var Total_Redeem_points=document.getElementById("Total_Redeem_points").innerHTML;
+	if(Total_Redeem_points!=0)
+	{
+		show_loader();
+	}
+		
+	
+});
+function add_to_cart(Company_merchandize_item_code,Delivery_method,location,Merchandize_item_name,Points,Item_size)
+{
+//alert(Item_size);
+	if(location!="")
+	{
+		
+		var Total_balance = <?php echo $Enroll_details->Total_balance;?>;
+		var Current_redeem_points=document.getElementById("Total_Redeem_points").innerHTML;
+		 Current_redeem_points=(parseInt(Current_redeem_points)+parseInt(Points));
+		if(Current_redeem_points > Total_balance)
+		{
+			ShowPopup('Insufficient Current Balalnce !!');
+			return false;
+		}
+		else
+		{	
+			
+			$.ajax({
+			type: "POST",
+			data: { Company_merchandize_item_code:Company_merchandize_item_code, Delivery_method:Delivery_method, location:location, Points:Points,Current_redeem_points:Current_redeem_points,Total_balance:Total_balance,Size:Item_size },
+			url: "<?php echo base_url()?>index.php/Redemption_Catalogue/add_to_cart",
+			success: function(data)
+			{
+				
+				if(data.cart_success_flag == 1)
+				{
+								
+					//$('.shoppingCart_total').html('$'+data.cart_total);
+					if(parseInt(data.cart_total)>Total_balance)
+					{
+						ShowPopup('Insufficient Current Balalnce !!');
+						return false;
+					}
+					else
+					{
+						ShowPopup('Item '+Merchandize_item_name+' is added to Cart Successfuly..!!');	
+						document.getElementById("Total_Redeem_points").innerHTML=data.cart_total;
+						document.getElementById("Total_Redeem_points2").innerHTML=data.cart_total;
+					}
+					
+					
+				}
+				else
+				{
+					ShowPopup('Error adding Item '+Merchandize_item_name+' to Cart. Please try again..!!');
+					$('.shoppingCart_total').html('$'+data.cart_total);
+				}
+			}
+		});
+		}
+	}
+	else
+	{
+		ShowPopup('Please Select Partner Location for Merchandize item "'+Merchandize_item_name+'" !!');	
+	}
+}
+function Proceed_catalogue()
+{
+	var Total_Redeem_points=document.getElementById("Total_Redeem_points").innerHTML;
+	if(Total_Redeem_points==0)
+	{
+		ShowPopup("Add to Cart atleast one Merchandize Item !!!");
+	}
+	else
+	{
+		window.location='<?php echo base_url()?>index.php/Redemption_Catalogue/Proceed_Redemption_Catalogue/?Total_Redeem_points='+Total_Redeem_points;
+	}
+}
+function Sort_by_category(Merchandize_category)
+{
+	document.getElementById("loadingDiv").style.display="";
+	var filter=0;
+	var merchant=0;
+	var brand =0;
+	var gender =0;
+	<?php
+		if(isset($_REQUEST["Sort_by_points_flag"]))
+		{ ?>
+			var filter='<?php echo $_REQUEST["Sort_by_points_flag"];?>';
+		<?php }
+	?>
+	<?php
+	if(isset($_REQUEST["Sort_by_merchant_flag"]))
+	{ ?>
+		var merchant='<?php echo $_REQUEST["Sort_by_merchant_flag"];?>';
+	<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_brand_flag"]))
+		{ ?>
+			var brand='<?php echo $_REQUEST["Sort_by_brand_flag"];?>';
+		<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_gender_flag"]))
+		{ ?>
+			var gender='<?php echo $_REQUEST["Sort_by_gender_flag"];?>';
+		<?php }
+	?>
+	
+	window.location='<?php echo base_url()?>index.php/Redemption_Catalogue/?Sort_by_points_flag='+filter+'&Sort_by_category_flag='+Merchandize_category+'&Sort_by_merchant_flag='+merchant+'&Sort_by_brand_flag='+brand+'&Sort_by_gender_flag='+gender;
+}
+
+function Sort_by_points(filter)
+{	
+	document.getElementById("loadingDiv").style.display="";
+	var Merchandize_category=0;
+	var merchant=0;
+	var brand=0;
+	var gender=0;
+	<?php
+		if(isset($_REQUEST["Sort_by_category_flag"]))
+		{?>
+			var Merchandize_category='<?php echo $_REQUEST["Sort_by_category_flag"];?>';
+		<?php }
+	?>
+	<?php
+	if(isset($_REQUEST["Sort_by_merchant_flag"]))
+	{ ?>
+		var merchant='<?php echo $_REQUEST["Sort_by_merchant_flag"];?>';
+	<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_brand_flag"]))
+		{ ?>
+			var brand='<?php echo $_REQUEST["Sort_by_brand_flag"];?>';
+	<?php } ?>
+	<?php
+		if(isset($_REQUEST["Sort_by_gender_flag"]))
+		{ ?>
+			var gender='<?php echo $_REQUEST["Sort_by_gender_flag"];?>';
+		<?php }
+	?>
+	window.location='<?php echo base_url()?>index.php/Redemption_Catalogue/?Sort_by_points_flag='+filter+'&Sort_by_category_flag='+Merchandize_category+'&Sort_by_merchant_flag='+merchant+'&Sort_by_brand_flag='+brand+'&Sort_by_gender_flag='+gender;
+
+}
+function Sort_by_merchants(merchant)
+{
+	document.getElementById("loadingDiv").style.display="";
+	var Merchandize_category=0;
+	var filter=0;
+	var brand=0;	
+	var gender=0;	
+	<?php
+		if(isset($_REQUEST["Sort_by_category_flag"]))
+		{?>
+			var Merchandize_category='<?php echo $_REQUEST["Sort_by_category_flag"];?>';
+		<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_points_flag"]))
+		{ ?>
+			var filter='<?php echo $_REQUEST["Sort_by_points_flag"];?>';
+		<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_brand_flag"]))
+		{ ?>
+			var brand='<?php echo $_REQUEST["Sort_by_brand_flag"];?>';
+	<?php } ?>
+	<?php
+		if(isset($_REQUEST["Sort_by_gender_flag"]))
+		{ ?>
+			var gender='<?php echo $_REQUEST["Sort_by_gender_flag"];?>';
+		<?php }
+	?>
+	window.location='<?php echo base_url()?>index.php/Redemption_Catalogue/?Sort_by_points_flag='+filter+'&Sort_by_category_flag='+Merchandize_category+'&Sort_by_merchant_flag='+merchant+'&Sort_by_brand_flag='+brand+'&Sort_by_gender_flag='+gender;
+}
+function Sort_by_brand(brand)
+{
+	document.getElementById("loadingDiv").style.display="";
+	var Merchandize_category=0;
+	var filter=0;
+	var merchant =0;
+	var gender =0;
+	<?php
+		if(isset($_REQUEST["Sort_by_category_flag"]))
+		{?>
+			var Merchandize_category='<?php echo $_REQUEST["Sort_by_category_flag"];?>';
+		<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_points_flag"]))
+		{ ?>
+			var filter='<?php echo $_REQUEST["Sort_by_points_flag"];?>';
+		<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_merchant_flag"]))
+		{ ?>
+			var merchant='<?php echo $_REQUEST["Sort_by_merchant_flag"];?>';
+	<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_gender_flag"]))
+		{ ?>
+			var gender='<?php echo $_REQUEST["Sort_by_gender_flag"];?>';
+		<?php }
+	?>
+	window.location='<?php echo base_url()?>index.php/Redemption_Catalogue/?Sort_by_points_flag='+filter+'&Sort_by_category_flag='+Merchandize_category+'&Sort_by_merchant_flag='+merchant+'&Sort_by_brand_flag='+brand+'&Sort_by_gender_flag='+gender;
+}
+function Sort_by_gender(gender)
+{
+	document.getElementById("loadingDiv").style.display="";
+	var Merchandize_category=0;
+	var filter=0;
+	var merchant =0;
+	var brand =0;
+	<?php
+		if(isset($_REQUEST["Sort_by_category_flag"]))
+		{?>
+			var Merchandize_category='<?php echo $_REQUEST["Sort_by_category_flag"];?>';
+		<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_points_flag"]))
+		{ ?>
+			var filter='<?php echo $_REQUEST["Sort_by_points_flag"];?>';
+		<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_merchant_flag"]))
+		{ ?>
+			var merchant='<?php echo $_REQUEST["Sort_by_merchant_flag"];?>';
+	<?php }
+	?>
+	<?php
+		if(isset($_REQUEST["Sort_by_brand_flag"]))
+		{ ?>
+			var brand='<?php echo $_REQUEST["Sort_by_brand_flag"];?>';
+	<?php } ?>
+	
+	window.location='<?php echo base_url()?>index.php/Redemption_Catalogue/?Sort_by_points_flag='+filter+'&Sort_by_category_flag='+Merchandize_category+'&Sort_by_merchant_flag='+merchant+'&Sort_by_brand_flag='+brand+'&Sort_by_gender_flag='+gender; 
+}
+	
+function get_item_list()
+{
+	var Company_id = '<?php echo $Company_id; ?>';
+	
+	$.ajax({
+		type: "POST",
+		data: {Company_id:Company_id},
+		url: "<?php echo base_url()?>index.php/Redemption_Catalogue/view_cart",
+		success: function(data)
+		{	
+		//alert(data)
+			$('#item_list').html(data);
+		}
+	}); 
+	
+}
+	
+function ShowPopup(x)
+{
+	$('#popup_info').html(x);
+	/*$('#popup_info2').html(x);
+	$('#popup_info3').html(x);
+	$('#popup3').show();
+	$('#popup2').show();*/
+	$('#popup').show();
+	setTimeout('HidePopup()', 9000);
+}
+
+function HidePopup()
+{
+	$('#popup').hide();
+	/*$('#popup2').hide();
+	$('#popup3').hide();*/
+}
+<!---------------------------------- New filter-------------------------------->
+function hide_sort_by()
+{
+	//$("#sortby_point").show();
+	var x = document.getElementById('sortby_point');
+    if (x.style.display === 'none') 
+	{
+        x.style.display = 'block';
+    } 
+	else 
+	{
+        x.style.display = 'none';
+    }
+}
+function hide_merchant()
+{
+	//$("#sortby_merchant").show();
+	var x = document.getElementById('sortby_merchant');
+    if (x.style.display === 'none') 
+	{
+        x.style.display = 'block';
+    } 
+	else 
+	{
+        x.style.display = 'none';
+    }
+}
+function hide_catagory()
+{
+	//$("#sortby_category").show();
+	var x = document.getElementById('sortby_category');
+    if (x.style.display === 'none') 
+	{
+        x.style.display = 'block';
+    } 
+	else 
+	{
+        x.style.display = 'none';
+    }	
+}
+function hide_sort_size()
+{
+	//$("#sortby_category").show();
+	var x = document.getElementById('sortby_size');
+    if (x.style.display === 'none') 
+	{
+        x.style.display = 'block';
+    } 
+	else 
+	{
+        x.style.display = 'none';
+    }	
+}
+function hide_sort_brand()
+{
+	//$("#sortby_category").show();
+	var x = document.getElementById('sortby_brand');
+    if (x.style.display === 'none') 
+	{
+        x.style.display = 'block';
+    } 
+	else 
+	{
+        x.style.display = 'none';
+    }	
+}
+function hide_sort_gender()
+{
+	//$("#sortby_category").show();
+	var x = document.getElementById('sortby_gender');
+    if (x.style.display === 'none') 
+	{
+        x.style.display = 'block';
+    } 
+	else 
+	{
+        x.style.display = 'none';
+    }	
+}
+$( document ).ready(function() 
+{
+    var numitems = '<?php echo $numitems; ?>';
+    var count4 = '<?php echo $count4; ?>';
+   
+    if(numitems > count4)
+    {
+        $('#LoadMoreDiv').show();
+        //var nextpage = 2;
+        //$('#numitems').val(nextpage);
+    }
+});
+
+$(function () 
+{ 
+    $('.slider').slider();
+
+	$("#range_1").ionRangeSlider(
+	{
+		
+			min: '<?php echo round($Min_price->Billing_price_in_points); ?>',
+            max: '<?php echo round($Max_price->Billing_price_in_points); ?>',
+            from: '<?php echo round($Min_price->Billing_price_in_points); ?>',
+            to: '<?php echo round($Min_price->Billing_price_in_points); ?>',
+	
+            type: 'double',
+            //step: 20,
+            prefix: "",
+            prettify: false,
+            hasGrid: false,
+ 
+            onFinish: function (data)
+            {
+                var from = data.fromNumber;
+                var to = data.toNumber;
+				var SelectedSort = $('#SelectedSort').val();
+                var SelectedCat = $('#SelectedCat').val();
+                filter_result(SelectedSort,SelectedCat,from,to);
+            }
+	});
+	
+	$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck(
+        {
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+	});
+        
+      /*  $('#Sort_radio_1').on('ifChecked', function(event)
+        {
+            var slider = $("#range_1").val().split(";");
+            var PriceFrom = slider[0];
+            var PriceTo = slider[1];
+			var Sort_radio_1 = $('#Sort_radio_1').val();
+            $('#SelectedSort').val(Sort_radio_1);
+            var SelectedCat = $('#SelectedCat').val();
+            filter_result(Sort_radio_1,SelectedCat,PriceFrom,PriceTo);
+        });
+        
+        $('#Sort_radio_2').on('ifChecked', function(event)
+        {
+            var slider = $("#range_1").val().split(";");
+            var PriceFrom = slider[0];
+            var PriceTo = slider[1];
+            
+            var Sort_radio_2 = $('#Sort_radio_2').val();
+            $('#SelectedSort').val(Sort_radio_2);
+            
+            var SelectedCat = $('#SelectedCat').val();
+            filter_result(Sort_radio_2,SelectedCat,PriceFrom,PriceTo);
+        });
+        
+        $('#Sort_radio_3').on('ifChecked', function(event)
+        {
+            var slider = $("#range_1").val().split(";");
+            var PriceFrom = slider[0];
+            var PriceTo = slider[1];
+            var Sort_radio_3 = $('#Sort_radio_3').val();
+            $('#SelectedSort').val(Sort_radio_3);
+            var SelectedCat = $('#SelectedCat').val();
+            filter_result(Sort_radio_3,SelectedCat,PriceFrom,PriceTo);
+        });
+        
+        $('#Sort_cat_0').on('ifChecked', function(event)
+        {
+            var slider = $("#range_1").val().split(";");
+            var PriceFrom = slider[0];
+            var PriceTo = slider[1];
+            var Sort_cat_0 = $('#Sort_cat_0').val();
+            var SelectedSort = $('#SelectedSort').val();
+            filter_result(SelectedSort,Sort_cat_0,PriceFrom,PriceTo);
+        }); */
+        <?php $MerchandizeCatId= 10; ?>
+        var MerchandizeCatId = <?php echo $MerchandizeCatId; ?>;
+       // MerchandizeCatId.forEach(array_loop);
+});
+
+/*function array_loop(item, index)
+{
+
+    $('#Sort_cat_'+item).on('ifChecked', function(event)
+    {
+        var slider = $("#range_1").val().split(";");
+        var PriceFrom = slider[0];
+        var PriceTo = slider[1];
+            
+        var Sort_cat = $('#Sort_cat_'+item).val();
+        $('#SelectedCat').val(Sort_cat);
+        
+        var SelectedSort = $('#SelectedSort').val();
+        filter_result(SelectedSort,Sort_cat,PriceFrom,PriceTo);
+    });
+}*/
+
+function filter_result(Sort_by,Sort_category,PriceFrom,PriceTo)
+{
+
+    //var track_page = $('#track_page').val();
+    var track_page = '1'; //$('#numitems').val();
+    var Company_id = '<?php echo $Company_id; ?>';
+    $.ajax(
+    {
+        type: "POST",
+        data: { page:track_page, Sort_by:Sort_by, Company_id:Company_id, Sort_category:Sort_category, PriceFrom:PriceFrom, PriceTo:PriceTo },
+        url: "<?php echo base_url()?>index.php/Redemption_Catalogue/filter_result",
+        success: function(data)
+        {
+            //$("#FilterResult").replaceWith(data.filtered_result);
+            $("#FilterResult").html(data.filtered_result);
+            
+            /*if(data.filtered_result == '')
+            {
+                //$("#load_more_button").text("You have reached end of the record!").prop("disabled", true);
+                $("#load_more_button").hide();
+            }
+            else
+            {
+                if (data.currentpage < data.totalpages)
+                {
+                    var nextpage2 = data.currentpage + 1;
+                    $('#numitems').val(nextpage2);
+                }
+                else if(data.currentpage == data.totalpages)
+                {
+                    $("#load_more_button").hide();
+                }
+                else
+                {
+                    if (data.currentpage == 1)
+                    {
+                        $("#load_more_button").hide();
+                    }
+                }
+            
+                $("#FilterResult").html(data.filtered_result);
+
+                $("html, body").animate({scrollTop: $("#load_more_button").offset().top}, 800);
+
+                $('.animation_image').hide();
+            }*/
+        }
+    });
+}
+<!----------------------------------New filter-------------------------------->
+</script>

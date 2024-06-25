@@ -1,0 +1,140 @@
+@media (max-width:767px){
+.login-logo {
+    padding: 40px 0 30px;
+}
+.login-logo.sm img {
+    width: 190px;
+}
+.login-banner {
+    padding: 0 20px;
+}
+.login-box {
+    padding: 40px 25px 25px;
+    margin: 40px auto 0;
+}
+html .password-field .form-control {
+    padding-right: 125px;
+}
+.submit-field {
+    margin-top: 25px;
+}
+.btn-bottom-text {
+    margin-top: 20px;
+}
+header {
+    padding: 15px 0 0;
+}
+html .container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.point-list {
+    justify-content: space-between;
+}
+footer ul li a svg {
+    min-width: 15px;
+}
+
+footer ul li a {
+    padding: 0 10px;
+}
+header .nav-inner {
+    width: 270px;
+}
+#wrapper {
+    padding-top: 50px;
+}
+.range-box {
+    padding: 60px 40px 25px;
+    margin: 30px 0px 20px;
+    box-shadow: 0 0 15px 0px rgba(0,0,0,0.04);
+}
+.place_range {
+    padding-left: 19.20%;
+}
+.avtar {
+    margin: 0 auto 20px;
+}
+.category_link .item [class^="icon-"] {
+    font-size: 30px;
+    line-height: 40px;
+    margin: 0 0 8px;
+}
+.category_link .item a {
+    font-size: 10px;
+    padding: 8px;
+}
+.s_box .field .icon img {
+    width: 15px;
+}
+
+.s_widget h2 {
+    font-size: 17px;
+    margin: 0 0 15px;
+}
+.more-link {
+    font-size: 12px;
+}
+.s_widget {
+    margin: 0 0 30px;
+}
+footer {
+    padding: 10px 10px;
+}
+.category_link .nav-tabs .item {
+    width: 80px;
+    min-width: 80px;
+}
+#wrapper {
+    padding-top: 65px;
+}
+.custom-body.menu_category_body {
+    padding-top: 110px;
+}
+.menu_category_body .tab-content {
+    padding: 0 15px;
+}
+.cart_link {
+    margin: 20px;
+}
+.tab-pane.panal_plan {
+    padding-top: 90px;
+}
+.cart_list {
+    padding: 0 20px;
+}
+.cart_list .item {
+    margin: 0 0 20px;
+    /* padding: 20px; */
+	padding: 30px;
+}
+.cart_list.cart_map_list .item {
+    width: 300px;
+    min-width: 300px;
+    margin-right: 20px;
+}
+.box {
+    padding: 20px;
+    border-radius: 20px;
+    margin: 0 0 20px;
+}
+.upload_btn_set .btn.btn-primary {
+    font-size: 11px;
+    line-height: 30px;
+    padding: 0 11px;
+}
+.upload_btn_set .upload_btn {
+    margin-right: 5px;
+}
+.upload-field {
+    padding-left: 75px;
+}
+.avtar.sm {
+width: 100px;
+height: 100px;
+margin:15px auto 15px;
+}
+/* .main-nav{
+min-height: 400px;
+} */
+}

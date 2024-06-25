@@ -1,0 +1,882 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Company_model extends CI_Model {
+
+		public function company_active_list($limit,$start)
+		{
+			$this->db->limit($limit,$start);
+			$query = $this->db->where("Activated",1);
+			$query = $this->db->order_by("Company_id",'desc');
+			$query = $this->db->get("igain_company_master");
+
+			if ($query->num_rows() > 0)
+			{
+				foreach ($query->result() as $row)
+				{
+					$data[] = $row;
+				}
+				return $data;
+			}
+			return false;
+		
+	   }
+	public function company_inactive_list($limit,$start)
+	{
+		$this->db->limit($limit,$start);
+		$this->db->where("Activated",'0');
+		$query = $this->db->get("igain_company_master");
+		
+		//echo $this->db->last_query();
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result() as $row)
+			{
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false; 
+		
+	}
+	   
+	public function selected_company_list($limit,$start,$Company_id)
+	{	   
+		$this->db->select('*');
+		$this->db->from('igain_company_master');
+		$this->db->where(array('Company_id' =>$Company_id));
+		$edit_sql = $this->db->get();						
+		if ($edit_sql->num_rows() > 0)
+		{
+			foreach ($edit_sql->result() as $row)
+			{
+				if($row->Partner_company_flag== 1)
+				{
+					$this->db->select('*');
+					$this->db->from('igain_company_master');
+					$this->db->where(array('Parent_company' =>$row->Company_id));
+					$edit_sql = $this->db->get();	
+					foreach ($edit_sql->result() as $row1)
+					{
+						$data[] = $row1;
+					}
+				}
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;	
+	}	
+	public function company_active_count()
+	{
+		/*  $query = $this->db->where("Activated",'1');
+		return $this->db->count_all("igain_company_master");  */
+		 $this->db->select("COUNT(*)");
+		$this->db->where('Activated', 1);
+		 $query = $this->db->get('igain_company_master');
+		 $result = $query->row_array();
+		return	$count2 = $result['COUNT(*)']; 
+	}
+	public function company_inactive_count()
+	{
+		/* $query = $this->db->where("Activated",'0');
+		return $this->db->count_all("igain_company_master"); */
+		 $this->db->select("COUNT(*)");
+		$this->db->where('Activated', 0);
+		 $query = $this->db->get('igain_company_master');
+		 $result = $query->row_array();
+		return	$count = $result['COUNT(*)']; 
+		
+	}
+	
+	function insert_company($filepath_logo,$filepath_white_label,$Partner_company_flag,$Parent_company,$Create_user_id)
+    {				
+		
+		$data['Company_name'] = $this->input->post('cname');
+		$data['Company_address'] = $this->input->post('caddress');        
+		$data['Country'] = $this->input->post('country');        
+		$data['State'] = $this->input->post('state');
+		$data['City'] = $this->input->post('city');
+		$data['District'] = $this->input->post('district');
+		$data['Company_primary_contact_person'] = $this->input->post('primarycnt');
+		$data['Company_primary_email_id'] = $this->input->post('primaryemailId');
+		$data['Company_contactus_email_id'] = $this->input->post('Company_contactus_email_id');
+		$data['Company_primary_phone_no'] = $this->input->post('primaryphoneno');
+		$data['Company_secondary_phone_no'] = $this->input->post('secondaryphoneno');
+		$data['Comp_regdate'] = $this->input->post('regdate');
+		$data['Company_reg_no'] = $this->input->post('cregno');
+		$data['Website'] = $this->input->post('url');
+		$data['Seller_licences_limit'] = $this->input->post('no_of_licensce');
+		$data['Company_logo'] = $filepath_logo;
+		
+		$data['card_decsion'] = $this->input->post('card_decsion');
+		$data['Start_card_series'] = $this->input->post('start_card_no');
+		$data['Redemptionratio'] = $this->input->post('redemptionratio');
+		$data['Distance'] = $this->input->post('noti_distance');
+		$data['Coalition'] = $this->input->post('enb_coalition');
+		
+		/**********************CHANGED 16-08-2016--Ravi****************************************************************************/
+		if($data['Coalition']==1)
+		{
+			$data['Coalition_points_percentage'] = $this->input->post('Coalition_points_percentage');
+		}
+		else
+		{
+			$data['Coalition_points_percentage'] = 0;
+		}
+		
+		/**********************CHANGED 16-08-2016--Ravi****************************************************************************/
+		
+		$data['Domain_name'] = $this->input->post('domain');
+			/**********************CHANGED 04-04-2016****************************************************************************
+		$data['Evoucher_expiry_period'] = $this->input->post('Evoucher_expiry_period');
+			/**********************CHANGED 04-04-2016 end****************************************************************************/
+			
+			/**********************CHANGED 25-04-2016****************************************************************************
+		$data['Points_expiry_period'] = $this->input->post('Points_expiry_period');
+		$data['Deduct_points_expiry'] = $this->input->post('Deduct_points_expiry');
+			/**********************CHANGED 25-04-2016 end****************************************************************************/	
+				
+			/**********************CHANGED 18-05-2016*****************************************/
+		$data['Joining_bonus'] = $this->input->post('Joining_bonus');
+		if($data['Joining_bonus']==1)
+		{
+			$data['Joining_bonus_points'] = $this->input->post('Joining_bonus_points');
+		}
+		
+			/**********************CHANGED 18-05-2016 end********************************************/	
+			
+			/**********************CHANGED 8-07-2016 ********************************************/
+			$data['Cust_website'] = $this->input->post('Cust_website');
+			/**********************CHANGED 8-07-2016 end********************************************/	
+		
+		$data['Seller_topup_access'] = $this->input->post('top_access');
+		
+		if($data['Seller_topup_access']==1)
+		{
+			$data['Deposit_amount'] = $this->input->post('amt_deposit');
+			$data['Limit_Balance_Merchant'] = $this->input->post('amt_threshold');
+			$data['Threshold_Merchant'] = $this->input->post('amt_threshold');
+		}
+		else
+		{
+			$data['Deposit_amount'] = "";
+			$data['Limit_Balance_Merchant'] = "";
+			$data['Threshold_Merchant'] = "";
+		}
+		
+		$data['Sms_enabled'] = $this->input->post('sms_decsion');
+		
+		if($data['Sms_enabled']==1)
+		{
+			$data['Available_sms'] = $this->input->post('sms');
+			$data['Sms_api_link'] = $this->input->post('sms_api_link');
+			$data['Sms_api_auth_key'] = $this->input->post('sms_api_auth_key');
+		}
+		else
+		{
+			$data['Available_sms'] = '';
+			$data['Sms_api_link'] = '';
+			$data['Sms_api_auth_key'] = '';
+		}		
+		$data['Discount_flag'] = $this->input->post('discount_flag');
+		$data['Pin_no_applicable'] = $this->input->post('Pin_no_applicable');
+		$data['Promo_code_applicable'] = $this->input->post('Promo_code_applicable');
+		$data['Auction_bidding_applicable'] = $this->input->post('Auction_bid_applicable');
+		$data['Localization_flag'] = $this->input->post('white_labels');
+			
+		if($data['Localization_flag']==1)
+		{
+			$data['Localization_logo'] = $filepath_white_label;
+		}
+		else
+		{
+			$data['Localization_logo'] = $filepath_white_label;
+		}
+                
+		$data['Share_type'] = $this->input->post('Share_type');
+		
+		if($this->input->post('Share_type') == 0)
+		{
+			$data['Share_limit'] = $this->input->post('Share_limit');
+		}                
+		$data['Facebook_share_points'] = $this->input->post('Facebook_share_points');
+		$data['Twitter_share_points'] = $this->input->post('Twitter_share_points');
+		$data['Google_share_points'] = $this->input->post('Google_share_points');
+                
+		$data['Cust_apk_link'] = $this->input->post('cust_apk_link');
+		$data['Cust_ios_link'] = $this->input->post('cust_ios_link');
+		$data['Facebook_link'] = $this->input->post('facebook_link');
+		$data['Googlplus_link'] = $this->input->post('gplus_link');
+		$data['Linkedin_link'] = $this->input->post('linked_link');
+		$data['Twitter_link'] = $this->input->post('twitter_link');
+		$data['Creation_date_time'] = date("Y-m-d");
+		$data['Create_user_id'] = $Create_user_id;
+		
+		$data['Activated'] = 1;
+		$data['next_card_no'] = $this->input->post('start_card_no');
+		$data['Current_bal'] = $this->input->post('amt_deposit');		
+		$data['Allow_negative'] = 0;
+		$data['Partner_company_flag'] = $Partner_company_flag;
+		$data['Parent_company'] = $Parent_company;
+		$data['Allow_merchant_pin'] = $this->input->post('Allow_merchant_pin');
+		$data['Allow_membershipid_once'] = $this->input->post('Allow_membershipid_once');
+		$data['Allow_redeem_item_enrollment'] = $this->input->post('Allow_redeem_item_enrollment');
+		$data['Allow_preorder_services'] = $this->input->post('Allow_preorder_services');
+		$data['Membership_redirection_url'] = $this->input->post('Membership_redirection_url');
+		$data['Profile_complete_flag'] = $this->input->post('Profile_complete_flag');
+		$data['Profile_complete_points'] = $this->input->post('Profile_complete_points');
+		$data['App_login_flag'] = $this->input->post('App_login_flag');
+		$data['App_login_points'] = $this->input->post('App_login_points');		
+		
+		/******************18-03-2017*******AMIT***********/
+		$data['Cron_birthday_flag'] = $this->input->post('Cron_birthday_flag');		
+		$data['Cron_tier_flag'] = $this->input->post('Cron_tier_flag');		
+		$data['Cron_evoucher_expiry_flag'] = $this->input->post('Cron_evoucher_expiry_flag');
+		if($data['Cron_evoucher_expiry_flag']==1)
+		{
+			$data['Evoucher_expiry_period'] = $this->input->post('Evoucher_expiry_period');	
+		}
+		$data['Cron_points_expiry_flag'] = $this->input->post('Cron_points_expiry_flag');	
+		if($data['Cron_points_expiry_flag']==1)
+		{
+			$data['Points_expiry_period'] = $this->input->post('Points_expiry_period');		
+			$data['Deduct_points_expiry'] = $this->input->post('Deduct_points_expiry');	
+		}
+		$data['Cron_freebies_once_flag'] = $this->input->post('Cron_freebies_once_flag');		
+		$data['Cron_freebies_other_benefit_flag'] = $this->input->post('Cron_freebies_other_benefit_flag');		
+		$data['Cron_survey_flag'] = $this->input->post('Cron_survey_flag');		
+		$data['Cron_trigger_flag'] = $this->input->post('Cron_trigger_flag');
+		/***********************Nilesh 07-11-2017*********************/
+		// $data['Ecommerce_flag'] = $this->input->post('Ecommerce_flag');	
+		if($this->input->post('Ecommerce_flag')==1)
+		{
+			$Ecommerce_flag=$this->input->post('Ecommerce_flag');
+			$Return_policy_in_days=$this->input->post('return_policy');
+		}
+		else
+		{
+			$Ecommerce_flag=0;
+			$Return_policy_in_days="";
+		}	
+		$data['Ecommerce_flag'] =$Ecommerce_flag;				
+		$data['Ecommerce_return_policy_in_days'] =$Return_policy_in_days;
+		/***********************Nilesh 07-11-2017*********************/
+		
+		$data['Cron_communication_flag'] = $this->input->post('Cron_communication_flag');		
+		/******************18-03-2017*******AMIT***********/
+		
+		/******************18-05-2017*******Ravi***********/
+			$data['Label_1'] = $this->input->post('Label_1');
+			$data['Label_2'] = $this->input->post('Label_2');
+			$data['Label_3'] = $this->input->post('Label_3');
+			$data['Label_4'] = $this->input->post('Label_4');
+			$data['Label_5'] = $this->input->post('Label_5');
+		/******************18-05-2017*******Ravi***********/
+		
+		/******************30-05-2017*******Ravi***********/		
+		$data['Survey_analysis'] = $this->input->post('Survey_analysis');
+		/******************30-05-2017*******Ravi***********/
+		
+		/******************04-08-2017*******AMIT***********/		
+		$data['Country_language'] = $this->input->post('Country_language');
+		/******************04-08-2017*******AMIT***end********/
+		/******************29-08-2017*******AMIT***********/		
+		$data['Text_direction'] = $this->input->post('Text_direction');
+		/******************29-08-2017*******AMIT* end**********/
+		/******************22-08-2017*******Ravi***********/
+		if($this->input->post('Call_center_flag')==1)
+		{
+			$Call_center_flag=$this->input->post('Call_center_flag');
+			$ticketno_series=$this->input->post('ticketno_series');
+		}
+		else
+		{
+			$Call_center_flag=0;
+			$ticketno_series="";
+		}	
+		$data['Call_center_flag'] =$Call_center_flag;				
+		$data['Callcenter_query_ticketno_series'] =$ticketno_series;
+		/******************22-08-2017*******Ravi***********/
+		/****************** Nilesh 03-10-2017******************/
+		if($this->input->post('Beneficiary_flag')==1)
+		{
+			$Beneficiary_flag = $this->input->post('Beneficiary_flag');
+		}
+		else
+		{
+			$Beneficiary_flag=0;
+		}
+		$data['Beneficiary_flag'] =$Beneficiary_flag;
+		
+		/******************Nilesh end 03-10-2017******************/
+	/************************AMIT 17-11-2017**************START********************************/
+				
+		if($this->input->post('Shipping_charges_flag')==1)
+		{
+			$Standard_charges = $this->input->post('Standard_charges');
+			$data['Cost_Threshold_Limit'] =$this->input->post('Cost_Threshold_Limit');
+		}
+		else
+		{
+			$Standard_charges=0;
+		}
+		
+		$data['Shipping_charges_flag'] =$this->input->post('Shipping_charges_flag');
+		$data['Standard_charges'] =$Standard_charges;
+	/************************AMIT 17-11-2017**************END********************************/
+	/************************AMIT 24-01-2018**********************************************/
+	$data['Active_Vs_inactive_member_graph_flag'] =$this->input->post('Active_Vs_inactive_member_graph_flag');
+	$data['Member_enrollments_graph_flag'] =$this->input->post('Member_enrollments_graph_flag');
+	$data['No_of_loyalty_tras_Vs_no_of_redeem_tras_graph_flag'] =$this->input->post('No_of_loyalty_tras_Vs_no_of_redeem_tras_graph_flag');
+	$data['Partner_qnty_issued_Vs_partner_qnty_used_graph_flag'] =$this->input->post('Partner_qnty_issued_Vs_partner_qnty_used_graph_flag');
+	$data['Member_suggestions_flag'] =$this->input->post('Member_suggestions_flag');
+	$data['Happy_member_flag'] =$this->input->post('Happy_member_flag');
+	$data['Worry_member_flag'] =$this->input->post('Worry_member_flag');
+	$data['Total_point_issued_Vs_total_points_redeemed_graph_flag'] =$this->input->post('Total_point_issued_Vs_total_points_redeemed_graph_flag');
+	$data['Total_quantity_issued_Vs_total_quantity_used_graph_flag'] =$this->input->post('Total_quantity_issued_Vs_total_quantity_used_graph_flag');
+	/************************AMIT 24-01-2018**************END********************************/
+		$this->db->insert('igain_company_master', $data);
+		
+		if($this->db->affected_rows() > 0)
+		{
+			return $this->db->insert_id();
+		}
+	}
+
+	public function inactive_company($post_data,$Company_id)
+	{
+		// echo "<pre>";
+		// var_dump($post_data);
+		// echo "</pre>";die;
+		$this->db->where('Company_id', $Company_id);
+		$this->db->update('igain_company_master', $post_data); 
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}
+	}
+	
+	public function edit_company($Company_id)
+	{	   
+		$edit_query = "SELECT * FROM igain_company_master WHERE Company_id=$Company_id LIMIT 1";
+		
+		$edit_sql = $this->db->query($edit_query);
+				
+		if($edit_sql -> num_rows() == 1)
+		{
+			return $edit_sql->row();
+		}
+		else
+		{
+			return false;
+		}		
+	}
+	public function update_company($filepath_logo,$filepath_white_label,$Create_user_id,$Company_id)
+	{
+		/* echo "<br>filepath_logo ".$filepath_logo;
+		echo "<br>filepath_white_label ".$filepath_white_label;
+		die; */
+		$data['Company_name'] = $this->input->post('cname');
+		$data['Company_address'] = $this->input->post('caddress');        
+		$data['Country'] = $this->input->post('country');        
+		$data['State'] = $this->input->post('state');
+		$data['City'] = $this->input->post('city');
+		$data['District'] = $this->input->post('district');
+		$data['Company_primary_contact_person'] = $this->input->post('primarycnt');
+		$data['Company_primary_email_id'] = $this->input->post('primaryemailId');
+		$data['Company_contactus_email_id'] = $this->input->post('Company_contactus_email_id');
+		$data['Company_primary_phone_no'] = $this->input->post('primaryphoneno');
+		$data['Company_secondary_phone_no'] = $this->input->post('secondaryphoneno');
+		$data['Comp_regdate'] = $this->input->post('regdate');
+		$data['Company_reg_no'] = $this->input->post('cregno');
+		$data['Website'] = $this->input->post('url');
+		$data['Seller_licences_limit'] = $this->input->post('no_of_licensce');		
+		$data['Company_logo'] = $filepath_logo;
+		
+		//$data['card_decsion'] = $this->input->post('card_decsion');
+		//$data['Start_card_series'] = $this->input->post('start_card_no');
+		$data['Redemptionratio'] = $this->input->post('redemptionratio');
+		$data['Distance'] = $this->input->post('noti_distance');
+		$data['Coalition'] = $this->input->post('enb_coalition');
+		
+		/**********************CHANGED 16-08-2016--Ravi****************************************************************************/
+			if($data['Coalition']==1)
+			{
+				$data['Coalition_points_percentage'] = $this->input->post('Coalition_points_percentage');
+			}
+			else
+			{
+				$data['Coalition_points_percentage'] = 0;
+			}		
+		/**********************CHANGED 16-08-2016--Ravi****************************************************************************/
+		
+		$data['Domain_name'] = $this->input->post('domain');
+		/**********************CHANGED 04-04-2016****************************************************************************
+		$data['Evoucher_expiry_period'] = $this->input->post('Evoucher_expiry_period');
+		/**********************CHANGED 04-04-2016****************************************************************************/
+			
+		/**********************CHANGED 25-04-2016****************************************************************************
+		$data['Points_expiry_period'] = $this->input->post('Points_expiry_period');
+		$data['Deduct_points_expiry'] = $this->input->post('Deduct_points_expiry');
+		/**********************CHANGED 25-04-2016 end**************************************************************/	
+		/**********************CHANGED 18-05-2016****************************************************************************/
+		$data['Joining_bonus'] = $this->input->post('Joining_bonus');
+		if($data['Joining_bonus']==1)
+		{
+			$data['Joining_bonus_points'] = $this->input->post('Joining_bonus_points');
+		}		
+		/**********************CHANGED 18-05-2016 end********************************************/	
+		/**********************CHANGED 8-07-2016 ********************************************/
+		$data['Cust_website'] = $this->input->post('Cust_website');
+		/**********************CHANGED 8-07-2016 end********************************************/	
+		$data['Seller_topup_access'] = $this->input->post('top_access');
+		if($data['Seller_topup_access']==1)
+		{
+			$data['Deposit_amount'] = $this->input->post('amt_deposit');
+			$data['Threshold_Merchant'] = $this->input->post('amt_threshold');
+		}
+		else
+		{
+			$data['Deposit_amount'] = "";
+			$data['Threshold_Merchant'] = "";
+		}
+		
+		$data['Sms_enabled'] = $this->input->post('sms_decsion');
+		
+		if($data['Sms_enabled']==1)
+		{
+			$data['Available_sms'] = $this->input->post('sms');
+			$data['Sms_api_link'] = $this->input->post('sms_api_link');
+			$data['Sms_api_auth_key'] = $this->input->post('sms_api_auth_key');
+		}
+		else
+		{
+			$data['Available_sms'] = '';
+			$data['Sms_api_link'] = '';
+			$data['Sms_api_auth_key'] = '';
+		}
+		$data['Discount_flag'] = $this->input->post('discount_flag');
+		$data['Pin_no_applicable'] = $this->input->post('Pin_no_applicable');
+		$data['Promo_code_applicable'] = $this->input->post('Promo_code_applicable');
+		$data['Auction_bidding_applicable'] = $this->input->post('Auction_bid_applicable');
+		$data['Localization_flag'] = $this->input->post('white_labels');
+		
+		$data['Localization_logo'] = $filepath_white_label;
+			
+		$data['Share_type'] = $this->input->post('Share_type');                
+                if($this->input->post('Share_type') == 0)
+                {
+                    $data['Share_limit'] = $this->input->post('Share_limit');
+                }                
+                if($this->input->post('Old_Share_type') != $this->input->post('Share_type'))
+                {
+                    $this->db->where('Company_id', $Company_id);
+                    $this->db->delete('igain_share_notification_details');
+                }
+                
+                if($this->input->post('Old_Share_limit') != $this->input->post('Share_limit'))
+                {
+                    $this->db->where('Company_id', $Company_id);
+                    $this->db->delete('igain_share_notification_details');                    
+                }
+                
+                $data['Facebook_share_points'] = $this->input->post('Facebook_share_points');
+                $data['Twitter_share_points'] = $this->input->post('Twitter_share_points');
+                $data['Google_share_points'] = $this->input->post('Google_share_points');
+                
+		$data['Cust_apk_link'] = $this->input->post('cust_apk_link');
+		$data['Cust_ios_link'] = $this->input->post('cust_ios_link');
+		$data['Facebook_link'] = $this->input->post('facebook_link');
+		$data['Googlplus_link'] = $this->input->post('gplus_link');
+		$data['Linkedin_link'] = $this->input->post('linked_link');
+		$data['Twitter_link'] = $this->input->post('twitter_link');
+		$data['Update_date_time'] = date("Y-m-d");
+		$data['Update_user_id'] = $Create_user_id;
+		
+		$data['Activated'] = 1;
+		// $data['next_card_no'] = $this->input->post('start_card_no');
+		$data['Current_bal'] = $this->input->post('amt_deposit');
+		$data['Allow_merchant_pin'] = $this->input->post('Allow_merchant_pin');
+		$data['Allow_membershipid_once'] = $this->input->post('Allow_membershipid_once');
+		$data['Allow_redeem_item_enrollment'] = $this->input->post('Allow_redeem_item_enrollment');
+		$data['Allow_preorder_services'] = $this->input->post('Allow_preorder_services');
+		$data['Membership_redirection_url'] = $this->input->post('Membership_redirection_url');
+		
+		
+		$data['Profile_complete_flag'] = $this->input->post('Profile_complete_flag');
+		$data['Profile_complete_points'] = $this->input->post('Profile_complete_points');
+		$data['App_login_flag'] = $this->input->post('App_login_flag');
+		$data['App_login_points'] = $this->input->post('App_login_points');
+		
+		/******************18-03-2017*******AMIT***********/
+		$data['Cron_birthday_flag'] = $this->input->post('Cron_birthday_flag');		
+		$data['Cron_tier_flag'] = $this->input->post('Cron_tier_flag');		
+		$data['Cron_evoucher_expiry_flag'] = $this->input->post('Cron_evoucher_expiry_flag');
+		if($data['Cron_evoucher_expiry_flag']==1)
+		{
+			$data['Evoucher_expiry_period'] = $this->input->post('Evoucher_expiry_period');	
+		}
+		else
+		{
+			$data['Evoucher_expiry_period'] = 0;
+		}
+		$data['Cron_points_expiry_flag'] = $this->input->post('Cron_points_expiry_flag');	
+		if($data['Cron_points_expiry_flag']==1)
+		{
+			$data['Points_expiry_period'] = $this->input->post('Points_expiry_period');		
+			$data['Deduct_points_expiry'] = $this->input->post('Deduct_points_expiry');	
+		}
+		else
+		{
+			$data['Points_expiry_period'] = 0;
+			$data['Deduct_points_expiry'] = 0;
+		}
+		$data['Cron_freebies_once_flag'] = $this->input->post('Cron_freebies_once_flag');		
+		$data['Cron_freebies_other_benefit_flag'] = $this->input->post('Cron_freebies_other_benefit_flag');		
+		$data['Cron_survey_flag'] = $this->input->post('Cron_survey_flag');		
+		$data['Cron_trigger_flag'] = $this->input->post('Cron_trigger_flag');		
+		$data['Ecommerce_flag'] = $this->input->post('Ecommerce_flag');		
+		$data['Cron_communication_flag'] = $this->input->post('Cron_communication_flag');		
+		/******************18-03-2017*******AMIT***********/
+		
+		/******************18-05-2017*******Ravi***********/
+			$data['Label_1'] = $this->input->post('Label_1');
+			$data['Label_2'] = $this->input->post('Label_2');
+			$data['Label_3'] = $this->input->post('Label_3');
+			$data['Label_4'] = $this->input->post('Label_4');
+			$data['Label_5'] = $this->input->post('Label_5');
+		/******************18-05-2017*******Ravi***********/
+		
+		/******************30-05-2017*******Ravi***********/		
+		$data['Survey_analysis'] = $this->input->post('Survey_analysis');
+		/******************30-05-2017*******Ravi***********/
+		
+		/******************04-08-2017*******AMIT***********/		
+		$data['Country_language'] = $this->input->post('Country_language');
+		/******************04-08-2017*******AMIT***********/
+		/******************29-08-2017*******AMIT***********/		
+		$data['Text_direction'] = $this->input->post('Text_direction');
+		/******************29-08-2017*******AMIT* end**********/
+	
+		/******************22-08-2017*******Ravi***********/
+		if($this->input->post('Call_center_flag')==1)
+		{
+			$Call_center_flag=$this->input->post('Call_center_flag');
+			$ticketno_series=$this->input->post('ticketno_series');
+		}
+		else
+		{
+			$Call_center_flag=0;
+			$ticketno_series="";
+		}		
+		$data['Call_center_flag'] =$Call_center_flag;				
+		$data['Callcenter_query_ticketno_series'] =$ticketno_series;
+		/******************22-08-2017*******Ravi***********/
+		/******************Nilesh 04-10-2017**************************/
+		$data['Beneficiary_flag'] = $this->input->post('Beneficiary_flag');
+		/******************Nilesh 04-10-2017**************************/
+		/**************************Nilesh 7-11-2017****************************/
+		if($this->input->post('Ecommerce_flag')==1)
+		{
+			$Ecommerce_flag=$this->input->post('Ecommerce_flag');
+			$Return_policy_in_days=$this->input->post('return_policy');
+		}
+		else
+		{
+			$Ecommerce_flag=0;
+			$Return_policy_in_days="";
+		}	
+		$data['Ecommerce_flag'] =$Ecommerce_flag;				
+		$data['Ecommerce_return_policy_in_days'] =$Return_policy_in_days;
+		/**************************Nilesh 7-11-2017****************************/
+			/************************AMIT 17-11-2017**************START********************************/
+				
+		if($this->input->post('Shipping_charges_flag')==1)
+		{
+			$Standard_charges = $this->input->post('Standard_charges');
+			$data['Cost_Threshold_Limit'] =$this->input->post('Cost_Threshold_Limit');
+		}
+		else
+		{
+			$Standard_charges=0;
+		}
+		$data['Shipping_charges_flag'] =$this->input->post('Shipping_charges_flag');
+		$data['Standard_charges'] =$Standard_charges;
+	/************************AMIT 17-11-2017**************END********************************/
+	/************************AMIT 24-01-2018**********************************************/
+	$data['Active_Vs_inactive_member_graph_flag'] =$this->input->post('Active_Vs_inactive_member_graph_flag');
+	$data['Member_enrollments_graph_flag'] =$this->input->post('Member_enrollments_graph_flag');
+	$data['No_of_loyalty_tras_Vs_no_of_redeem_tras_graph_flag'] =$this->input->post('No_of_loyalty_tras_Vs_no_of_redeem_tras_graph_flag');
+	$data['Partner_qnty_issued_Vs_partner_qnty_used_graph_flag'] =$this->input->post('Partner_qnty_issued_Vs_partner_qnty_used_graph_flag');
+	$data['Member_suggestions_flag'] =$this->input->post('Member_suggestions_flag');
+	$data['Happy_member_flag'] =$this->input->post('Happy_member_flag');
+	$data['Worry_member_flag'] =$this->input->post('Worry_member_flag');
+	$data['Total_point_issued_Vs_total_points_redeemed_graph_flag'] =$this->input->post('Total_point_issued_Vs_total_points_redeemed_graph_flag');
+	$data['Total_quantity_issued_Vs_total_quantity_used_graph_flag'] =$this->input->post('Total_quantity_issued_Vs_total_quantity_used_graph_flag');
+	/************************AMIT 24-01-2018**************END********************************/
+		$this->db->where('Company_id', $Company_id);
+		$this->db->update('igain_company_master', $data); 
+		
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}
+	}
+	
+	public function get_common_menus()
+	{
+		$Menu_id_array = array('21','22','32','33','50','51','52','53','54');
+		$this->db->order_by('Menu_id','ASC');
+		$this->db->where('Menu_id <=', '17');
+		$this->db->or_where_in('Menu_id', $Menu_id_array);		
+        $query = $this->db->get("igain_menu_master");
+		
+        if ($query->num_rows() > 0)
+		{
+            return $query->result();
+        }
+	}
+	
+	public function insert_company_menus($Company_id,$Menu_array)
+	{
+		$this->db->insert('igain_company_menu_master', $Menu_array);
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}
+	}	
+	
+	/************************Nilesh Start for beneficiary_company 03-10-2017************************/
+	function insert_beneficiary_company($Post_data)
+	{
+		$this->db->insert('igain_register_beneficiary_company',$Post_data);
+		if($this->db->affected_rows()>0)
+		{
+			return $this->db->insert_id();
+		}
+		else
+		{
+			return false;
+		}			
+	}
+	public function beneficiary_company_active_count()
+	{
+		$this->db->select("COUNT(*)");
+		$this->db->where('Activate_flag', 1);
+		$query = $this->db->get('igain_register_beneficiary_company');
+		$result = $query->row_array();
+		return	$count2 = $result['COUNT(*)']; 
+	}
+	public function beneficiary_company_active_list($limit,$start)
+	{
+		$this->db->limit($limit,$start);
+		$query = $this->db->where("Activate_flag",1);
+		$query = $this->db->order_by("Register_beneficiary_id",'desc');
+		$query = $this->db->get("igain_register_beneficiary_company");
+
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result() as $row)
+			{
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;
+	}
+	public function beneficiary_company_inactive_count()
+	{
+		$this->db->select("COUNT(*)");
+		$this->db->where('Activate_flag', 0);
+		$query = $this->db->get('igain_register_beneficiary_company');
+		$result = $query->row_array();
+		return	$count = $result['COUNT(*)']; 
+	}
+	public function beneficiary_company_inactive_list($limit,$start)
+	{
+		$this->db->limit($limit,$start);
+		$this->db->where("Activate_flag",'0');
+		$query = $this->db->get("igain_register_beneficiary_company");
+		
+		//echo $this->db->last_query();
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result() as $row)
+			{
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false; 		
+	}
+	public function edit_beneficiary_company($Company_id)
+	{	   
+		$edit_query = "SELECT * FROM igain_register_beneficiary_company WHERE Register_beneficiary_id=$Company_id LIMIT 1";
+		
+		$edit_sql = $this->db->query($edit_query);
+				
+		if($edit_sql -> num_rows() == 1)
+		{
+			return $edit_sql->row();
+		}
+		else
+		{
+			return false;
+		}		
+	}
+	public function inactive_beneficiary_company($post_data,$Company_id)
+	{
+		$this->db->where('Register_beneficiary_id', $Company_id);
+		$this->db->update('igain_register_beneficiary_company', $post_data); 
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}
+	}
+	function get_beneficiary_company_details($Company_id)
+	{
+		$this->db->select('*');
+		$this->db->from('igain_register_beneficiary_company');
+		$this->db->where('Register_beneficiary_id', $Company_id);
+		
+		$sql50 = $this->db->get();
+	
+		if($sql50 -> num_rows() == 1)
+		{
+			return $sql50->row();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	function Update_beneficiary_company($Post_data,$Company_id)
+    {			
+		$this->db->where('Register_beneficiary_id', $Company_id);
+		$this->db->update('igain_register_beneficiary_company', $Post_data);
+		 // echo $this->db->last_query();
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}			
+		return false;
+	}
+	public function beneficiary_company_list()
+	{
+		$query = $this->db->where("Activate_flag",1);
+		$query = $this->db->order_by("Register_beneficiary_id",'desc');
+		$query = $this->db->get("igain_register_beneficiary_company");
+
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result() as $row)
+			{
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;	
+	}
+	function igain_beneficiary_company($Post_data) 
+	{
+		$this->db->insert('igain_beneficiary_company',$Post_data);
+		if($this->db->affected_rows()>0)
+		{
+			return $this->db->insert_id();
+		}
+		else
+		{
+			return false;
+		}			
+	}
+	public function company_beneficiary_list($Company_id)
+	{
+		$query = $this->db->where("Company_id",$Company_id);
+		$query = $this->db->order_by("Register_beneficiary_id",'desc');
+		$query = $this->db->get("igain_beneficiary_company");
+
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result() as $row)
+			{
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;	
+	}
+	function Delete_company_beneficiary($Edit_Company_id)
+	{
+		$this->db->where("Company_id",$Edit_Company_id);
+		$this->db->delete("igain_beneficiary_company");
+		// echo $this->db->last_query();
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}
+	}
+	public function Check_beneficiary_company($bccompanyname)
+	{			
+		$query =  $this->db->select('Beneficiary_company_name')
+	   ->from('igain_register_beneficiary_company')
+	   ->where('Beneficiary_company_name', $bccompanyname)->get();	   
+		return $query->num_rows();			
+	} 
+	public function Check_contatct_email($contactemail)
+	{			
+		$query =  $this->db->select('Contact_email_id')
+	   ->from('igain_register_beneficiary_company')
+	   ->where('Contact_email_id', $contactemail)->get();	   
+		return $query->num_rows();			
+	} 
+	public function Check_contatct_phoneno($contactphoneno)
+	{			
+		$query =  $this->db->select('Contact_phone_no')
+	   ->from('igain_register_beneficiary_company')
+	   ->where('Contact_phone_no', $contactphoneno)->get();	   
+		return $query->num_rows();			
+	}
+	public function igain_company_active_list()
+	{
+		$query = $this->db->where(array('Activated' =>1, 'Partner_company_flag'=>0));
+		$query = $this->db->order_by("Company_id",'desc');
+		$query = $this->db->get("igain_company_master");
+
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result() as $row)
+			{
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;
+	
+	}
+	public function get_company_details($Company_id)
+	{	
+		// $this->db->select('Company_id,Company_name,Company_address,City,District,State,Country,Company_primary_contact_person,Company_primary_email_id,Company_primary_phone_no');
+		$this->db->select('Company_id,Company_name,Company_address,City,District,State,Country,Company_primary_contact_person,Company_primary_email_id,Company_primary_phone_no,igain_state_master.name as State,igain_city_master.name as City,igain_state_master.id as State_id,igain_city_master.id as City_id,igain_country_master.name AS Country,igain_country_master.id AS Country_id');
+		$this->db->from('igain_company_master');
+		$this->db->join('igain_state_master', 'igain_company_master.State = igain_state_master.id');
+		$this->db->join('igain_city_master', 'igain_company_master.City = igain_city_master.id');
+		$this->db->join('igain_country_master', 'igain_company_master.Country = igain_country_master.id');
+		$this->db->where(array('Company_id' => $Company_id));
+		$query14 = $this->db->get();
+		
+		if($query14->num_rows() > 0)
+		{			
+			foreach ($query14->result() as $row)
+			{	
+				$result[] = array("Error_flag" => 0, "Company_id" => $row->Company_id, "Company_name" => $row->Company_name, "Company_address" => $row->Company_address, "City" => $row->City,"City_id" => $row->City_id, "District" => $row->District, "State" => $row->State,"State_id" => $row->State_id, "Country" => $row->Country, "Company_contact_person" => $row->Company_primary_contact_person, "contact_email_id" => $row->Company_primary_email_id, "contact_phone_no" => $row->Company_primary_phone_no);
+			}
+			return json_encode($result);
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	/*******************************Nilesh End 04-10-2017*********************************/	
+}
+?>

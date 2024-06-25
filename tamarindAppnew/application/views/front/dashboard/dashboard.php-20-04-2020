@@ -1,0 +1,808 @@
+<?php
+/*************Nilesh c start 07-04-2020**************/
+defined('BASEPATH') OR exit('No direct script access allowed');
+if($icon_src=="white") { $icon_src1="black"; } else { $icon_src1=$icon_src; }
+if($icon_src=="green") { $foot_icon="white"; } else { $foot_icon=$icon_src; }
+$Menu_access_data = $this->General_setting_model->get_type_name_by_id('frontend_settings', 'Menu_access', 'value',$Company_id);
+ $Menu_access_details = json_decode($Menu_access_data, true);
+?>
+<html lang="en">
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Dashboard</title>
+<?php
+	$this->load->view('front/header/menu'); 
+	$this->load->view('front/header/header');
+	$ci_object = &get_instance(); 
+	$ci_object->load->model('Igain_model');
+
+	$Current_point_balance = ($Enroll_details->Total_balance-$Enroll_details->Debit_points);
+
+	if($Current_point_balance<0){
+		$Current_point_balance=0;
+	}else{
+		$Current_point_balance=$Current_point_balance;
+	}
+
+	$total_gain_points=$total_gain_points->Total_gained_points;
+	if($total_gain_points!=''){
+		$TotalGainPoints=$total_gain_points; 
+	}else{
+		$TotalGainPoints="0";
+	}
+	
+	$Total_Transfer_points=$Total_transfer->Total_Transfer_points;
+	
+	if($Total_Transfer_points!=''){
+		$Total_Transfer_points=$Total_transfer->Total_Transfer_points;
+	}else{
+		$Total_Transfer_points="0";
+	}
+
+	$Enrollement_id=$Enroll_details->Enrollement_id;
+	$Company_id=$Enroll_details->Company_id;
+	$Card_id=$Enroll_details->Card_id;
+	
+	$Next_Tier_name=$Next_Tier_Details->Tier_name;
+	$Tier_level_id=$Next_Tier_Details->Tier_level_id;
+	$Excecution_time=$Next_Tier_Details->Excecution_time;
+	$Tier_criteria=$Next_Tier_Details->Tier_criteria;
+	$Criteria_value=$Next_Tier_Details->Criteria_value;
+	$Operator_id=$Next_Tier_Details->Operator_id;
+	
+	// echo "Enrollement_id-$Enrollement_id--Company_id--$Company_id--Card_id--$Card_id--Next_Tier_name--$Next_Tier_name--Tier_level_id--$Tier_level_id<br>";
+	// echo "Excecution_time-$Excecution_time--Tier_criteria--$Tier_criteria--Operator_id--$Operator_id";
+	if($Operator_id==1){
+		$OperatorName="=";
+	}else if($Operator_id==2){
+		$OperatorName=">";
+	}else if($Operator_id==3){
+		$OperatorName=">=";
+	}else if($Operator_id==4){
+		$OperatorName="<";
+	}else if($Operator_id==5){
+		$OperatorName="<=";
+	}else{
+		$OperatorName=" ";
+	}
+	
+	if($Tier_criteria==1)
+	{ //echo "here in----1";
+		$criteriaName='Cumulative Spend';
+	
+		if($Excecution_time=="Monthly")
+		{ 
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -1 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_spend_transactions($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Spend=$CriteriaValueDiff->Total_Spend;
+			$Remaning_value=$Criteria_value-$Total_Spend;
+			$Remaning_value=number_format($Remaning_value,2);
+			
+			$Tier_value="If you Purchase an amount <b>".$Currency_Symbol.' '.$Remaning_value."</b> further times you will be upgraded to <b>".$Next_Tier_name." Tier</b>";
+			
+			// echo '<br>Total Cumulative Spend---- '.$Total_Spend; 	
+		}
+		else if($Excecution_time=="Quaterly")
+		{
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -3 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_spend_transactions($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Spend=$CriteriaValueDiff->Total_Spend;
+			$Remaning_value=$Criteria_value-$Total_Spend;
+			$Remaning_value=number_format($Remaning_value,2);
+			
+			$Tier_value="If you Purchase an amount <b>".$Currency_Symbol.' '.$Remaning_value."</b> further times you will be upgraded to <b>".$Next_Tier_name." Tier</b>";
+			// echo '<br>Total Cumulative Spend---- '.$Total_Spend; 
+		}
+		else if($Excecution_time=="Bi-Annualy")
+		{
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -6 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_spend_transactions($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Spend=$CriteriaValueDiff->Total_Spend;
+			$Remaning_value=$Criteria_value-$Total_Spend;
+			$Remaning_value=number_format($Remaning_value,2);
+			// echo '<br>Total Cumulative Spend---- '.$Total_Spend; 
+			$Tier_value="If you Purchase an amount <b>".$Currency_Symbol.' '.$Remaning_value."</b> further times you will be upgraded to <b>".$Next_Tier_name." Tier</b>";
+		}
+		else if($Excecution_time=="Yearly")
+		{
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -12 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_spend_transactions($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Spend=$CriteriaValueDiff->Total_Spend;
+			$Remaning_value=$Criteria_value-$Total_Spend;
+			$Remaning_value=number_format($Remaning_value,2);
+			// echo '<br>Total Cumulative Spend---- '.$Total_Spend;
+			
+			$Tier_value="If you Purchase an amount <b>".$Currency_Symbol.' '.$Remaning_value."</b> further times you will be upgraded to <b>".$Next_Tier_name." Tier</b>";
+		}
+	}
+	else if($Tier_criteria==2)
+	{ //echo "here in----2";
+		$criteriaName='Cumulative Number of Transactions';
+			
+		if($Excecution_time=="Monthly")
+		{ 
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -1 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_Total_transactions($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Transactions=$CriteriaValueDiff->Total_Transactions;
+			$Remaning_value=$Criteria_value-$Total_Transactions;
+			$Remaning_value=round($Remaning_value);
+			
+			$Tier_value="If you Purchase <b>".$Remaning_value."</b> more times you will be upgraded to <b>".$Next_Tier_name." Tier</b>";
+			
+			// echo '<br>Cumulative Number of Transactions-- '.$Total_Transactions; 
+		}
+		else if($Excecution_time=="Quaterly")
+		{
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -3 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_Total_transactions($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Transactions=$CriteriaValueDiff->Total_Transactions;
+			$Remaning_value=$Criteria_value-$Total_Transactions;
+			$Remaning_value=round($Remaning_value);
+			
+			$Tier_value="If you Purchase <b>".$Remaning_value."</b> more times you will be upgraded to <b>".$Next_Tier_name." Tier</b>";
+			// echo '<br>Cumulative Number of Transactions-- '.$Total_Transactions; 		
+		}
+		else if($Excecution_time=="Bi-Annualy")
+		{
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -6 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_Total_transactions($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Transactions=$CriteriaValueDiff->Total_Transactions;
+			$Remaning_value=$Criteria_value-$Total_Transactions;
+			$Remaning_value=round($Remaning_value);
+			
+			$Tier_value="If you Purchase <b>".$Remaning_value."</b> more times you will be upgraded to <b>".$Next_Tier_name." Tier</b>";
+			// echo '<br>Cumulative Number of Transactions-- '.$Total_Transactions; 
+		}
+		else if($Excecution_time=="Yearly")
+		{
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -12 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_Total_transactions($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Transactions=$CriteriaValueDiff->Total_Transactions;
+			$Remaning_value=$Criteria_value-$Total_Transactions;
+			$Remaning_value=round($Remaning_value);
+			
+			$Tier_value="If you Purchase <b>".$Remaning_value."</b> more times you will be upgraded to <b>".$Next_Tier_name." Tier</b>";
+			// echo '<br>Cumulative Number of Transactions-- '.$Total_Transactions; 		
+		}
+	}
+	else if($Tier_criteria==3)
+	{ //echo "Tier_criteria----3";
+		$criteriaName='Cumulative Points Accumlated';
+		
+		if($Excecution_time=="Monthly")
+		{ //echo "Excecution_time----Monthly";
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -1 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_Points_Accumlated($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Points=round($CriteriaValueDiff->Total_Points);
+			$Remaning_value=$Criteria_value-$Total_Points;
+			$Remaning_value=round($Remaning_value);
+			if($Remaning_value<0){
+				$Remaning_value=0;
+			}
+			// $Tier_value="Your points Earned is <b>".$Total_Points."</b> If you purchase further more and Earn points you will easily have a <b> points Earned ".$OperatorName.' '.$Criteria_value."</b> and you will be entitiled for an upgrade <b>".$Next_Tier_name." Tier</b>";
+			
+			$Tier_value="Earn&nbsp;<b>$Remaning_value</b&nbsp;points more to get the&nbsp;<b>$Next_Tier_name Benefits</b>";
+			
+			// echo '<br>Cumulative Points Accumlated--- '.$Total_Points; 
+		}
+		else if($Excecution_time=="Quaterly")
+		{ //echo "Excecution_time----Quaterly";
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -3 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_Points_Accumlated($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Points=round($CriteriaValueDiff->Total_Points);
+			$Remaning_value=$Criteria_value-$Total_Points;
+			$Remaning_value=round($Remaning_value);
+			if($Remaning_value<0){
+				$Remaning_value=0;
+			}
+			// $Tier_value="Your points Earned is <b>".$Total_Points."</b> If you purchase further more and Earn points you will easily have a <b> points Earned ".$OperatorName.' '.$Criteria_value."</b> and you will be entitiled for an upgrade <b>".$Next_Tier_name." Tier</b>";
+			
+			$Tier_value="Earn&nbsp;<b>$Remaning_value</b>&nbsp;points more to get the&nbsp;<b>$Next_Tier_name Benefits</b>";
+			// echo '<br>Cumulative Points Accumlated---- '.$Total_Points; 
+		}
+		else if($Excecution_time == "Bi-Annualy")
+		{ 
+			// echo "Excecution_time----Bi-Annualy"; 
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -6 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_Points_Accumlated($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Points=round($CriteriaValueDiff->Total_Points);
+			$Remaning_value=$Criteria_value-$Total_Points;
+			$Remaning_value=round($Remaning_value);
+			if($Remaning_value<0){
+				$Remaning_value=0;
+			}
+			// $Tier_value="Your points Earned is &nbsp;<b>" .$Total_Points." </b>&nbsp;If you purchase further more and Earn points you will easily have a &nbsp;<b> points Earned ".$OperatorName.' '.$Criteria_value."</b> &nbsp;and you will be entitiled for an upgrade <b>&nbsp;".$Next_Tier_name."&nbsp;Tier&nbsp;</b>";
+			
+			$Tier_value="Earn&nbsp;<b>$Remaning_value</b>&nbsp;points more to get the&nbsp;<b>$Next_Tier_name Benefits</b>";
+			
+			// echo '<br>Cumulative Points Accumlated---- '.$Total_Points; 	
+		}
+		else if($Excecution_time=="Yearly")
+		{ //echo "Excecution_time----Yearly";
+			$Todays_date=date("Y-m-d");
+			$From_date = strtotime($Todays_date .' -12 months');
+			$From_date=date("Y-m-d",$From_date);
+			
+			$CriteriaValueDiff = $ci_object->Igain_model->Get_Cumulative_Points_Accumlated($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date); 	
+			
+			$Total_Points=round($CriteriaValueDiff->Total_Points);
+			$Remaning_value=$Criteria_value-$Total_Points;
+			$Remaning_value=round($Remaning_value);
+			if($Remaning_value<0){
+				$Remaning_value=0;
+			}
+			// $Tier_value="Your points Earned is <b>".$Total_Points."</b> If you purchase further more and Earn points you will easily have a <b> points Earned ".$OperatorName.' '.$Criteria_value."</b> and you will be entitiled for an upgrade <b>".$Next_Tier_name." Tier</b>";
+			
+			$Tier_value="Earn&nbsp;<b>$Remaning_value</b>&nbsp;points more to get the&nbsp;<b>$Next_Tier_name Benefits</b>";
+			
+			// echo '<br>Cumulative Points Accumlated----- '.$Total_Points; 
+		}
+	}
+	else if($Tier_criteria==4)
+	{ //echo "here in----4";
+		$criteriaName='Tenor - No. of Days';
+		$Todays_date=date("Y-m-d");
+		$From_date = strtotime($Todays_date .' -'.$Criteria_value.' days');
+		$From_date=date("Y-m-d",$From_date);
+		$Trans_Records2 = $this->Igain_model->Get_Cumulative_spend_transactions($Enrollement_id,$Card_id,$Company_id,$From_date,$Todays_date);
+		// $Remaning_value=$Trans_Records2->Total_Spend;
+		// echo "<br><b>Total_Spend -->".$Remaning_value."</b>";
+	}else{
+		$criteriaName='-';
+	}
+	//echo "Tier_value--------".$Tier_value;
+?>
+</head>
+<body>  
+<div id="application_theme" class="section pricing-section" style="min-height: 550px;">
+	<div class="container">
+		<div class="row pricing-tables">
+			<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: -31px;">
+				<div class="pricing-table wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="0.3s" id="front_head" style="margin-top:18px;">
+					<div class="row"><!--style="margin: auto;"-->
+						<table id="myTable"> 
+							<tr id="tier_theme_color">
+								<td style="border-right-style:solid; border-right-color:white; width:80px;" align="center">
+									<img src="<?php echo base_url(); ?>assets/icons/<?php echo $icon_src1; ?>/earn.png" style="width:30px;">
+									<br><strong id="Value_font"><?php echo round($TotalGainPoints); ?></strong>
+									<br><span id="Value_font">Earned</span>
+								</td> 
+								<td style="border-right-style:solid; border-right-color:white; width:80px;" align="center">
+									<img src="<?php echo base_url(); ?>assets/icons/<?php echo $icon_src1; ?>/bonus.png" style="width:30px;">	
+									<br><strong id="Value_font"><?php echo round($Enroll_details->Total_topup_amt); ?></strong>
+									<br><span id="Value_font">Bonus</span>
+								</td>
+								<td style="border-right-style:solid; border-right-color:white; width:80px;" align="center">
+									<img src="<?php echo base_url(); ?>assets/icons/<?php echo $icon_src1; ?>/redeem1.png" style="width:30px;">	
+									<br><strong id="Value_font"><?php echo round($Enroll_details->Total_reddems); ?></strong>
+									<br><span id="Value_font">Redeemed</span>
+								</td>	
+								<td style="width:80px;" align="center">                                    
+									<img src="<?php echo base_url(); ?>assets/icons/<?php echo $icon_src1; ?>/transfer.png" style="width:30px;">	
+									<br><strong id="Value_font"><?php echo round($Total_Transfer_points); ?></strong>
+									<br><span id="Value_font">Transferred</span><br>
+								</td>
+							</tr>
+						</table>
+					</div>
+                </div>
+				
+				<?php
+					/* if($tier_list != NULL){
+						foreach($tier_list as $row){
+						}
+					}
+					$Tier_id = $Enroll_details->Tier_id; */
+					/*
+					$rec = $Tier_details->Tier_name;
+					if($rec =='ArtCaffe Loyalty'){
+						$Bronze_class= 'progtrckr-done';
+						$Gold_class= 'progtrckr-todo';
+						$Platinum_class= 'progtrckr-todo';
+					}if($rec=='Gold'){
+						$Bronze_class= 'progtrckr-done';
+						$Gold_class= 'progtrckr-done';
+						$Platinum_class= 'progtrckr-todo';
+					}if($rec=='Platinum'){
+						$Bronze_class= 'progtrckr-done';
+						$Gold_class= 'progtrckr-done';
+						$Platinum_class= 'progtrckr-done';
+					} */
+				?><?php /*
+				<div class="pricing-table wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="0.3s" id="front_head">
+					<div class="container">
+						<div class="row">
+							<div class="col-12" style="margin-left:-22px;">
+								<ol class="progtrckr" data-progtrckr-steps="3">
+									<li id="Bronze_class" class='<?php echo $Bronze_class; ?>'>ArtCaffe Loyalty</li><!--
+								 --><li id="Gold_class" class='<?php echo $Gold_class; ?>'>Gold</li><!--
+								 --><li id="Platinum_class" class='<?php echo $Platinum_class; ?>'>Platinum</li>
+								</ol>
+							</div>
+						</div>
+					</div><br>
+                </div> */
+				?>
+				<div class="pricing-table wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="0.3s" id="front_head">
+					<div class="container">
+						<!--<div class="row" style="margin: auto;" >
+							<?php //echo $Tier_value; ?>	
+						</div>-->
+						<address>
+							<input type="button" id="show_benefits" value="See Benefits">
+						</address>
+					</div><br>
+                </div>
+				
+				<div class="pricing-table wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="0.3s" id="Benefits" style="display:none;"> <!--id="front_head"-->
+					<div class="container">
+						<span id="Small_font"><?php echo $Tier_details->Tier_name.' Benefits'; ?></span><hr>
+						<div class="row">
+							<?php
+							if($MyLoyaltyOffers !=Null){
+								foreach($MyLoyaltyOffers as $MyOffers){
+									$str = substr($MyOffers->Loyalty_name,0,2);
+									if($str=='BA'){
+										$str1='Paid Amount';
+									}if($str=='PA')	{
+										$str1='Purchase Amount';
+									}
+									// echo substr($MyOffers->Loyalty_name,3);
+									// echo $MyOffers->Category_name;
+									/*if($MyOffers->Loyalty_at_transaction!= '0.00') 
+									{
+										echo "<span id='Value_font'>$MyOffers->Loyalty_at_transaction  %  On $MyOffers->Brand_name Every $MyOffers->Category_name Transaction</span>"; 
+									}else{
+										echo "<span id='Value_font'>Get $MyOffers->discount %  discount on $MyOffers->Brand_name $MyOffers->Loyalty_at_value $MyOffers->Category_name</span>"; 
+									} 
+										echo "<span id='Value_font'>'s $str1 </span><br/><br/>";*/
+								}
+							}
+							?>
+							<span id="Value_font">1 Point gained on every purchase of 100 KES at Art Caffe outlets</span><br><br>
+							<span id="Value_font" id="Value_font" >5% Discount on Food</span><br><br>
+						</div>
+					</div><br>
+                </div>
+				
+				<div class="pricing-table wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="0.3s" id="front_head" style="background:#fff; margin-bottom:-40px; padding:15px;">  
+					<div class="pricing-details">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12" style="padding:0; margin:0;">
+									<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+									  <ol class="carousel-indicators" style="bottom: 16px;">
+										<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+										<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+										<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+									  </ol>
+									  <div class="carousel-inner">		
+											<div class="carousel-item active">
+												<div class="col-md-4" style="margin: 0;padding: 0;">
+													<div class="card" style="margin: 0;padding: 0;">
+														<img class="card-img-top" src="<?php echo base_url()."images/orderonline1.png";?>" alt=""><!-- style="width:100%; height:220px;"-->
+													</div>
+												</div>
+											</div>
+											<div class="carousel-item">
+												<div class="col-md-4" style="margin: 0;padding: 0;">
+													<div class="card" style="margin: 0;padding: 0;">
+														<img class="card-img-top" src="<?php echo base_url()."images/orderonline2.png";?>" alt="">
+													</div>
+												</div>
+											</div>
+											<div class="carousel-item">
+												<div class="col-md-4" style="margin: 0;padding: 0;">
+													<div class="card" style="margin: 0;padding: 0;">
+														<img class="card-img-top" src="<?php echo base_url()."images/orderonline1.png";?>" alt="">
+													</div>
+												</div>
+											</div>											
+									  </div>
+									 <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true" style="background-color:#babfba; margin-bottom:50px;"></span>
+										<span class="sr-only">Previous</span>
+									  </a>
+									  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true" style="background-color:#babfba; margin-bottom:50px;"></span>
+										<span class="sr-only">Next</span>
+									  </a>-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="pricing-table wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="0.3s" id="front_head" style="background:#fff; margin-bottom:-40px; padding:15px;">  
+					<div class="pricing-details">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12" style="padding:0; margin:0;">
+									<div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+									  <ol class="carousel-indicators" style="bottom: 16px;">
+										<li data-target="#carouselExampleIndicators1" data-slide-to="0" class="active"></li>
+										<li data-target="#carouselExampleIndicators1" data-slide-to="1"></li>
+										<li data-target="#carouselExampleIndicators1" data-slide-to="2"></li>
+									  </ol>
+									  <div class="carousel-inner">		
+											<div class="carousel-item active">
+												<div class="col-md-4" style="margin: 0;padding: 0;">
+													<div class="card" style="margin: 0;padding: 0;">
+														<img class="card-img-top" src="<?php echo base_url()."images/orderonline2.png";?>" alt="">
+													</div>
+												</div>
+											</div>
+											<div class="carousel-item">
+												<div class="col-md-4" style="margin: 0;padding: 0;">
+													<div class="card" style="margin: 0;padding: 0;">
+														<img class="card-img-top" src="<?php echo base_url()."images/orderonline1.png";?>" alt="">
+													</div>
+												</div>
+											</div>
+											<div class="carousel-item">
+												<div class="col-md-4" style="margin: 0;padding: 0;">
+													<div class="card" style="margin: 0;padding: 0;">
+														<img class="card-img-top" src="<?php echo base_url()."images/orderonline2.png";?>" alt=""><!--style="width:100%; height:220px;"-->
+													</div>
+												</div>
+											</div>											
+									  </div>
+									 <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true" style="background-color:#babfba; margin-bottom:50px;"></span>
+										<span class="sr-only">Previous</span>
+									  </a>
+									  <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true" style="background-color:#babfba; margin-bottom:50px;"></span>
+										<span class="sr-only">Next</span>
+									  </a>-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> 
+				
+				<div class="pricing-table wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="0.3s" id="front_head" style="background:#fff; margin-bottom:-40px; padding:15px;">  
+					<div class="pricing-details">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12" style="padding:0; margin:0;">
+									<div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+									  <ol class="carousel-indicators" style="bottom: 16px;">
+										<li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+										<li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+										<li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+									  </ol>
+									  <div class="carousel-inner">		
+											<div class="carousel-item active">
+												<div class="col-md-4" style="margin: 0;padding: 0;">
+													<div class="card" style="margin: 0;padding: 0;">
+														<img class="card-img-top" src="<?php echo base_url()."images/orderonline1.png";?>" alt="">
+													</div>
+												</div>
+											</div>
+											<div class="carousel-item">
+												<div class="col-md-4" style="margin: 0;padding: 0;">
+													<div class="card" style="margin: 0;padding: 0;">
+														<img class="card-img-top" src="<?php echo base_url()."images/orderonline2.png";?>" alt=""><!--style="width:100%; height:100px;"-->
+													</div>
+												</div>
+											</div>
+											<div class="carousel-item">
+												<div class="col-md-4" style="margin: 0;padding: 0;">
+													<div class="card" style="margin: 0;padding: 0;">
+														<img class="card-img-top" src="<?php echo base_url()."images/orderonline1.png";?>" alt="">
+													</div>
+												</div>
+											</div>											
+									  </div>
+									 <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true" style="background-color:#babfba; margin-bottom:50px;"></span>
+										<span class="sr-only">Previous</span>
+									  </a>
+									  <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true" style="background-color:#babfba; margin-bottom:50px;"></span>
+										<span class="sr-only">Next</span>
+									  </a>-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><br>
+				</div> 
+				
+				<div class="wrapper sticky-bottom" style="position:fixed; left:0; bottom:10; width: 100%; background-color: white; color: white; text-align: center;">
+					<nav class="navbar navbar-expand-lg navbar-light bg-light">	
+						<div class="row"> 
+							<div class="col-md-12">
+								<table id="myTable"> 
+									<tr>
+										<td class="text-right">
+											<a href="<?php echo base_url();?>index.php/Cust_home/statement">									
+												<button id="button_statement">Statement</button>
+											</a>
+										</td>
+										<td class="text-left">
+											<a href="<?=base_url()?>index.php/Cust_home/transactions">
+												<button id="button_statement">Transactions</button>
+											</a>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>     
+					</nav> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+<?php $this->load->view('front/header/footer'); ?>	
+<style>
+#button_statement
+{
+	color:<?php echo $Button_font_details[0]['Button_font_color'];?>;
+	font-family:<?php echo $Button_font_details[0]['Button_font_family'];?>;
+	font-size:<?php echo $Button_font_details[0]['Button_font_size'];?>;
+	background:<?php echo $Button_font_details[0]['Button_background_color'];?>;
+	margin:0px;
+	border: 1px solid <?php echo $Button_font_details[0]['Button_border_color'];?>;
+	height: 30px;
+	width: 150px;
+}
+#show_benefits
+{
+	color:<?php echo $Button_font_details[0]['Button_font_color'];?>;
+	font-family:<?php echo $Button_font_details[0]['Button_font_family'];?>;
+	font-size:<?php echo $Button_font_details[0]['Button_font_size'];?>;
+	background:<?php echo $Button_font_details[0]['Button_background_color'];?>;
+	margin:0px;
+	border: 1px solid <?php echo $Button_font_details[0]['Button_border_color'];?>;
+	height: 30px;
+	width: 140px;
+}
+#myTable {
+	 width: 100%;
+		 margin: 0;
+	padding: 0;
+}
+<?php //echo $General_details[0]['Theme_color']; ?>
+#tier_theme_color
+{				
+	background:#F8F8F8;	 
+}
+#application_theme_dashboard
+{				
+	background:<?php echo $General_details[0]['Theme_color']; ?>;		
+}
+table{
+	color:#fff;	
+}
+.pricing-table .pricing-details ul li 
+{
+	padding: 10px;
+	font-size: 12px;
+	border-bottom: 1px solid #eee;
+	color: #7d7c7c;
+	font-weight: 600;
+	background: #fab900;
+}
+.pricing-table
+{
+	padding: 12px 12px 0 12px;
+	margin-bottom: -20px !important;
+	background: #fff;
+}
+
+.footer-xs
+{
+	padding: 10px;
+	color: #000;
+	width: 33.33%;
+	border-right: 1px solid #eee;
+}
+.main-xs-3
+{
+	width: 27%;
+	padding: 0 0 0 10px;
+}
+.main-xs-6
+{
+	width: 45%;
+	padding: 10px 10px 0 10px;
+}
+.action
+{
+	margin-bottom: 5px; 
+	width: 235%;
+	color: #ff3399;
+}	
+address
+{
+	border: 0px solid #ffffff;
+	padding: 0;
+	border-radius: 50px;
+	margin: 8% 8% 2% 8%;
+	color: #ffffff;
+}
+/* Search Bar Css Ended*/
+#icon{
+	font-size:17px;
+	color: #060606;
+	line-height: 30px;
+}
+.container-fluid 
+{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+.stat
+{
+	width:25%;
+}
+
+ @media only screen and (min-width: 320px) 
+ {
+	.circle 
+	{
+		height: 50px;
+		width: 50px;
+		text-align: center;
+		vertical-align: middle;
+		border-radius: 50%;
+		background: <?php echo $General_details[0]['Header_color']; ?>;
+		border: 2px solid <?php echo $General_details[0]['Header_color']; ?>;
+		margin-left: 9%;
+	}
+}
+@media only screen and (min-width: 768px) 
+{
+	.circle {
+		height: 50px;
+		width: 50px;
+		text-align: center;
+		vertical-align: middle;
+		border-radius: 50%;
+		background: <?php echo $General_details[0]['Header_color']; ?>;
+		border: 2px solid <?php echo $General_details[0]['Header_color']; ?>;
+		margin-left: 29%;
+	}
+}	
+p 
+{
+	margin-top: 0;
+	margin-left: 0%;
+	margin-bottom: 0rem;
+}
+
+<!-------tracker------->
+ol.progtrckr {
+    margin: 0;
+    padding: 0;
+    list-style-type none;
+}
+ol.progtrckr li {
+    display: inline-block;
+    text-align: center;
+    line-height: 3.0em;
+	font-size: xx-small;
+}
+ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+ol.progtrckr li.progtrckr-done {
+    color: black;
+    border-bottom: 3px solid #cecece;
+}
+ol.progtrckr li.progtrckr-cancel {
+    color: black;
+    border-bottom: 4px solid red;
+}
+ol.progtrckr li.progtrckr-todo {
+    color: silver; 
+    border-bottom: 3px dotted silver;
+}
+
+ol.progtrckr li:after {
+    content: "\00a0\00a0";
+}
+ol.progtrckr li:before {
+    position: relative;
+    bottom: -2.5em;
+    float: left;
+    left: 50%;
+    line-height: 1em;
+}
+
+ol.progtrckr li.progtrckr-done:before {
+    content: "\2713";
+    color: white;
+    background-color: #cecece;
+    height: 1.1em;
+    width: 1.1em;
+    line-height: 1.1em;
+    border: none;
+    border-radius: 1.1em;
+}
+ol.progtrckr li.progtrckr-cancel:before {
+    content: "\2713";
+    color: white;
+    background-color: red;
+    height: 1.1em;
+    width: 1.1em;
+    line-height: 1.1em;
+    border: none;
+    border-radius: 1.1em;
+}
+ol.progtrckr li.progtrckr-todo:before {
+    content: "\039F";
+    color: silver;
+    background-color: white;
+    font-size: 1.1em;
+    bottom: -2.3em;
+}
+<!-------tracker------->
+</style>
+<script>
+$(document).ready(function(){
+  $("#show_benefits").click(function(){
+	$("#Benefits").toggle();
+  });
+});
+</script>
+<!--------Nilesh c End 08-04-2020--------->

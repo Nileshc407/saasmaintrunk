@@ -1,0 +1,230 @@
+/*******************************************************
+    Template Name    : Sloppy - Food & Resturant Landing Page Template
+    Author           : Cute Themes
+    Version          : 1.0
+    Created          : 2020
+    File Description : Main Reaposive file of the template
+*******************************************************/
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.home-area .home-content h1 {
+		font-size: 80px;
+	}
+	.home-area {
+		padding-top: 170px;
+		padding-bottom: 40px;
+	}
+	.about-image {
+		text-align: center;
+		margin-top: 30px;
+	}
+	.tab .tabs li {
+		margin: 0 20px;
+	}
+	.single-press-content {
+		padding: 15px 0;
+	}
+	.single-press-content h3 {
+		padding-bottom: 15px;
+	}
+	.contact-box {
+		margin-bottom: 30px;
+	}
+
+}
+
+@media only screen and (max-width: 767px) {
+	.section-title h2 {
+		font-size: 30px;
+	}
+	.header-navber-area .nav-top-bar {
+		display: none;
+	}
+	#navbarDefault {
+		width: 100%;
+		height: 250px;
+		overflow-y: scroll;
+	}
+	.home-area {
+		padding-top: 130px;
+	}
+	.home-area .home-content h1 {
+		font-size: 65px;
+	}
+	/* slider */
+	.slider .parallax-slider .caption h1 {
+		font-size: 65px;
+	}
+	.slider .control-text .swiper-nav-ctrl {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	.about-content h2{
+		font-size: 30px;
+	}
+	.menu-day-product-content .menu-day-tab-list li {
+		padding: 10px 15px;
+		margin: 15px 0;
+		border: 0;
+	}
+	.menu-day-product-content .menu-day-tab-list li a {
+		font-size: 16px;
+	}
+	.reservation-area h2 {
+		font-size: 35px;
+		margin-bottom: 0;
+	}
+	.gallery-area .gallery-list .nav li {
+		margin: 10px 10px;
+	}
+	.single-press-content {
+		padding: 15px 0;
+	}
+	.single-press-content h3 {
+		padding-bottom: 15px;
+	}
+	.contact-box {
+		margin-bottom: 30px;
+	}
+	.form-container-box {
+		padding: 25px 15px;
+		margin-top: 30px;
+	}
+	.footer-area {
+		text-align: center;
+	}
+	.footer-area .footer-link ul {
+		margin-top: 10px;
+		text-align: center;
+		list-style-type: none;
+	}
+}
+
+
+@media only screen and (max-width: 479px) {
+	.section-title h2 {
+		font-size: 30px;
+	}
+	.navbar-nav {
+		margin-top: 15px;
+	}
+	.navbar-b .nav-item {
+		margin-bottom: 10px;
+	}
+	.navbar-b .nav-item:last-child {
+		margin-bottom: 0px;
+	}
+	.home-area .home-content h1 {
+		font-size: 50px;
+	}
+	/* slider */
+	.slider .parallax-slider .caption h1 {
+		font-size: 50px;
+	}
+	.slider .control-text .swiper-nav-ctrl {
+		display: none;
+	}
+
+	.about-content h2{
+		font-size: 30px;
+	}
+	.reservation-area h2 {
+		font-size: 35px;
+		margin-bottom: 0;
+	}
+	.gallery-area .gallery-list .nav li {
+		margin: 10px 10px;
+	}
+	.single-press-content {
+		padding: 15px 0;
+	}
+	.single-press-content h3 {
+		padding-bottom: 15px;
+	}
+	.contact-box {
+		margin-bottom: 30px;
+	}
+	.form-container-box {
+		padding: 25px 15px;
+		margin-top: 30px;
+	}
+	.footer-area {
+		text-align: center;
+	}
+	.footer-area .footer-link ul {
+		margin-top: 10px;
+		text-align: center;
+		list-style-type: none;
+	}
+
+}
+
+
+@media screen and (max-width: 320px) and (min-width: 0px){
+	.section-title h2 {
+		font-size: 30px;
+	}
+	.navbar-nav {
+		margin-top: 15px;
+	}
+	.navbar-b .nav-item {
+		margin-bottom: 10px;
+	}
+	.navbar-b .nav-item:last-child {
+		margin-bottom: 0px;
+	}
+	#navbarDefault {
+		width: 100%;
+		height: auto;
+		overflow-y: scroll;
+	}
+	.home-area .home-content {
+		margin-bottom: 30px;
+		text-align: center;
+	}
+	.home-area {
+		padding-top: 130px;
+	}
+	.home-area .home-content h1 {
+		font-size: 40px;
+	}
+	/* slider */
+	.slider .parallax-slider .caption h1 {
+		font-size: 40px;
+	}
+	.slider .control-text .swiper-nav-ctrl {
+		display: none;
+	}
+	.about-content h2{
+		font-size: 30px;
+	}
+	.reservation-area h2 {
+		font-size: 35px;
+		margin-bottom: 0;
+	}
+	.gallery-area .gallery-list .nav li {
+		margin: 10px 10px;
+	}
+	.single-press-content {
+		padding: 15px 0;
+	}
+	.single-press-content h3 {
+		padding-bottom: 15px;
+	}
+	.contact-box {
+		margin-bottom: 30px;
+	}
+	.form-container-box {
+		padding: 25px 15px;
+		margin-top: 30px;
+	}
+	.footer-area {
+		text-align: center;
+	}
+	.footer-area .footer-link ul {
+		margin-top: 10px;
+		text-align: center;
+		list-style-type: none;
+	}
+	
+}
